@@ -427,11 +427,11 @@ function conch(){const a=ac();if(!a||muted)return;const t=a.currentTime,o=a.crea
 
 // ===== state / camera =====
 let mode='view',step=0,count=0,acc=0,prevTh=null,arcStart=0,done=false,touched=false;
-const cur={az:.5,el:.12,d:6,tx:0,ty:0},goal={az:.5,el:.12,d:6,tx:0,ty:0};
+const cur={az:.5,el:.12,d:6,tx:.16,ty:.18},goal={az:.5,el:.12,d:6,tx:.16,ty:.18};
 const aspect=()=>innerWidth/innerHeight;
 function setGoals(){const a=aspect(),d=Math.max(2.1/.63,2.0/(.63*a));
- if(mode==='aarti'){goal.az=0;goal.el=.1;goal.d=d;goal.tx=0;goal.ty=0}
- else{goal.d=d;goal.tx=0;goal.ty=0}}
+ if(mode==='aarti'){goal.az=0;goal.el=.1;goal.d=d;goal.tx=.16;goal.ty=.18}
+ else{goal.d=d;goal.tx=.16;goal.ty=.18}}
 function ui(){}
 function toast(t,ms=1800){const e=$('toast');e.textContent=t;e.style.opacity=1;clearTimeout(toast.h);toast.h=setTimeout(()=>e.style.opacity=0,ms)}
 function reset(){step=0;count=0;acc=0;prevTh=null;done=false;petals.length=0;ui()}
