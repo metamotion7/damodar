@@ -943,8 +943,8 @@ function frame(){requestAnimationFrame(frame);
  if(mode==='aarti'&&!done){const s=STEPS[step],[x,y,r]=ring(s),[lx2,ly2]=sp(lampPos.x,lampPos.y+.02,lampPos.z),vx2=lx2-x,vy2=ly2-y,d=Math.hypot(vx2,vy2)/r;
   if(d>.4&&d<1.9){const th=Math.atan2(vy2,vx2);if(prevTh===null){if(acc<=0)arcStart=th}else{let dt=th-prevTh;while(dt>Math.PI)dt-=TAU;while(dt<-Math.PI)dt+=TAU;acc=Math.max(-.01,acc+dt);if(acc<=0)arcStart=th}prevTh=th}
   else{prevTh=null;acc=Math.max(0,acc-.015)}
-  if(acc>=TAU){acc-=TAU;arcStart+=TAU;count++;bell(880,.10,1.8);
-   if(count>=s.k){bell(1175,.15,2.2);step++;count=0;acc=0;prevTh=null;if(step>=STEPS.length)finale()}ui()}
+  if(acc>=TAU){acc-=TAU;arcStart+=TAU;count++;
+   if(count>=s.k){step++;count=0;acc=0;prevTh=null;if(step>=STEPS.length)finale()}ui()}
   else if(Math.floor(acc/TAU*4)!==Math.floor((acc-.05)/TAU*4)){}
  }
  R.render(scene,cam);drawOv(t)}
