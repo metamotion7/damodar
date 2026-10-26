@@ -209,6 +209,36 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   color:#c7b196;
 }
 
+
+#rotateHint {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffecc0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+  letter-spacing: .08em;
+  opacity: 0.55;
+  background: rgba(18, 7, 3, 0.6);
+  border: 1px solid rgba(246, 195, 101, 0.3);
+  padding: 6px 18px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  z-index: 60;
+  transition: opacity .8s ease, transform .8s ease;
+  user-select: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+#rotateHint.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(8px);
+}
+
 </style>
 </head>
 <body>
@@ -317,6 +347,7 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
     <div id="liveTrans">To the Supreme Lord, whose form is eternal existence, knowledge, and bliss...</div>
   </div>
 </div>
+<div id="rotateHint" class="hidden">Double click to rotate</div>
 <div id="toast"></div>
 <div id="bar" style="display:none;"></div>
 <div id="load">Loading deity…</div>
@@ -430,7 +461,7 @@ let mode='view',step=0,count=0,acc=0,prevTh=null,arcStart=0,done=false,touched=f
 const cur={az:.5,el:.12,d:6,tx:.16,ty:.30},goal={az:.5,el:.12,d:6,tx:.16,ty:.30};
 const aspect=()=>innerWidth/innerHeight;
 function setGoals(){const a=aspect(),d=Math.max(2.45/.63,2.0/(.63*a));
- if(mode==='aarti'){goal.az=0;goal.el=.1;goal.d=d;goal.tx=.16;goal.ty=.30}
+ if(mode==='aarti'){goal.el=.1;goal.d=d;goal.tx=.16;goal.ty=.30}
  else{goal.d=d;goal.tx=.16;goal.ty=.30}}
 function ui(){}
 function toast(t,ms=1800){const e=$('toast');e.textContent=t;e.style.opacity=1;clearTimeout(toast.h);toast.h=setTimeout(()=>e.style.opacity=0,ms)}
@@ -461,7 +492,7 @@ const sp=(x,y,z)=>{v3.set(x,y,z).project(cam);return[(v3.x+1)/2*W,(1-v3.y)/2*H]}
 function ring(s){const[x,y]=sp(...s.c),[x2,y2]=sp(s.c[0]+s.r,s.c[1],s.c[2]);return[x,y,Math.hypot(x2-x,y2-y)]}
 const petals=[];
 function spawnPetals(n){for(let i=0;i<n;i++)petals.push({x:Math.random()*W,y:-20-Math.random()*H*.6,vx:(Math.random()-.5)*.8,vy:1+Math.random()*1.6,r:Math.random()*6,vr:(Math.random()-.5)*.1,s:6+Math.random()*7,c:['#ff9db8','#ffc25a','#ff7a45','#ffe28a'][i%4]})}
-function finale(){done=true;spawnPetals(180);}
+function finale(){done=true;spawnPetals(180);const h=$('rotateHint');if(h)h.classList.remove('hidden');}
 function drawOv(t){cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,W,H);
  if(mode==='aarti'){
   STEPS.forEach((s,i)=>{if(i!==step||done)return;const[x,y,r]=ring(s);cx.save();
@@ -494,7 +525,7 @@ function pinGround(){
 const clock=new THREE.Clock(),lampPos=new THREE.Vector3(.95,-.45,.6),tgt=new THREE.Vector3(),prevLamp=new THREE.Vector3();
 function frame(){requestAnimationFrame(frame);
  const t=clock.getElapsedTime();flameMat.uniforms.t.value=t;
- if(mode==='view'&&!touched)goal.az=.5*Math.sin(t*.3);
+ if(mode==='aarti'||(mode==='view'&&!touched))goal.az=(Math.PI/4)*Math.sin(t*.35);
  for(const k of['az','el','d','tx','ty'])cur[k]+=(goal[k]-cur[k])*.07;
  const tg=new THREE.Vector3(cur.tx,cur.ty,0);
  cam.position.set(tg.x+cur.d*Math.sin(cur.az)*Math.cos(cur.el),tg.y+cur.d*Math.sin(cur.el),tg.z+cur.d*Math.cos(cur.az)*Math.cos(cur.el));cam.lookAt(tg);cam.updateMatrixWorld();pinGround();
@@ -655,6 +686,7 @@ function triggerModeToggle(){
   lastToggleTime = now;
   mode = (mode === 'view') ? 'aarti' : 'view';
   if(typeof setGoals === 'function') setGoals();
+  const h=$('rotateHint');if(h)h.classList.add('hidden');
 }
 
 // Desktop double-click
