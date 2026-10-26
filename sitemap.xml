@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://damodar.lol/</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/" />
+    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/" />
+    <image:image>
+      <image:loc>https://damodar.lol/og-image.jpg</image:loc>
+      <image:title>Sri Damodarashtakam Lyrics and 3D Aarti</image:title>
+      <image:caption>Lord Damodar and Mother Yashoda 3D Aarti and Deep Daan for Kartik Maas</image:caption>
+    </image:image>
+  </url>
+</urlset>
