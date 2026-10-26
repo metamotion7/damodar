@@ -53,31 +53,12 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   text-transform: uppercase;
   font-weight: bold;
 }
-#dotsMenuBtn {
-  background: rgba(246, 195, 101, 0.12);
-  border: 1px solid rgba(246, 195, 101, 0.45);
-  color: var(--gold);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#liveLyrics {
   cursor: pointer;
-  padding: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  transition: all .2s ease;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
 }
-#dotsMenuBtn:hover {
-  background: rgba(246, 195, 101, 0.32);
-  border-color: rgba(246, 195, 101, 0.85);
-  transform: scale(1.08);
-  box-shadow: 0 0 12px rgba(246, 195, 101, 0.5);
-}
-#dotsMenuBtn:active {
-  transform: scale(0.95);
+#liveLyrics:hover {
+  border-color: rgba(246, 195, 101, 0.65);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), 0 0 12px rgba(246, 195, 101, 0.15);
 }
 #liveSanskrit {
   font-size: 15px;
@@ -331,16 +312,9 @@ namo 'nanta-līlāya devāya tubhyam</div>
 
 <div id="top">
   <div id="ttl">Sri Damodar Aarti</div>
-  <div id="liveLyrics">
+  <div id="liveLyrics" title="Double-click to expand full lyrics">
     <div class="live-top-row">
       <div id="liveBadge">Sri Damodarashtakam</div>
-      <button id="dotsMenuBtn" title="Full Lyrics (Sri Damodarashtakam)" aria-label="Open Full Lyrics">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="12" cy="5" r="2.2"/>
-          <circle cx="12" cy="12" r="2.2"/>
-          <circle cx="12" cy="19" r="2.2"/>
-        </svg>
-      </button>
     </div>
     <div id="liveSanskrit">namāmīśvaraṁ sac-cid-ānanda-rūpaṁ
 lasat-kuṇḍalaṁ gokule bhrājamānam</div>
@@ -601,18 +575,36 @@ if(bAudio){
   bAudio.ontimeupdate = updateLiveLyrics;
 }
 
-// Open/close modal on 3 dots click and scroll immediately to active verse
-if(dotsMenuBtn && lModal){
-  dotsMenuBtn.onclick = (e) => {
+// Double-click on #liveLyrics expands full lyrics modal
+const liveLyricsElem = $('liveLyrics');
+function openFullLyrics(){
+  if(!lModal) return;
+  lModal.classList.remove('hidden');
+  setTimeout(() => {
+    const active = document.querySelector('.verse.active-verse');
+    if(active) active.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+if(liveLyricsElem){
+  // Desktop double-click
+  liveLyricsElem.addEventListener('dblclick', (e) => {
     e.stopPropagation();
-    lModal.classList.toggle('hidden');
-    if(!lModal.classList.contains('hidden')){
-      setTimeout(() => {
-        const active = document.querySelector('.verse.active-verse');
-        if(active) active.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100);
+    openFullLyrics();
+  });
+
+  // Mobile double-tap
+  let lastLyricsTap = 0;
+  liveLyricsElem.addEventListener('touchend', (e) => {
+    const now = Date.now();
+    if(now - lastLyricsTap < 380){
+      e.stopPropagation();
+      openFullLyrics();
+      lastLyricsTap = 0;
+    } else {
+      lastLyricsTap = now;
     }
-  };
+  });
 }
 
 if(closeLBtn && lModal){
