@@ -928,7 +928,7 @@ function pinGround(){
 const clock=new THREE.Clock(),lampPos=new THREE.Vector3(.95,-.45,.6),tgt=new THREE.Vector3(),prevLamp=new THREE.Vector3();
 function frame(){requestAnimationFrame(frame);
  const t=clock.getElapsedTime();flameMat.uniforms.t.value=t;
- if(mode==='aarti'||(mode==='view'&&!touched))goal.az=(Math.PI/4)*Math.sin(t*.35);
+ if(mode==='aarti'||(mode==='view'&&!touched))goal.az=(Math.PI/12)*Math.sin(t*.30);
  for(const k of['az','el','d','tx','ty'])cur[k]+=(goal[k]-cur[k])*.07;
  const tg=new THREE.Vector3(cur.tx,cur.ty,0);
  cam.position.set(tg.x+cur.d*Math.sin(cur.az)*Math.cos(cur.el),tg.y+cur.d*Math.sin(cur.el),tg.z+cur.d*Math.cos(cur.az)*Math.cos(cur.el));cam.lookAt(tg);cam.updateMatrixWorld();pinGround();
