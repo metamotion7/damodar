@@ -830,6 +830,234 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
     margin-bottom: -7px;
   }
 }
+
+/* ===== Product Ad & WhatsApp Order Modal ===== */
+#productModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 92%;
+  max-width: 460px;
+  max-height: 85vh;
+  background: rgba(18, 7, 3, 0.96);
+  border: 1px solid rgba(246, 195, 101, 0.45);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.9), 0 0 28px rgba(246, 195, 101, 0.2);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: opacity .3s ease, transform .3s ease;
+  user-select: text;
+}
+#productModal.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -46%) scale(0.96);
+}
+.pm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid rgba(246, 195, 101, 0.22);
+  background: rgba(30, 12, 5, 0.55);
+}
+.pm-title-box {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.pm-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  color: #2a1103;
+  background: linear-gradient(135deg, #f6c365, #f08a1c);
+  padding: 2px 7px;
+  border-radius: 4px;
+  width: fit-content;
+  text-transform: uppercase;
+}
+.pm-title {
+  font-size: 17px;
+  font-weight: bold;
+  color: #fff6e0;
+  line-height: 1.3;
+}
+.pm-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(246, 195, 101, 0.35);
+  color: var(--gold);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.pm-close:hover {
+  background: rgba(246, 195, 101, 0.2);
+  border-color: var(--gold);
+}
+.pm-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pm-image-area {
+  display: flex;
+  justify-content: center;
+}
+.pm-image-box {
+  width: 100%;
+  max-width: 240px;
+  height: 120px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 50% 40%, rgba(246, 195, 101, 0.2), rgba(28, 11, 4, 0.8));
+  border: 1px solid rgba(246, 195, 101, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+.pm-product-emoji {
+  font-size: 56px;
+  filter: drop-shadow(0 4px 12px rgba(246, 195, 101, 0.5));
+}
+.pm-save-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #e11d48;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+.pm-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pm-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.pm-curr-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #f6c365;
+}
+.pm-orig-price {
+  font-size: 15px;
+  color: rgba(251, 233, 204, 0.5);
+  text-decoration: line-through;
+}
+.pm-discount-badge {
+  font-size: 11px;
+  color: #22c55e;
+  font-weight: bold;
+}
+.pm-shipping-note {
+  font-size: 12px;
+  color: #a7f3d0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pm-desc {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #fbe9cc;
+  margin: 4px 0 0;
+}
+.pm-features {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: #e5d0b5;
+}
+.pm-footer {
+  padding: 14px 20px;
+  border-top: 1px solid rgba(246, 195, 101, 0.22);
+  background: rgba(22, 9, 4, 0.85);
+  display: flex;
+  justify-content: center;
+}
+.pm-wa-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 12px 20px;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+  border: 1px solid #4ade80;
+  transition: all .2s ease;
+}
+.pm-wa-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(37, 211, 102, 0.5);
+}
+.pm-wa-btn:active {
+  transform: scale(0.98);
+}
+@media (max-width: 600px) {
+  #productModal {
+    max-height: 88vh;
+  }
+  .pm-header {
+    padding: 12px 16px 10px;
+  }
+  .pm-title {
+    font-size: 15px;
+  }
+  .pm-body {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+  .pm-image-box {
+    height: 100px;
+  }
+  .pm-product-emoji {
+    font-size: 44px;
+  }
+  .pm-curr-price {
+    font-size: 20px;
+  }
+  .pm-wa-btn {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}
 #toast{position:fixed;left:0;right:0;top:36%;text-align:center;font-size:30px;color:var(--gold);text-shadow:0 0 18px #f08a1c;opacity:0;transition:opacity .5s;pointer-events:none;padding:0 16px}
 #load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0b0604;font-size:18px;letter-spacing:.1em;color:var(--gold);z-index:9}
 
@@ -1215,6 +1443,57 @@ namo 'nanta-līlāya devāya tubhyam</div>
   <div class="cal-grid" id="calGrid"></div>
   <div class="cal-footer">
     <button id="calActionBtn" class="main">Offer Aarti Today 🪔</button>
+  </div>
+</div>
+
+<!-- Product Ad & WhatsApp Order Modal -->
+<div id="productModal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
+  <div class="pm-header">
+    <div class="pm-title-box">
+      <span class="pm-badge">SPECIAL KARTIK OFFER</span>
+      <div id="pmTitle" class="pm-title">Pure Brass Damodar Aarti Diya</div>
+    </div>
+    <button id="closeProductModal" class="pm-close" aria-label="Close Product View">✕</button>
+  </div>
+
+  <div class="pm-body">
+    <!-- Product Visual -->
+    <div class="pm-image-area">
+      <div class="pm-image-box">
+        <span class="pm-product-emoji">🪔</span>
+        <span class="pm-save-tag">SAVE 45%</span>
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="pm-details">
+      <div class="pm-price-row">
+        <span class="pm-curr-price">₹499</span>
+        <span class="pm-orig-price">₹899</span>
+        <span class="pm-discount-badge">Festive Deal</span>
+      </div>
+      <div class="pm-shipping-note">✅ Free Express Delivery across India</div>
+
+      <p class="pm-desc">
+        Handcrafted premium brass ghee lamp specially crafted for Kartik Maas Deep Daan, daily deity worship, and Sri Damodarashtakam prayers.
+      </p>
+
+      <ul class="pm-features">
+        <li>✨ 100% Heavy Pure Brass with Carved Base</li>
+        <li>🪔 Traditional Deep Reservoir for Extended Burning</li>
+        <li>🕉️ Auspicious for Damodar Maas Deep Daan</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- WhatsApp CTA Button -->
+  <div class="pm-footer">
+    <a id="waOrderBtn" href="https://wa.me/?text=Hare%20Krishna!%20I%20would%20like%20to%20order%20the%20Pure%20Brass%20Damodar%20Aarti%20Diya." target="_blank" rel="noopener" class="pm-wa-btn">
+      <svg class="wa-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.888 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      <span>Order Now on WhatsApp</span>
+    </a>
   </div>
 </div>
 
@@ -1961,16 +2240,47 @@ if(calActionBtn){
 
 updateDamodarBadge();
 
-// ===== Circular Floating Ad Handler =====
+// ===== Circular Floating Ad & Product Ad Modal Handler =====
+function openProductModal(){
+  const pm = $('productModal');
+  if(!pm) return;
+  pm.classList.remove('hidden');
+}
+
+function closeProductModal(){
+  const pm = $('productModal');
+  if(!pm) return;
+  pm.classList.add('hidden');
+}
+
 function initCircleAd(){
   const ad = $('circleAd');
   const closeBtn = $('closeCircleAd');
-  if(!ad || !closeBtn) return;
+  if(!ad) return;
 
-  closeBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    ad.classList.add('hidden');
-  });
+  if(closeBtn){
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      ad.classList.add('hidden');
+    });
+  }
+
+  const adLink = ad.querySelector('.cad-link');
+  if(adLink){
+    adLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openProductModal();
+    });
+  }
+
+  const closePBtn = $('closeProductModal');
+  if(closePBtn){
+    closePBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeProductModal();
+    });
+  }
 }
 initCircleAd();
 
@@ -2054,6 +2364,12 @@ window.addEventListener('pointerdown', (e) => {
       calModalElem.classList.add('hidden');
     }
   }
+  const prodModalElem = $('productModal');
+  if(prodModalElem && !prodModalElem.classList.contains('hidden')){
+    if(!e.target.closest('#productModal') && !e.target.closest('#circleAd')){
+      prodModalElem.classList.add('hidden');
+    }
+  }
 });
 
 window.addEventListener('keydown', (e) => {
@@ -2061,6 +2377,8 @@ window.addEventListener('keydown', (e) => {
     if(lModal && !lModal.classList.contains('hidden')) lModal.classList.add('hidden');
     const calModalElem = $('calendarModal');
     if(calModalElem && !calModalElem.classList.contains('hidden')) calModalElem.classList.add('hidden');
+    const prodModalElem = $('productModal');
+    if(prodModalElem && !prodModalElem.classList.contains('hidden')) prodModalElem.classList.add('hidden');
   }
 });
 
@@ -2089,7 +2407,7 @@ function tryPlayBhajan(){
 }
 
 function handleFirstInteraction(e){
-  if(e.target && (e.target.closest("#lyricsModal") || e.target.closest("#dotsMenuBtn") || e.target.closest("#visitorBadge") || e.target.closest("#damodarDayBadge") || e.target.closest("#calendarModal") || e.target.closest("#circleAd"))) return;
+  if(e.target && (e.target.closest("#lyricsModal") || e.target.closest("#dotsMenuBtn") || e.target.closest("#visitorBadge") || e.target.closest("#damodarDayBadge") || e.target.closest("#calendarModal") || e.target.closest("#circleAd") || e.target.closest("#productModal"))) return;
   mode = "aarti";
   if(typeof setGoals === "function") setGoals();
   tryPlayBhajan();
@@ -2115,7 +2433,7 @@ cv.addEventListener('pointerdown', (e) => {
 });
 
 cv.addEventListener('pointerup', (e) => {
-  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#camPip') || e.target.closest('#circleAd')) return;
+  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#camPip') || e.target.closest('#circleAd') || e.target.closest('#productModal')) return;
 
   const distDrag = Math.hypot(e.clientX - ptDownX, e.clientY - ptDownY);
   const timeElapsed = Date.now() - ptDownTime;
