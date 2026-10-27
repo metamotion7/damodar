@@ -1251,6 +1251,22 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   margin-top: 4px;
 }
 
+/* ===== Fullscreen Blur Backdrop for Lyrics Modal ===== */
+#lyricsBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  background: rgba(5, 2, 1, 0.72);
+  backdrop-filter: blur(14px) brightness(0.65);
+  -webkit-backdrop-filter: blur(14px) brightness(0.65);
+  transition: opacity 0.35s ease;
+  pointer-events: auto;
+}
+#lyricsBackdrop.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* ===== Full Lyrics Modal ===== */
 #lyricsModal{
   position:fixed;
@@ -1730,6 +1746,9 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
 <body>
 <div id="bg" aria-hidden="true" style="background-image:url(bg.webp)"></div>
 <canvas id="gl"></canvas><canvas id="ov"></canvas>
+
+<!-- Fullscreen Backdrop Blur Overlay for Lyrics Modal -->
+<div id="lyricsBackdrop" class="hidden" aria-hidden="true"></div>
 
 <div id="lyricsModal" class="hidden">
   <div class="lm-header">
@@ -2271,15 +2290,16 @@ function reset(){step=0;count=0;acc=0;prevTh=null;done=false;petals.length=0;ui(
 
 // ===== input =====
 const ptr=new Map();let lx=0,ly=0,pm={x:innerWidth/2,y:innerHeight*.8};
-cv.addEventListener('pointerdown',e=>{ac();cv.setPointerCapture(e.pointerId);ptr.set(e.pointerId,[e.clientX,e.clientY]);lx=e.clientX;ly=e.clientY;pm={x:e.clientX,y:e.clientY};if(mode==='view')touched=true});
+cv.addEventListener('pointerdown',e=>{if(window.__lyricsModalOpen)return;ac();cv.setPointerCapture(e.pointerId);ptr.set(e.pointerId,[e.clientX,e.clientY]);lx=e.clientX;ly=e.clientY;pm={x:e.clientX,y:e.clientY};if(mode==='view')touched=true});
 cv.addEventListener('pointerup',e=>ptr.delete(e.pointerId));cv.addEventListener('pointercancel',e=>ptr.delete(e.pointerId));
 cv.addEventListener('pointermove',e=>{
+ if(window.__lyricsModalOpen)return;
  if(mode==='aarti'){if(e.pointerType==='mouse'||ptr.has(e.pointerId))pm={x:e.clientX,y:e.clientY};return}
  if(!ptr.has(e.pointerId))return;
  if(ptr.size===2){const o=[...ptr.entries()].find(p=>p[0]!==e.pointerId)[1],p=ptr.get(e.pointerId);const d0=Math.hypot(p[0]-o[0],p[1]-o[1]);ptr.set(e.pointerId,[e.clientX,e.clientY]);
   goal.d=Math.min(12,Math.max(1.6,goal.d*d0/Math.hypot(e.clientX-o[0],e.clientY-o[1])));return}
  ptr.set(e.pointerId,[e.clientX,e.clientY]);goal.az-=(e.clientX-lx)*.006;goal.el=Math.min(1.3,Math.max(-.1,goal.el+(e.clientY-ly)*.005));lx=e.clientX;ly=e.clientY});
-cv.addEventListener('wheel',e=>{if(mode!=='view')return;e.preventDefault();goal.d=Math.min(12,Math.max(1.6,goal.d*(1+e.deltaY*.001)))},{passive:false});
+cv.addEventListener('wheel',e=>{if(window.__lyricsModalOpen||mode!=='view')return;e.preventDefault();goal.d=Math.min(12,Math.max(1.6,goal.d*(1+e.deltaY*.001)))},{passive:false});
 
 // ===== overlay =====
 const ov=$('ov'),cx=ov.getContext('2d');let W=0,H=0,dpr=1;
@@ -2852,6 +2872,9 @@ if(bAudio){
 const liveLyricsElem = $('liveLyrics');
 function openFullLyrics(noPush){
   if(!lModal) return;
+  window.__lyricsModalOpen = true;
+  const lBackdrop = $('lyricsBackdrop');
+  if(lBackdrop) lBackdrop.classList.remove('hidden');
   renderModalVerses();
   lModal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
@@ -2875,6 +2898,9 @@ function openFullLyrics(noPush){
 
 function closeFullLyrics(noPush){
   if(!lModal) return;
+  window.__lyricsModalOpen = false;
+  const lBackdrop = $('lyricsBackdrop');
+  if(lBackdrop) lBackdrop.classList.add('hidden');
   lModal.classList.add('hidden');
   document.body.style.overflow = '';
 
@@ -2885,6 +2911,17 @@ function closeFullLyrics(noPush){
       }
     } catch(e){}
   }
+}
+
+const lBackdrop = $('lyricsBackdrop');
+if(lBackdrop){
+  lBackdrop.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeFullLyrics();
+  });
+  lBackdrop.addEventListener('pointerdown', (e) => e.stopPropagation());
+  lBackdrop.addEventListener('pointermove', (e) => e.stopPropagation());
+  lBackdrop.addEventListener('pointerup', (e) => e.stopPropagation());
 }
 
 if(liveLyricsElem){
@@ -3009,13 +3046,14 @@ cv.addEventListener("pointermove", () => {
 let ptDownX = 0, ptDownY = 0, ptDownTime = 0;
 
 cv.addEventListener('pointerdown', (e) => {
+  if(window.__lyricsModalOpen) return;
   ptDownX = e.clientX;
   ptDownY = e.clientY;
   ptDownTime = Date.now();
 });
 
 cv.addEventListener('pointerup', (e) => {
-  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#camPip') || e.target.closest('#circleAd') || e.target.closest('#productModal') || e.target.closest('#introVideoOverlay')) return;
+  if(window.__lyricsModalOpen || e.target.closest('#lyricsModal') || e.target.closest('#lyricsBackdrop') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#camPip') || e.target.closest('#circleAd') || e.target.closest('#productModal') || e.target.closest('#introVideoOverlay')) return;
 
   const distDrag = Math.hypot(e.clientX - ptDownX, e.clientY - ptDownY);
   const timeElapsed = Date.now() - ptDownTime;
@@ -3042,6 +3080,7 @@ cv.addEventListener('pointerup', (e) => {
 
 // Cursor hover feedback in view mode: turns to pointer finger when hovering over the lamp
 cv.addEventListener('pointermove', (e) => {
+  if(window.__lyricsModalOpen) return;
   if(mode === 'view'){
     if(isLampClicked(e.clientX, e.clientY)){
       cv.style.cursor = 'pointer';
