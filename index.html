@@ -692,7 +692,7 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: opacity .3s ease, transform .3s ease;
+  transition: opacity .3s ease, transform .3s ease, top .35s cubic-bezier(0.25, 1, 0.5, 1);
   user-select: none;
 }
 #circleAd.hidden {
@@ -2151,6 +2151,8 @@ function setLanguage(lang){
   } else if(bLiveBadge){
     bLiveBadge.textContent = titles[lang] || titles.en;
   }
+
+  if(typeof updateCircleAdPosition === 'function') requestAnimationFrame(updateCircleAdPosition);
 }
 
 // Bind all language pills
@@ -2402,6 +2404,16 @@ function closeProductModal(){
   pm.classList.add('hidden');
 }
 
+// Dynamically position circular ad below live lyrics with smooth transition
+function updateCircleAdPosition(){
+  const ad = $('circleAd');
+  const liveBox = $('liveLyrics');
+  if(!ad || !liveBox) return;
+  const rect = liveBox.getBoundingClientRect();
+  const gap = window.innerWidth <= 600 ? 12 : 14;
+  ad.style.top = Math.round(rect.bottom + gap) + 'px';
+}
+
 function initCircleAd(){
   const ad = $('circleAd');
   const closeBtn = $('closeCircleAd');
@@ -2430,6 +2442,20 @@ function initCircleAd(){
       closeProductModal();
     });
   }
+
+  // Initial positioning below live lyrics
+  updateCircleAdPosition();
+
+  // Watch for liveLyrics expanding or shrinking across verses & orientation changes
+  const liveBox = $('liveLyrics');
+  if(liveBox && window.ResizeObserver){
+    const ro = new ResizeObserver(() => {
+      updateCircleAdPosition();
+    });
+    ro.observe(liveBox);
+  }
+
+  window.addEventListener('resize', updateCircleAdPosition, { passive: true });
 }
 initCircleAd();
 
@@ -2454,6 +2480,9 @@ function updateLiveLyrics(){
     if(sLiveElem && cur.sanskrit) sLiveElem.textContent = cur.sanskrit[currentLang] || cur.sanskrit.en;
     if(tLiveElem && cur.trans) tLiveElem.textContent = cur.trans[currentLang] || cur.trans.en;
     
+    // Reposition ad if verse text caused height change
+    if(typeof updateCircleAdPosition === 'function') requestAnimationFrame(updateCircleAdPosition);
+
     // Highlight active verse in full modal
     document.querySelectorAll('.verse').forEach((el, vi) => {
       if(cur.v > 0 && vi === (cur.v - 1)){
