@@ -1352,9 +1352,6 @@ cv.addEventListener('pointerup', (e) => {
   let lastHandTs = 0;
   let sending    = false;  // guard — don't stack async mpHands.send calls
   const HAND_TIMEOUT = 900;
-  // For ring-locked camera tracking
-  let camAngle   = 0;      // current angle on ring (radians)
-  let prevCamX   = null;   // previous un-mirrored hand X (0-1)
 
   // --- status helper ---
   let statusTimer = null;
@@ -1400,41 +1397,15 @@ cv.addEventListener('pointerup', (e) => {
       handX = mx; handY = my;
       lastHandTs = Date.now();
 
-      // === RING-LOCKED mode during Aarti circles ===
-      // Only horizontal hand movement drives the angle on the ring.
-      // Hand Y (height) is completely ignored — hold your hand anywhere!
-      if(typeof mode !== 'undefined' && mode === 'aarti' &&
-         typeof done !== 'undefined' && !done &&
-         typeof STEPS !== 'undefined' && typeof step !== 'undefined' &&
-         typeof ring === 'function' && step < STEPS.length){
-
-        const unmirroredX = 1 - mx; // un-mirror: hand moves right → lamp rotates clockwise
-
-        if(prevCamX !== null){
-          // dx > 0 = moved right; ~3 full horizontal swipes = one full 360° rotation
-          camAngle += (unmirroredX - prevCamX) * Math.PI * 6;
-        }
-        prevCamX = unmirroredX;
-
-        // Lock pm onto the ring circumference at current angle
-        const s = STEPS[step];
-        const [rx, ry, rr] = ring(s);
-        pm.x = rx + rr * Math.cos(camAngle);
-        pm.y = ry + rr * Math.sin(camAngle);
-
-      } else {
-        // View/rotate mode or aarti finished: free x,y mapping
-        prevCamX = null;
-        pm.x = (1 - mx) * W;
-        pm.y = my * H;
-      }
+      // Free natural 2D hand movement — tracks hand directly in full X & Y (no ring lock)
+      pm.x = (1 - mx) * W;
+      pm.y = my * H;
 
       drawPip(mx, my);
       hideStatus();
     } else {
       if(Date.now() - lastHandTs > HAND_TIMEOUT){
         handX = null; handY = null;
-        prevCamX = null;
         drawPip(null, null);
         if(camActive) showStatus('✋ Show your hand in camera');
       }
