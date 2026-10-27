@@ -1172,17 +1172,25 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   text-transform:uppercase;
 }
 .lm-close{
-  background:none;
-  border:none;
+  background:rgba(255, 255, 255, 0.08);
+  border:1px solid rgba(246, 195, 101, 0.35);
   color:var(--gold);
-  font-size:22px;
-  cursor:pointer;
-  padding:4px 8px;
   border-radius:50%;
+  width:32px;
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  cursor:pointer;
+  padding:0;
+  transition:all .2s;
+  flex-shrink:0;
   line-height:1;
 }
 .lm-close:hover{
   background:rgba(246, 195, 101, 0.2);
+  border-color:var(--gold);
 }
 .lm-body{
   padding:18px 24px;
@@ -1333,6 +1341,66 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
 .lm-footer p { margin: 4px 0; }
 .lm-footer a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
 .lm-footer a:hover { color: #fff; }
+
+/* Mobile Optimization for Full Lyrics Modal & Language Options */
+@media (max-width: 600px) {
+  #lyricsModal {
+    width: 95%;
+    max-height: 85vh;
+  }
+  .lm-header {
+    flex-wrap: wrap;
+    padding: 12px 14px 10px;
+    gap: 8px 0;
+  }
+  .lm-title {
+    font-size: 14px;
+    letter-spacing: .08em;
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    order: 1;
+    flex: 1 1 auto;
+  }
+  .lm-close {
+    order: 2;
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+  .lm-header .lang-pills {
+    order: 3;
+    width: 100%;
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-around;
+  }
+  .lm-header .lang-pill {
+    flex: 1;
+    text-align: center;
+    padding: 6px 4px;
+    font-size: 12px;
+  }
+  .lm-body {
+    padding: 12px 14px;
+  }
+  .verse {
+    margin-bottom: 14px;
+    padding: 10px 12px;
+  }
+  .v-sanskrit {
+    font-size: 14px;
+  }
+  .v-trans {
+    font-size: 12px;
+  }
+  #liveBadge {
+    max-width: calc(100% - 170px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
 
 </style>
 </head>
