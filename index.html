@@ -3321,22 +3321,18 @@ if(rotHint){
     gl.vertexAttribPointer(A.a_r, 4, gl.FLOAT, false, 16, 0);
   }
 
-  /* ---------- Intro Audio: 40% Faster Music (~17.88s) & Natural Ending ---------- */
+  /* ---------- Intro Audio: Music (Hare Krishna ~25s) & Voice Narration ---------- */
   let introBgm = null, voiceTimer = null, lastVoice = -1, audioArmed = false;
   let voicePlayedCount = 0;
-  const TOTAL_INTRO_SEC = 17.88;
+  const TOTAL_INTRO_SEC = 25.03;
   const AUDIO_EV = ['pointerdown', 'click', 'touchend', 'keydown'];
 
   try {
-    introBgm = new Audio('scenes/intro_music_1788.mp3?v=1788_final');
+    introBgm = new Audio('scenes/intro_music.mp3?v=orig25');
     introBgm.preload = 'auto';
     introBgm.loop = false;
     introBgm.volume = 0.65;
     introBgm.addEventListener('ended', onIntroMusicComplete);
-    introBgm.addEventListener('play', () => {
-      // Schedule dialogue once music actually begins playing
-      scheduleDialogue();
-    });
   } catch(e){}
 
   const voiceClips = ['scenes/voice_0.mp3', 'scenes/voice_1.mp3'].map(u => {
@@ -3347,8 +3343,7 @@ if(rotHint){
       if(introBgm) introBgm.volume = 0.35;
     });
     a.addEventListener('ended', () => {
-      // Restore music volume smoothly to full for the remaining 4s of singing
-      if(introBgm) introBgm.volume = 0.85;
+      if(introBgm) introBgm.volume = 0.65;
     });
     return a;
   });
@@ -3358,18 +3353,6 @@ if(rotHint){
     if(i === lastVoice && Math.random() < 0.6) i = (i + 1) % voiceClips.length;
     lastVoice = i;
     return voiceClips[i];
-  }
-
-  function scheduleDialogue(){
-    if(voicePlayedCount > 0 || !introRunning || introEntered) return;
-    clearTimeout(voiceTimer);
-    // Start dialogue at 1.8s into the music so dialogue (~12s) finishes at ~13.8s,
-    // leaving a full 4.0-4.2s of singing music to conclude naturally at 17.88s
-    voiceTimer = setTimeout(() => {
-      if(!introRunning || introEntered || voicePlayedCount > 0) return;
-      const chosen = pickVoice();
-      playChosenVoice(chosen);
-    }, 1800);
   }
 
   function armAudio(){
@@ -3392,24 +3375,21 @@ if(rotHint){
       const pb = introBgm.play();
       if(pb && pb.catch) pb.catch(() => armAudio());
     }
-    // If introBgm is already playing, ensure dialogue is scheduled
-    if(introBgm && !introBgm.paused){
-      scheduleDialogue();
+    // Schedule one divine verse recitation to start at ~2.5s
+    if(voicePlayedCount === 0){
+      clearTimeout(voiceTimer);
+      voiceTimer = setTimeout(playRandomVoice, 2400);
     }
   }
 
-  function playChosenVoice(a){
+  function playRandomVoice(){
     if(!introRunning || introEntered || voicePlayedCount > 0) return;
+    voicePlayedCount++;
+    const a = pickVoice();
     a.currentTime = 0;
     const p = a.play();
-    if(p && p.then){
-      p.then(() => {
-        voicePlayedCount++;
-      }).catch(() => {
-        armAudio();
-      });
-    } else {
-      voicePlayedCount++;
+    if(p && p.catch){
+      p.catch(() => armAudio());
     }
   }
 
@@ -3532,32 +3512,20 @@ if(rotHint){
     if(!introStartTime) introStartTime = now;
     const elapsed = (now - introStartTime) / 1000;
 
-    // Track progression across the 17.88s music duration (40% faster)
+    // Track progression across the full ~25 seconds of the Hare Krishna intro track
     let target = 0;
-    const bgmActive = introBgm && (!introBgm.paused || introBgm.currentTime > 0);
-    const bgmDuration = (introBgm && introBgm.duration > 0) ? introBgm.duration : TOTAL_INTRO_SEC;
-
-    if(introBgm && !introBgm.paused && introBgm.currentTime > 0){
-      target = Math.min(100, (introBgm.currentTime / bgmDuration) * 100);
-    } else if(introBgm && introBgm.ended){
-      target = 100;
+    if(introBgm && !introBgm.paused && introBgm.duration > 0){
+      target = Math.min(100, (introBgm.currentTime / introBgm.duration) * 100);
     } else {
-      // Steady fallback progress only if audio is waiting or not playing
+      // Steady progress matching 25s total intro time
       target = Math.min(99, (elapsed / TOTAL_INTRO_SEC) * 100);
     }
 
-    introProgress += (target - introProgress) * 0.15;
+    introProgress += (target - introProgress) * 0.12;
 
-    // The intro MUST only end when the music completes its full 17.88s playback!
-    const musicEnded = introBgm && (
-      introBgm.ended || 
-      (introBgm.duration > 15 && introBgm.currentTime >= introBgm.duration - 0.08)
-    );
-
-    // Safety fallback: only if audio never started after 30s
-    const fallbackTimeout = (!bgmActive && elapsed >= 30.0);
-
-    if((musicEnded || fallbackTimeout) && window.deityLoaded){
+    // Check if music has reached its final moments (~25s) and deity is loaded
+    const musicEnded = introBgm && (introBgm.ended || (introBgm.duration > 0 && introBgm.currentTime >= introBgm.duration - 0.25));
+    if((musicEnded || elapsed >= TOTAL_INTRO_SEC) && window.deityLoaded){
       introProgress = 100;
     }
 
@@ -3569,8 +3537,8 @@ if(rotHint){
     if(bar) bar.style.width = pct + '%';
     if(pctEl) pctEl.textContent = pct + '%';
 
-    // When the 17.88s music naturally finishes and deity is ready, open temple!
-    if(pct >= 100 && !autoTransitionStarted && !introEntered && window.deityLoaded && (musicEnded || fallbackTimeout)){
+    // When the full 25s intro music finishes and deity is ready, open temple!
+    if(pct >= 100 && !autoTransitionStarted && !introEntered && window.deityLoaded){
       onIntroMusicComplete();
     }
 
