@@ -1075,7 +1075,29 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
     padding: 10px 16px;
   }
 }
-#toast{position:fixed;left:0;right:0;top:36%;text-align:center;font-size:30px;color:var(--gold);text-shadow:0 0 18px #f08a1c;opacity:0;transition:opacity .5s;pointer-events:none;padding:0 16px}
+#toast {
+  position: fixed;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff6e0;
+  background: rgba(18, 7, 3, 0.9);
+  border: 1px solid rgba(246, 195, 101, 0.45);
+  border-radius: 999px;
+  padding: 8px 18px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.75), 0 0 16px rgba(246, 195, 101, 0.2);
+  opacity: 0;
+  transition: opacity .4s ease, transform .4s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 90%;
+  z-index: 95;
+}
 #load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0b0604;font-size:18px;letter-spacing:.1em;color:var(--gold);z-index:9}
 
 #step { display: none !important; }
@@ -1447,6 +1469,13 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
     font-size: 9px;
     padding: 2px 5px;
     gap: 2px;
+  }
+  #toast {
+    font-size: 13px;
+    padding: 6px 14px;
+    max-width: 86%;
+    white-space: normal;
+    line-height: 1.4;
   }
 }
 
@@ -2290,7 +2319,7 @@ function recordCompletedAarti(){
   if(calModalElem && !calModalElem.classList.contains('hidden')){
     renderCalendar();
   }
-  toast(`🪔 Aarti complete! Day ${dayNumber} Aarti #${data[dateKey]} offered`, 3000);
+  toast(`🪔 Aarti complete! Day ${dayNumber} · Aarti #${data[dateKey]} offered`, 3000);
 }
 
 function renderCalendar(){
