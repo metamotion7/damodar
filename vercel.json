@@ -21,7 +21,7 @@
       ]
     },
     {
-      "source": "/(index|story|lyrics)?(\\.html)?",
+      "source": "/(index|story|katha|lyrics|darshan)?(\\.html)?",
       "headers": [
         {
           "key": "Cache-Control",
