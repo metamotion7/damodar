@@ -1,124 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
-  <!-- 1. Main 3D Temple Darshan & Deep Daan -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://damodar.lol/</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/?lang=hi" />
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/?lang=or" />
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/?lang=bn" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/" />
-    <image:image>
-      <image:loc>https://damodar.lol/og-image.jpg</image:loc>
-      <image:title>Sri Damodar Darshan • 3D Temple Aarti &amp; Deep Daan</image:title>
-      <image:caption>Lord Damodar and Mother Yashoda 3D Aarti and Virtual Deep Daan for Kartik Maas</image:caption>
-    </image:image>
   </url>
-
-  <!-- 2. Sri Damodarashtakam Sacred Lyrics Hub -->
   <url>
     <loc>https://damodar.lol/lyrics</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/lyrics?lang=hi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/lyrics?lang=en" />
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/lyrics?lang=or" />
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/lyrics?lang=bn" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/lyrics?lang=ru" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/lyrics" />
   </url>
-
-  <!-- 3. Hindi Lyrics Direct Link -->
   <url>
     <loc>https://damodar.lol/lyrics?lang=hi</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-
-  <!-- 4. Odia Lyrics Direct Link -->
   <url>
     <loc>https://damodar.lol/lyrics?lang=or</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-
-  <!-- 5. Bengali Lyrics Direct Link -->
   <url>
     <loc>https://damodar.lol/lyrics?lang=bn</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-
-  <!-- 6. English Lyrics Direct Link -->
   <url>
     <loc>https://damodar.lol/lyrics?lang=en</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-
-  <!-- 7. Damodara Lila Katha (26 Scenes Story Player) -->
   <url>
     <loc>https://damodar.lol/story</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/story?lang=hi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/story?lang=en" />
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/story?lang=or" />
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/story?lang=bn" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/story?lang=ru" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/story" />
   </url>
-
-  <!-- 8. Katha Alternate Route -->
   <url>
     <loc>https://damodar.lol/katha</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-
-  <!-- 9. Hindi Katha Direct Link -->
   <url>
     <loc>https://damodar.lol/story?lang=hi</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
-
-  <!-- 10. Odia Katha Direct Link -->
   <url>
     <loc>https://damodar.lol/story?lang=or</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
-
-  <!-- 11. Bengali Katha Direct Link -->
   <url>
     <loc>https://damodar.lol/story?lang=bn</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
-
-  <!-- 12. English Katha Direct Link -->
   <url>
     <loc>https://damodar.lol/story?lang=en</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
-
+  <url>
+    <loc>https://damodar.lol/darshan</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>
