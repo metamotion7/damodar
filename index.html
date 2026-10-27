@@ -1251,7 +1251,7 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
     <div id="liveTrans">To the Supreme Lord, whose form is eternal existence, knowledge, and bliss...</div>
   </div>
 </div>
-<div id="rotateHint" class="hidden">Double click to rotate</div>
+<div id="rotateHint" class="hidden">Click screen for 360° Darshan</div>
 <div id="toast"></div>
 <div id="bar" style="display:none;"></div>
 <div id="load">Loading deity…</div>
@@ -1370,7 +1370,7 @@ function conch(){const a=ac();if(!a||muted)return;const t=a.currentTime,o=a.crea
  o.connect(f);f.connect(G);G.connect(a.destination);o.start(t);v.start(t);o.stop(t+4.6);v.stop(t+4.6)}
 
 // ===== state / camera =====
-let mode='view',step=0,count=0,acc=0,prevTh=null,arcStart=0,done=false,touched=false;
+let mode='aarti',step=0,count=0,acc=0,prevTh=null,arcStart=0,done=false,touched=false;
 const cur={az:.5,el:.12,d:6,tx:.16,ty:.30},goal={az:.5,el:.12,d:6,tx:.16,ty:.30};
 const aspect=()=>innerWidth/innerHeight;
 function setGoals(){const a=aspect(),d=Math.max(2.45/.63,2.0/(.63*a));
@@ -1405,7 +1405,7 @@ const sp=(x,y,z)=>{v3.set(x,y,z).project(cam);return[(v3.x+1)/2*W,(1-v3.y)/2*H]}
 function ring(s){const[x,y]=sp(...s.c),[x2,y2]=sp(s.c[0]+s.r,s.c[1],s.c[2]);return[x,y,Math.hypot(x2-x,y2-y)]}
 const petals=[];
 function spawnPetals(n){for(let i=0;i<n;i++)petals.push({x:Math.random()*W,y:-20-Math.random()*H*.6,vx:(Math.random()-.5)*.8,vy:1+Math.random()*1.6,r:Math.random()*6,vr:(Math.random()-.5)*.1,s:6+Math.random()*7,c:['#ff9db8','#ffc25a','#ff7a45','#ffe28a'][i%4]})}
-function updateRotateHint(){const h=$('rotateHint');if(!h||!done)return;h.textContent=(mode==='view')?'Double click for lamp':'Double click to rotate';h.classList.remove('hidden');}
+function updateRotateHint(){const h=$('rotateHint');if(!h)return;if(!done){h.classList.add('hidden');return;}h.textContent=(mode==='view')?'Click lamp to offer Aarti 🪔':'Click screen for 360° Darshan';h.classList.remove('hidden');}
 function finale(){done=true;spawnPetals(180);updateRotateHint();if(typeof recordCompletedAarti==='function')recordCompletedAarti();}
 function drawOv(t){cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,W,H);
  if(mode==='aarti'){
@@ -1607,6 +1607,43 @@ function initVisitorCounter(){
 }
 initVisitorCounter();
 
+// ===== 3D Raycasting & Lamp Click Detection =====
+const raycaster = new THREE.Raycaster();
+const mouseVec = new THREE.Vector2();
+
+function isLampClicked(clientX, clientY){
+  if(typeof lamp === 'undefined' || !lamp || typeof cam === 'undefined' || !cam) return false;
+  // 1. Raycaster check against the lamp group hierarchy
+  mouseVec.x = (clientX / window.innerWidth) * 2 - 1;
+  mouseVec.y = -(clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouseVec, cam);
+  const intersects = raycaster.intersectObject(lamp, true);
+  if(intersects && intersects.length > 0) return true;
+  // 2. 2D projected screen distance check (approx 70px radius) for generous touch targets
+  if(typeof sp === 'function' && typeof lampPos !== 'undefined'){
+    const [lx, ly] = sp(lampPos.x, lampPos.y, lampPos.z);
+    const dist = Math.hypot(clientX - lx, clientY - ly);
+    if(dist < 70) return true;
+  }
+  return false;
+}
+
+function startAartiMode(){
+  mode = 'aarti';
+  if(done) reset();
+  if(typeof setGoals === 'function') setGoals();
+  updateRotateHint();
+  tryPlayBhajan();
+  toast('🪔 Offering Aarti to Lord Damodar...', 2000);
+}
+
+function startViewMode(){
+  mode = 'view';
+  if(typeof setGoals === 'function') setGoals();
+  updateRotateHint();
+  toast('360° Darshan Mode — Drag to rotate', 2000);
+}
+
 // ===== 30-Day Damodar / Kartika Aarti Tracker =====
 const DAMODAR_START = new Date(2026, 9, 26); // Oct 26, 2026 = Day 1
 const TOTAL_DAMODAR_DAYS = 30;
@@ -1751,11 +1788,7 @@ if(calActionBtn){
   calActionBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     closeCalendar();
-    mode = 'aarti';
-    if(done) reset();
-    if(typeof setGoals === 'function') setGoals();
-    tryPlayBhajan();
-    toast('🪔 Offering Aarti to Lord Damodar...', 2000);
+    startAartiMode();
   });
 }
 
@@ -1892,54 +1925,66 @@ cv.addEventListener("pointermove", () => {
   }
 }, { passive: true });
 
-// 2. DOUBLE CLICK: SILENTLY switches between 3D view and Lamp view (NO toast popups!)
-// ONLY works AFTER Aarti is done!
-let lastToggleTime = 0;
-function triggerModeToggle(){
-  const now = Date.now();
-  if(now - lastToggleTime < 350) return;
-  lastToggleTime = now;
-  mode = (mode === 'view') ? 'aarti' : 'view';
-  if(mode === 'aarti' && done){
-    reset();
-  }
-  if(typeof setGoals === 'function') setGoals();
-  updateRotateHint();
-}
-
-// Desktop double-click
-cv.addEventListener('dblclick', (e) => {
-  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal')) return;
-  if(!done) return;
-  triggerModeToggle();
-});
-
-// Mobile/Touch double-tap
-let lastTapTime = 0, lastTapX = 0, lastTapY = 0;
-let ptDownX = 0, ptDownY = 0;
+// Single-click interaction handler
+let ptDownX = 0, ptDownY = 0, ptDownTime = 0;
 
 cv.addEventListener('pointerdown', (e) => {
   ptDownX = e.clientX;
   ptDownY = e.clientY;
+  ptDownTime = Date.now();
 });
 
 cv.addEventListener('pointerup', (e) => {
-  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal')) return;
-  if(!done) return;
-  const distDrag = Math.hypot(e.clientX - ptDownX, e.clientY - ptDownY);
-  if(distDrag > 25) return; // User dragged to rotate/offer lamp, not double-tap!
+  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#camPip')) return;
 
-  const now = Date.now();
-  const distBetweenTaps = Math.hypot(e.clientX - lastTapX, e.clientY - lastTapY);
-  if(now - lastTapTime < 380 && distBetweenTaps < 40){
-    triggerModeToggle();
-    lastTapTime = 0;
-  } else {
-    lastTapTime = now;
-    lastTapX = e.clientX;
-    lastTapY = e.clientY;
+  const distDrag = Math.hypot(e.clientX - ptDownX, e.clientY - ptDownY);
+  const timeElapsed = Date.now() - ptDownTime;
+
+  // If user dragged more than 18px or held for > 600ms, it was an orbit/pan/drag, not a click!
+  if(distDrag > 18 || timeElapsed > 600) return;
+
+  // 1. If currently in Aarti mode AND Aarti is completed (done === true):
+  //    Single click switches to 3D Rotate View!
+  if(mode === 'aarti' && done){
+    startViewMode();
+    return;
+  }
+
+  // 2. If currently in 3D Rotate View mode:
+  //    Only switch back to Aarti if clicking directly ON THE LAMP!
+  if(mode === 'view'){
+    if(isLampClicked(e.clientX, e.clientY)){
+      startAartiMode();
+    }
+    // Any other click in view mode: DO NOTHING (continue rotating freely!)
   }
 });
+
+// Cursor hover feedback in view mode: turns to pointer finger when hovering over the lamp
+cv.addEventListener('pointermove', (e) => {
+  if(mode === 'view'){
+    if(isLampClicked(e.clientX, e.clientY)){
+      cv.style.cursor = 'pointer';
+    } else {
+      cv.style.cursor = 'grab';
+    }
+  } else {
+    cv.style.cursor = 'default';
+  }
+});
+
+// Rotate hint click: allows clicking the hint itself
+const rotHint = $('rotateHint');
+if(rotHint){
+  rotHint.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if(mode === 'aarti' && done){
+      startViewMode();
+    } else if(mode === 'view'){
+      startAartiMode();
+    }
+  });
+}
 
 // ===== CAMERA AARTI — MediaPipe Hands Integration =====
 (function(){
@@ -2169,9 +2214,11 @@ cv.addEventListener('pointerup', (e) => {
     e.stopPropagation();
     if(camActive){ stopCamera(); return; }
     // ensure aarti mode
-    if(typeof mode !== 'undefined' && mode !== 'aarti'){
+    if(typeof mode !== 'undefined' && (mode !== 'aarti' || done)){
       mode = 'aarti';
+      if(done && typeof reset === 'function') reset();
       if(typeof setGoals === 'function') setGoals();
+      if(typeof updateRotateHint === 'function') updateRotateHint();
     }
     // ensure audio started
     if(typeof tryPlayBhajan === 'function') tryPlayBhajan();
