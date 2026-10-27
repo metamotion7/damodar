@@ -3321,10 +3321,10 @@ if(rotHint){
     gl.vertexAttribPointer(A.a_r, 4, gl.FLOAT, false, 16, 0);
   }
 
-  /* ---------- Intro Audio: 20% Faster Music (~20.85s) & Natural Ending ---------- */
+  /* ---------- Intro Audio: 40% Faster Music (~17.88s) & Natural Ending ---------- */
   let introBgm = null, voiceTimer = null, lastVoice = -1, audioArmed = false;
   let voicePlayedCount = 0;
-  const TOTAL_INTRO_SEC = 20.85;
+  const TOTAL_INTRO_SEC = 17.88;
   const AUDIO_EV = ['pointerdown', 'click', 'touchend', 'keydown'];
 
   try {
@@ -3380,10 +3380,9 @@ if(rotHint){
     if(voicePlayedCount === 0){
       clearTimeout(voiceTimer);
       const chosen = pickVoice();
-      const delay = (chosen.src && chosen.src.includes('voice_0')) ? 4200 : 3000;
       voiceTimer = setTimeout(() => {
         playChosenVoice(chosen);
-      }, delay);
+      }, 2000);
     }
   }
 
@@ -3516,7 +3515,7 @@ if(rotHint){
     if(!introStartTime) introStartTime = now;
     const elapsed = (now - introStartTime) / 1000;
 
-    // Track progression across the 20.85s music duration (20% faster)
+    // Track progression across the 17.88s music duration (40% faster)
     let target = 0;
     if(introBgm && !introBgm.paused && introBgm.duration > 0){
       target = Math.min(100, (introBgm.currentTime / introBgm.duration) * 100);
