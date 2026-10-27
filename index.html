@@ -681,86 +681,125 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   }
 }
 
-/* ===== Bottom Devotee Seva / Sponsor Banner ===== */
-#sevaBar {
+/* ===== YouTube Shorts / Reels Floating Product Ad Card ===== */
+#reelsProductCard {
   position: fixed;
-  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 150px);
-  max-width: 660px;
-  background: rgba(18, 7, 3, 0.90);
-  border: 1px solid rgba(246, 195, 101, 0.42);
+  max-width: 520px;
+  background: rgba(18, 7, 3, 0.94);
+  border: 1px solid rgba(246, 195, 101, 0.38);
   border-radius: 14px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.8), 0 0 16px rgba(246, 195, 101, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.85), 0 0 16px rgba(246, 195, 101, 0.14);
   z-index: 75;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 14px;
+  padding: 8px 12px;
   gap: 12px;
   transition: opacity .35s ease, transform .35s ease;
   user-select: none;
 }
-#sevaBar.hidden {
+#reelsProductCard.hidden {
   opacity: 0;
   pointer-events: none;
   transform: translateX(-50%) translateY(24px);
 }
-.seva-content {
+.rpc-body {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex: 1;
   min-width: 0;
 }
-.seva-badge {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .12em;
-  color: #2a1103;
-  background: linear-gradient(135deg, #f6c365, #f08a1c);
-  padding: 3px 7px;
-  border-radius: 4px;
-  white-space: nowrap;
+.rpc-img-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(246, 195, 101, 0.18), rgba(240, 138, 28, 0.08));
+  border: 1px solid rgba(246, 195, 101, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   flex-shrink: 0;
-  text-transform: uppercase;
+  overflow: hidden;
 }
-.seva-text {
+.rpc-img-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+.rpc-ad-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 8px;
+  font-weight: 800;
+  color: #2a1103;
+  background: #f6c365;
+  padding: 0 3px;
+  border-radius: 3px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.rpc-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.rpc-tag {
+  font-size: 9px;
+  letter-spacing: .08em;
+  color: rgba(246, 195, 101, 0.75);
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.rpc-title {
   font-size: 13px;
-  color: #fff4d9;
+  font-weight: 700;
+  color: #fff6e0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: inherit;
+  line-height: 1.3;
+  margin-top: 1px;
 }
-.seva-highlight {
-  color: var(--gold);
-  font-weight: bold;
+.rpc-desc {
+  font-size: 11px;
+  color: rgba(251, 233, 204, 0.75);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
 }
-.seva-cta {
+.rpc-cta {
   font-size: 12px;
-  font-weight: bold;
-  color: #2a1103;
-  background: linear-gradient(135deg, #f6c365, #f6a93c);
+  font-weight: 700;
+  color: #1a0802;
+  background: linear-gradient(135deg, #f6c365, #f08a1c);
   border: 1px solid #ffd58a;
   border-radius: 999px;
-  padding: 5px 12px;
+  padding: 6px 14px;
   text-decoration: none;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   transition: all .2s;
   flex-shrink: 0;
 }
-.seva-cta:hover {
+.rpc-cta:hover {
   filter: brightness(1.15);
   transform: scale(1.03);
 }
-.seva-close {
+.rpc-close {
   background: transparent;
   border: none;
   color: rgba(246, 195, 101, 0.6);
@@ -775,13 +814,13 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   transition: all .2s;
   flex-shrink: 0;
 }
-.seva-close:hover {
+.rpc-close:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 @media (max-width: 768px) {
-  #sevaBar {
+  #reelsProductCard {
     width: calc(100% - 84px);
     left: 10px;
     transform: none;
@@ -789,19 +828,25 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
     padding: 6px 10px;
     gap: 8px;
   }
-  #sevaBar.hidden {
+  #reelsProductCard.hidden {
     transform: translateY(24px);
   }
-  .seva-text {
-    font-size: 11px;
+  .rpc-img-box {
+    width: 38px;
+    height: 38px;
   }
-  .seva-badge {
-    font-size: 8px;
-    padding: 2px 5px;
+  .rpc-img-icon {
+    font-size: 19px;
   }
-  .seva-cta {
+  .rpc-title {
+    font-size: 12px;
+  }
+  .rpc-desc {
+    font-size: 10px;
+  }
+  .rpc-cta {
     font-size: 11px;
-    padding: 4px 9px;
+    padding: 5px 10px;
   }
 }
 #toast{position:fixed;left:0;right:0;top:36%;text-align:center;font-size:30px;color:var(--gold);text-shadow:0 0 18px #f08a1c;opacity:0;transition:opacity .5s;pointer-events:none;padding:0 16px}
@@ -1388,19 +1433,23 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
 </div>
 <div id="camStatus"></div>
 
-<!-- Bottom Devotee Seva / Sponsor Bar -->
-<aside id="sevaBar" aria-label="Devotee Seva and Sponsorship">
-  <div class="seva-content">
-    <div class="seva-badge">VEDIC AI</div>
-    <div class="seva-text">
-      <span class="seva-highlight">Vedabase AI</span>
-      <span class="seva-desc"> — Explore Bhagavad Gita &amp; Vedic Wisdom with AI</span>
+<!-- YouTube Shorts / Reels Floating Product Ad Card -->
+<aside id="reelsProductCard" class="reels-ad-card" aria-label="Sponsored Product Ad">
+  <div class="rpc-body">
+    <div class="rpc-img-box" title="Product Image">
+      <span class="rpc-img-icon">🛍️</span>
+      <span class="rpc-ad-badge">Ad</span>
     </div>
-    <a href="https://vedas.asitpurohit.in" target="_blank" rel="noopener" class="seva-cta">
-      Explore ↗
+    <div class="rpc-info">
+      <span class="rpc-tag">Sponsored · Your Brand</span>
+      <div class="rpc-title">Your Product Name</div>
+      <div class="rpc-desc">Your product details or special offer</div>
+    </div>
+    <a href="#" class="rpc-cta" target="_blank" rel="noopener">
+      Shop now ↗
     </a>
   </div>
-  <button id="closeSevaBtn" class="seva-close" title="Dismiss" aria-label="Close Seva Bar">✕</button>
+  <button id="closeProductAdBtn" class="rpc-close" title="Dismiss ad" aria-label="Dismiss ad">✕</button>
 </aside>
 
 
@@ -1933,80 +1982,26 @@ if(calActionBtn){
 
 updateDamodarBadge();
 
-// ===== Devotee Seva / Sponsor Bar Rotation =====
-const SEVA_ITEMS = [
-  {
-    badge: 'VEDIC AI',
-    title: 'Vedabase AI',
-    desc: 'Explore Bhagavad Gita & Vedic Wisdom with AI',
-    url: 'https://vedas.asitpurohit.in',
-    cta: 'Explore ↗'
-  },
-  {
-    badge: 'SEVA',
-    title: 'Kartika Deep Daan',
-    desc: 'Offer daily ghee lamps to Lord Damodar & Mother Yashoda',
-    url: 'https://damodar.lol',
-    cta: 'Offer Lamp 🪔'
-  },
-  {
-    badge: 'PLATFORM',
-    title: 'MetaMotion Board',
-    desc: 'Collaborative real-time canvas & teaching whiteboard',
-    url: 'https://board.asitpurohit.in',
-    cta: 'Visit ↗'
-  }
-];
+// ===== YouTube Reels-Style Product Ad Handler =====
+function initProductAdCard(){
+  const card = $('reelsProductCard');
+  const closeBtn = $('closeProductAdBtn');
+  if(!card) return;
 
-function initSevaBar(){
-  const bar = $('sevaBar');
-  const closeBtn = $('closeSevaBtn');
-  if(!bar) return;
-
-  if(sessionStorage.getItem('damodar_seva_dismissed') === '1'){
-    bar.classList.add('hidden');
+  if(sessionStorage.getItem('damodar_product_ad_dismissed') === '1'){
+    card.classList.add('hidden');
     return;
   }
-
-  let idx = 0;
-  const badgeEl = bar.querySelector('.seva-badge');
-  const highlightEl = bar.querySelector('.seva-highlight');
-  const descEl = bar.querySelector('.seva-desc');
-  const ctaEl = bar.querySelector('.seva-cta');
-
-  function renderItem(i){
-    const item = SEVA_ITEMS[i];
-    if(!item) return;
-    if(badgeEl) badgeEl.textContent = item.badge;
-    if(highlightEl) highlightEl.textContent = item.title;
-    if(descEl) descEl.textContent = ' — ' + item.desc;
-    if(ctaEl){
-      ctaEl.href = item.url;
-      ctaEl.textContent = item.cta;
-      ctaEl.onclick = (e) => {
-        if(item.url === 'https://damodar.lol'){
-          e.preventDefault();
-          startAartiMode();
-        }
-      };
-    }
-  }
-
-  setInterval(() => {
-    if(!bar || bar.classList.contains('hidden')) return;
-    idx = (idx + 1) % SEVA_ITEMS.length;
-    renderItem(idx);
-  }, 9000);
 
   if(closeBtn){
     closeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      bar.classList.add('hidden');
-      sessionStorage.setItem('damodar_seva_dismissed', '1');
+      card.classList.add('hidden');
+      sessionStorage.setItem('damodar_product_ad_dismissed', '1');
     });
   }
 }
-initSevaBar();
+initProductAdCard();
 
 function updateLiveLyrics(){
   if(!bAudio) return;
@@ -2123,7 +2118,7 @@ function tryPlayBhajan(){
 }
 
 function handleFirstInteraction(e){
-  if(e.target && (e.target.closest("#lyricsModal") || e.target.closest("#dotsMenuBtn") || e.target.closest("#visitorBadge") || e.target.closest("#damodarDayBadge") || e.target.closest("#calendarModal") || e.target.closest("#sevaBar"))) return;
+  if(e.target && (e.target.closest("#lyricsModal") || e.target.closest("#dotsMenuBtn") || e.target.closest("#visitorBadge") || e.target.closest("#damodarDayBadge") || e.target.closest("#calendarModal") || e.target.closest("#reelsProductCard"))) return;
   mode = "aarti";
   if(typeof setGoals === "function") setGoals();
   tryPlayBhajan();
@@ -2149,7 +2144,7 @@ cv.addEventListener('pointerdown', (e) => {
 });
 
 cv.addEventListener('pointerup', (e) => {
-  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#camPip') || e.target.closest('#sevaBar')) return;
+  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#camPip') || e.target.closest('#reelsProductCard')) return;
 
   const distDrag = Math.hypot(e.clientX - ptDownX, e.clientY - ptDownY);
   const timeElapsed = Date.now() - ptDownTime;
