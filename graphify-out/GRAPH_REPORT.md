@@ -1,7 +1,7 @@
 # Graph Report - temple-darshan  (2026-10-27)
 
 ## Corpus Check
-- 10 files · ~1,036,203 words
+- 10 files · ~1,076,107 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `dfce35c7`
+- Built from commit: `ca976518`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
