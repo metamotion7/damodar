@@ -1,18 +1,12 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/lyrics/hindi", "destination": "/lyrics-hindi.html" },
-    { "source": "/hindi-lyrics", "destination": "/lyrics-hindi.html" },
-    { "source": "/lyrics/odia", "destination": "/lyrics-odia.html" },
-    { "source": "/odia-lyrics", "destination": "/lyrics-odia.html" },
-    { "source": "/lyrics/bengali", "destination": "/lyrics-bengali.html" },
-    { "source": "/bengali-lyrics", "destination": "/lyrics-bengali.html" },
-    { "source": "/lyrics/english", "destination": "/lyrics-english.html" },
-    { "source": "/english-lyrics", "destination": "/lyrics-english.html" },
-    { "source": "/katha", "destination": "/story.html" },
-    { "source": "/story", "destination": "/story.html" },
-    { "source": "/lyrics", "destination": "/lyrics.html" },
-    { "source": "/darshan", "destination": "/index.html?direct=1" }
+    { "source": "/hindi-lyrics", "destination": "/lyrics/hindi.html" },
+    { "source": "/odia-lyrics", "destination": "/lyrics/odia.html" },
+    { "source": "/bengali-lyrics", "destination": "/lyrics/bengali.html" },
+    { "source": "/english-lyrics", "destination": "/lyrics/english.html" },
+    { "source": "/katha", "destination": "/katha.html" },
+    { "source": "/darshan", "destination": "/darshan.html" }
   ],
   "headers": [
     {
@@ -29,7 +23,7 @@
       ]
     },
     {
-      "source": "/(index|story|katha|lyrics|darshan|lyrics-.*)?(\\.html)?",
+      "source": "/(index|story|katha|lyrics|darshan|lyrics/.*)?(\\.html)?",
       "headers": [
         {
           "key": "Cache-Control",
