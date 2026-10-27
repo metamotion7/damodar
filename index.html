@@ -3321,10 +3321,10 @@ if(rotHint){
     gl.vertexAttribPointer(A.a_r, 4, gl.FLOAT, false, 16, 0);
   }
 
-  /* ---------- Intro Audio: Music (Hare Krishna ~25s) & Voice Narration ---------- */
+  /* ---------- Intro Audio: Fast Music (~17s) & Dialogue Narration ---------- */
   let introBgm = null, voiceTimer = null, lastVoice = -1, audioArmed = false;
   let voicePlayedCount = 0;
-  const TOTAL_INTRO_SEC = 25.03;
+  const TOTAL_INTRO_SEC = 17.03;
   const AUDIO_EV = ['pointerdown', 'click', 'touchend', 'keydown'];
 
   try {
@@ -3343,7 +3343,12 @@ if(rotHint){
       if(introBgm) introBgm.volume = 0.35;
     });
     a.addEventListener('ended', () => {
-      if(introBgm) introBgm.volume = 0.65;
+      // Swell music volume for finale
+      if(introBgm) introBgm.volume = 0.85;
+      // Exactly 4 seconds after dialogue finishes, complete intro and open temple!
+      setTimeout(() => {
+        onIntroMusicComplete();
+      }, 4000);
     });
     return a;
   });
@@ -3375,10 +3380,10 @@ if(rotHint){
       const pb = introBgm.play();
       if(pb && pb.catch) pb.catch(() => armAudio());
     }
-    // Schedule one divine verse recitation to start at ~2.5s
+    // Start dialogue at 1.0s so it finishes cleanly at ~13s, followed by 4s music outro
     if(voicePlayedCount === 0){
       clearTimeout(voiceTimer);
-      voiceTimer = setTimeout(playRandomVoice, 2400);
+      voiceTimer = setTimeout(playRandomVoice, 1000);
     }
   }
 
