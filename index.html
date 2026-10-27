@@ -750,7 +750,7 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
 /* ===== Circular Ad (Right side, below lyrics, above model) ===== */
 #circleAd {
   position: fixed;
-  top: calc(155px + env(safe-area-inset-top, 0px));
+  top: calc(185px + env(safe-area-inset-top, 0px));
   right: 42px;
   z-index: 70;
   display: flex;
@@ -877,7 +877,7 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
 
 @media (max-width: 768px) {
   #circleAd {
-    top: calc(195px + env(safe-area-inset-top, 0px));
+    top: calc(230px + env(safe-area-inset-top, 0px));
     right: 22px;
   }
   .cad-circle {
@@ -2094,10 +2094,9 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
     <div id="liveTrans">To the Supreme Lord, whose form is eternal existence, knowledge, and bliss...</div>
   </div>
   <div style="text-align: center; margin-top: 6px;">
-    <button id="openStoryBtn" class="main-story-btn" title="Watch 26 Divine Scenes of Damodara Lila with 5 Language Narration">
+    <button id="openStoryBtn" class="main-story-btn" title="Watch 26 Divine Scenes of Damodara Lila Katha">
       <span class="msb-icon">🎬</span>
       <span>Damodara Katha</span>
-      <span class="msb-tag">5 Languages</span>
     </button>
   </div>
 </div>
@@ -2723,14 +2722,24 @@ function closeProductModal(){
   pm.classList.add('hidden');
 }
 
-// Dynamically position circular ad below live lyrics with smooth transition
+// Dynamically position circular ad comfortably below Damodara Katha button
 function updateCircleAdPosition(){
   const ad = $('circleAd');
+  if(!ad) return;
+  const storyBtn = $('openStoryBtn');
   const liveBox = $('liveLyrics');
-  if(!ad || !liveBox) return;
-  const rect = liveBox.getBoundingClientRect();
-  const gap = window.innerWidth <= 600 ? 12 : 14;
-  ad.style.top = Math.round(rect.bottom + gap) + 'px';
+  let bottomY = 0;
+  if(storyBtn){
+    const sRect = storyBtn.getBoundingClientRect();
+    if(sRect.bottom > 0) bottomY = sRect.bottom;
+  }
+  if(!bottomY && liveBox){
+    const lRect = liveBox.getBoundingClientRect();
+    if(lRect.bottom > 0) bottomY = lRect.bottom;
+  }
+  if(!bottomY) return;
+  const gap = window.innerWidth <= 600 ? 18 : 22;
+  ad.style.top = Math.round(bottomY + gap) + 'px';
 }
 
 function initCircleAd(){
@@ -2762,16 +2771,18 @@ function initCircleAd(){
     });
   }
 
-  // Initial positioning below live lyrics
+  // Initial positioning below Damodara Katha button
   updateCircleAdPosition();
 
-  // Watch for liveLyrics expanding or shrinking across verses & orientation changes
+  // Watch for top container or liveLyrics expanding/shrinking across verses & orientation changes
+  const topElem = $('top');
   const liveBox = $('liveLyrics');
-  if(liveBox && window.ResizeObserver){
+  if(window.ResizeObserver){
     const ro = new ResizeObserver(() => {
       updateCircleAdPosition();
     });
-    ro.observe(liveBox);
+    if(topElem) ro.observe(topElem);
+    else if(liveBox) ro.observe(liveBox);
   }
 
   window.addEventListener('resize', updateCircleAdPosition, { passive: true });
