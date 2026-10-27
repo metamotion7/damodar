@@ -1240,6 +1240,32 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   transition: all .3s ease;
   position: relative;
 }
+.top-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+  pointer-events: auto;
+}
+.live-expand-btn {
+  font-size: 11px;
+  color: #ffd58a;
+  background: rgba(246, 195, 101, 0.14);
+  border: 1px solid rgba(246, 195, 101, 0.35);
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  transition: all .2s ease;
+  white-space: nowrap;
+}
+#liveLyrics:hover .live-expand-btn {
+  background: rgba(246, 195, 101, 0.28);
+  border-color: #ffd58a;
+  color: #fff;
+}
 .live-top-row {
   display: flex;
   justify-content: space-between;
@@ -2106,17 +2132,20 @@ namo 'nanta-līlāya devāya tubhyam</div>
 </div>
 
 <div id="top">
-  <div id="ttl">Sri Damodar Aarti</div>
-  <div id="liveLyrics" title="Click verse card to view all 8 verses">
+  <div class="top-nav-row">
+    <div id="ttl">Sri Damodar Aarti</div>
+    <div class="lang-pills">
+      <button class="lang-pill" data-lang="en">EN</button>
+      <button class="lang-pill" data-lang="hi">हिन्दी</button>
+      <button class="lang-pill" data-lang="or">ଓଡ଼ିଆ</button>
+      <button class="lang-pill" data-lang="bn">বাংলা</button>
+      <button class="lang-pill" data-lang="ru" title="Русский">RU</button>
+    </div>
+  </div>
+  <div id="liveLyrics" title="Click anywhere to view all 8 verses">
     <div class="live-top-row">
       <div id="liveBadge">Sri Damodarashtakam</div>
-      <div class="lang-pills">
-  <button class="lang-pill" data-lang="en">EN</button>
-  <button class="lang-pill" data-lang="hi">हिन्दी</button>
-  <button class="lang-pill" data-lang="or">ଓଡ଼ିଆ</button>
-  <button class="lang-pill" data-lang="bn">বাংলা</button>
-  <button class="lang-pill" data-lang="ru" title="Русский">RU</button>
-</div>
+      <span class="live-expand-btn">View All 8 Verses ↗</span>
     </div>
     <div id="liveSanskrit">namāmīśvaraṁ sac-cid-ānanda-rūpaṁ
 lasat-kuṇḍalaṁ gokule bhrājamānam</div>
@@ -2997,8 +3026,6 @@ if(lBackdrop){
 
 if(liveLyricsElem){
   liveLyricsElem.addEventListener('click', (e) => {
-    // If clicked on any language button, language changes right there without opening modal
-    if(e.target.closest('.lang-pill') || e.target.closest('.lang-pills')) return;
     e.stopPropagation();
     openFullLyrics();
   });
