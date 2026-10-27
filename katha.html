@@ -518,6 +518,10 @@ function resolveInitialLang(){
   return 'en';
 }
 
+try {
+  sessionStorage.setItem('damodar_intro_done', '1');
+} catch(e){}
+
 let currentLang = resolveInitialLang();
 let currentCfg = LANG_CONFIG[currentLang];
 let TS = currentCfg.ts;
@@ -1371,8 +1375,14 @@ function updateCaption(tSec){
     }
   });
 
-  window.addEventListener('pagehide', stopAllAudio);
-  window.addEventListener('beforeunload', stopAllAudio);
+  window.addEventListener('pagehide', () => {
+    stopAllAudio();
+    try { sessionStorage.setItem('damodar_intro_done', '1'); } catch(e){}
+  });
+  window.addEventListener('beforeunload', () => {
+    stopAllAudio();
+    try { sessionStorage.setItem('damodar_intro_done', '1'); } catch(e){}
+  });
 
   /* Language Switcher Buttons */
   document.querySelectorAll('.story-lang-btn').forEach(btn => {

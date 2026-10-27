@@ -2094,6 +2094,14 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
 
 <!-- Fullscreen HD Dotfield Intro Video & Loader -->
 <div id="introVideoOverlay">
+<script>
+  try {
+    if(sessionStorage.getItem('damodar_intro_done') === '1' || sessionStorage.getItem('cameFromTemple') === '1'){
+      var _ov = document.getElementById('introVideoOverlay');
+      if(_ov) _ov.style.display = 'none';
+    }
+  } catch(e){}
+</script>
   <canvas id="dotVideoCv"></canvas>
   <canvas id="dotRingCv" aria-hidden="true"></canvas>
   
@@ -2340,15 +2348,27 @@ loadDeity().then(()=>{
   $('load').style.display='none';
   frame();
   window.deityLoaded = true;
+  try {
+    if(sessionStorage.getItem('damodar_intro_done') === '1' || sessionStorage.getItem('cameFromTemple') === '1'){
+      if(typeof window.enterTempleFromIntro === 'function'){
+        window.enterTempleFromIntro();
+      }
+    }
+  } catch(e){}
 }).catch(e=>{
   $('load').textContent='Could not load the model: '+e;
   window.deityLoaded = true;
 });
 
 // ===== Synchronized Live Lyrics & Multi-Lingual Full Lyrics Modal =====
-window.__introRunning = true;
+const isReturningDevotee = (function(){
+  try {
+    return sessionStorage.getItem('damodar_intro_done') === '1' || sessionStorage.getItem('cameFromTemple') === '1';
+  } catch(e){ return false; }
+})();
+window.__introRunning = !isReturningDevotee;
 const bAudio = $('bhajanAudio');
-if(bAudio){
+if(bAudio && !isReturningDevotee){
   bAudio.pause();
   bAudio.currentTime = 0;
 }
@@ -2997,17 +3017,18 @@ window.closeFullLyrics = closeFullLyrics;
 // 1. MOBILE-COMPATIBLE FIRST TOUCH & AUDIO UNLOCK
 let bhajanStarted = false;
 
-function tryPlayBhajan(){
-  if(bhajanStarted) return;
+function tryPlayBhajan(force){
+  if(!force && bhajanStarted && bAudio && !bAudio.paused) return;
   if(window.__directLyricsArrival) return;
-  if(window.__introRunning) return;
+  if(!force && window.__introRunning) return;
   const overlay = document.getElementById("introVideoOverlay");
-  if(overlay && overlay.style.display !== "none" && !overlay.classList.contains("fade-out")) return;
+  if(!force && overlay && overlay.style.display !== "none" && !overlay.classList.contains("fade-out")) return;
   if(typeof ac === "function"){
     const a = ac();
-    if(a && a.state === "suspended") a.resume();
+    if(a && a.state === "suspended") a.resume().catch(()=>{});
   }
   if(!bAudio) return;
+  if(bAudio.ended) bAudio.currentTime = 0;
   
   const playPromise = bAudio.play();
   if(playPromise !== undefined){
@@ -3018,19 +3039,25 @@ function tryPlayBhajan(){
       });
     }).catch(err => {
       console.warn("Audio unlock pending next user touch:", err);
+      bhajanStarted = false;
+      ["pointerdown", "touchstart", "touchend", "click", "keydown"].forEach(evt => {
+        window.removeEventListener(evt, handleFirstInteraction);
+        window.addEventListener(evt, handleFirstInteraction, { passive: true });
+      });
     });
   }
 }
+window.tryPlayBhajan = tryPlayBhajan;
 
 function handleFirstInteraction(e){
   if(window.__directLyricsArrival) return;
   if(window.__introRunning) return;
   const overlay = document.getElementById("introVideoOverlay");
   if(overlay && overlay.style.display !== "none" && !overlay.classList.contains("fade-out")) return;
-  if(e.target && (e.target.closest("#lyricsModal") || e.target.closest("#dotsMenuBtn") || e.target.closest("#visitorBadge") || e.target.closest("#damodarDayBadge") || e.target.closest("#calendarModal") || e.target.closest("#circleAd") || e.target.closest("#productModal") || e.target.closest("#introVideoOverlay"))) return;
+  if(e && e.target && (e.target.closest("#lyricsModal") || e.target.closest("#dotsMenuBtn") || e.target.closest("#visitorBadge") || e.target.closest("#damodarDayBadge") || e.target.closest("#calendarModal") || e.target.closest("#circleAd") || e.target.closest("#productModal") || e.target.closest("#introVideoOverlay"))) return;
   mode = "aarti";
   if(typeof setGoals === "function") setGoals();
-  tryPlayBhajan();
+  tryPlayBhajan(true);
 }
 
 ["pointerdown", "touchstart", "touchend", "click", "keydown"].forEach(evt => {
@@ -3041,10 +3068,51 @@ cv.addEventListener("pointermove", () => {
   if(window.__introRunning) return;
   const overlay = document.getElementById("introVideoOverlay");
   if(overlay && overlay.style.display !== "none" && !overlay.classList.contains("fade-out")) return;
-  if(!bhajanStarted && bAudio && bAudio.paused){
-    tryPlayBhajan();
+  if(bAudio && bAudio.paused){
+    tryPlayBhajan(true);
   }
 }, { passive: true });
+
+cv.addEventListener("pointerdown", () => {
+  if(window.__introRunning) return;
+  const overlay = document.getElementById("introVideoOverlay");
+  if(overlay && overlay.style.display !== "none" && !overlay.classList.contains("fade-out")) return;
+  if(bAudio && bAudio.paused){
+    tryPlayBhajan(true);
+  }
+}, { passive: true });
+
+function onTemplePageReturn(){
+  try {
+    const isDoneOrFromKatha = sessionStorage.getItem('damodar_intro_done') === '1' || sessionStorage.getItem('cameFromTemple') === '1';
+    if(isDoneOrFromKatha){
+      window.__introRunning = false;
+      const overlay = document.getElementById('introVideoOverlay');
+      if(overlay){
+        overlay.classList.add('fade-out');
+        overlay.style.display = 'none';
+      }
+      mode = 'aarti';
+      if(typeof setGoals === 'function') setGoals();
+      if(typeof updateRotateHint === 'function') updateRotateHint();
+      if(typeof stopAllIntroAudio === 'function') stopAllIntroAudio();
+
+      bhajanStarted = false;
+      if(typeof tryPlayBhajan === 'function') tryPlayBhajan(true);
+
+      ["pointerdown", "touchstart", "touchend", "click", "keydown"].forEach(evt => {
+        window.removeEventListener(evt, handleFirstInteraction);
+        window.addEventListener(evt, handleFirstInteraction, { passive: true });
+      });
+    }
+  } catch(err){}
+}
+
+window.addEventListener('pageshow', onTemplePageReturn);
+window.addEventListener('popstate', onTemplePageReturn);
+document.addEventListener('visibilitychange', () => {
+  if(!document.hidden) onTemplePageReturn();
+});
 
 // Single-click interaction handler
 let ptDownX = 0, ptDownY = 0, ptDownTime = 0;
@@ -3595,6 +3663,9 @@ if(rotHint){
 
   function playIntroAudio(){
     if(!introRunning || introEntered) return;
+    try {
+      if(sessionStorage.getItem('damodar_intro_done') === '1' || sessionStorage.getItem('cameFromTemple') === '1') return;
+    } catch(e){}
     if(introBgm && introBgm.paused){
       const pb = introBgm.play();
       if(pb && pb.catch) pb.catch(() => armAudio());
@@ -3960,20 +4031,16 @@ if(rotHint){
 
   /* ---------- Seamless Temple Transition ---------- */
   function enterTempleFromIntro(){
-    if(introEntered) return;
+    if(introEntered){
+      if(typeof tryPlayBhajan === 'function') tryPlayBhajan(true);
+      return;
+    }
     introEntered = true;
     window.__introRunning = false;
     try { sessionStorage.setItem('damodar_intro_done', '1'); } catch(e){}
 
     // Stop all intro audio (music & narration)
     stopAllIntroAudio();
-
-    // Start temple bhajan and darshan mode
-    bhajanStarted = false;
-    if(typeof tryPlayBhajan === 'function') tryPlayBhajan();
-    mode = 'aarti';
-    if(typeof setGoals === 'function') setGoals();
-    if(typeof updateRotateHint === 'function') updateRotateHint();
 
     const overlay = document.getElementById('introVideoOverlay');
     if(overlay){
@@ -3988,8 +4055,22 @@ if(rotHint){
         }
       }, 850);
     }
+
+    // Start temple bhajan and darshan mode
+    bhajanStarted = false;
+    mode = 'aarti';
+    if(typeof setGoals === 'function') setGoals();
+    if(typeof updateRotateHint === 'function') updateRotateHint();
+    if(typeof tryPlayBhajan === 'function') tryPlayBhajan(true);
   }
   window.enterTempleFromIntro = enterTempleFromIntro;
+
+  // Immediate check if devotee already completed intro and deity model is ready
+  try {
+    if((sessionStorage.getItem('damodar_intro_done') === '1' || sessionStorage.getItem('cameFromTemple') === '1') && window.deityLoaded){
+      enterTempleFromIntro();
+    }
+  } catch(e){}
 
   // Fallback: click anywhere after loading is ready opens immediately
   const overlay = document.getElementById('introVideoOverlay');
