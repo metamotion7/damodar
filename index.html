@@ -897,246 +897,266 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   }
 }
 
-/* ===== Product Ad & WhatsApp Order Modal ===== */
+/* ===== Product Ad Card Modal (E-Commerce Style with Temple Design System) ===== */
 #productModal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 92%;
-  max-width: 460px;
-  max-height: 85vh;
+  width: 90%;
+  max-width: 380px;
   background: rgba(18, 7, 3, 0.96);
   border: 1px solid rgba(246, 195, 101, 0.45);
   border-radius: 20px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.9), 0 0 28px rgba(246, 195, 101, 0.2);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.9), 0 0 28px rgba(246, 195, 101, 0.2);
   z-index: 100;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transition: opacity .3s ease, transform .3s ease;
   user-select: text;
+  padding: 14px;
 }
 #productModal.hidden {
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, -46%) scale(0.96);
 }
-.pm-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 16px 20px 12px;
-  border-bottom: 1px solid rgba(246, 195, 101, 0.22);
-  background: rgba(30, 12, 5, 0.55);
-}
-.pm-title-box {
+.pm-card {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  position: relative;
 }
-.pm-badge {
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .12em;
-  color: #2a1103;
-  background: linear-gradient(135deg, #f6c365, #f08a1c);
-  padding: 2px 7px;
-  border-radius: 4px;
-  width: fit-content;
-  text-transform: uppercase;
-}
-.pm-title {
-  font-size: 17px;
-  font-weight: bold;
-  color: #fff6e0;
-  line-height: 1.3;
-}
-.pm-close {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(246, 195, 101, 0.35);
-  color: var(--gold);
-  border-radius: 50%;
+.pm-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 12;
   width: 32px;
   height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(246, 195, 101, 0.45);
+  color: var(--gold);
+  font-size: 14px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  cursor: pointer;
+  transition: all .2s ease;
+  line-height: 1;
   padding: 0;
-  transition: all .2s;
-  flex-shrink: 0;
 }
-.pm-close:hover {
-  background: rgba(246, 195, 101, 0.2);
-  border-color: var(--gold);
-}
-.pm-body {
-  padding: 16px 20px;
-  overflow-y: auto;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.pm-image-area {
-  display: flex;
-  justify-content: center;
+.pm-close-btn:hover {
+  background: rgba(246, 195, 101, 0.25);
+  border-color: #ffd58a;
+  color: #ffffff;
+  transform: scale(1.08);
 }
 .pm-image-box {
   width: 100%;
-  max-width: 260px;
-  height: 120px;
+  height: 190px;
   border-radius: 14px;
-  background: radial-gradient(circle at 50% 40%, rgba(246, 195, 101, 0.16), rgba(28, 11, 4, 0.85));
-  border: 1px dashed rgba(246, 195, 101, 0.55);
+  background: radial-gradient(circle at 50% 35%, rgba(246, 195, 101, 0.15), rgba(22, 9, 4, 0.88));
+  border: 1px dashed rgba(246, 195, 101, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
-  padding: 8px 12px;
+  overflow: hidden;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.6);
 }
-.pm-placeholder-inner {
+.pm-heart-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(246, 195, 101, 0.35);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+  padding: 0;
+  line-height: 1;
+}
+.pm-heart-btn:hover {
+  transform: scale(1.12);
+  background: rgba(246, 195, 101, 0.2);
+  border-color: var(--gold);
+}
+.pm-heart-btn.active {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+}
+.pm-img-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  color: var(--gold);
   text-align: center;
 }
-.pm-placeholder-text {
-  font-size: 11px;
+.pm-img-svg {
+  filter: drop-shadow(0 2px 8px rgba(246, 195, 101, 0.3));
+}
+.pm-img-text {
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: .05em;
   color: #fbe9cc;
-  letter-spacing: .03em;
-  opacity: 0.92;
+  opacity: 0.9;
 }
-.pm-product-emoji {
-  font-size: 38px;
-  filter: drop-shadow(0 4px 12px rgba(246, 195, 101, 0.5));
-}
-.pm-save-tag {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: linear-gradient(135deg, #f6c365, #f08a1c);
-  color: #2a1103;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .08em;
-  padding: 2px 7px;
-  border-radius: 999px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-}
-.pm-details {
+.pm-content {
+  margin-top: 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
+  text-align: left;
 }
-.pm-price-row {
+.pm-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff8ee;
+  letter-spacing: .02em;
+  line-height: 1.3;
+}
+.pm-tagline {
+  font-size: 13px;
+  color: rgba(255, 235, 205, 0.72);
+  line-height: 1.35;
+}
+.pm-rating-row {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 8px;
+}
+.pm-stars {
+  display: inline-flex;
+  gap: 2px;
+  color: #f59e0b;
+  font-size: 15px;
+  line-height: 1;
+}
+.pm-star.filled {
+  color: #f59e0b;
+}
+.pm-star.half {
+  color: #f59e0b;
+  opacity: 0.85;
+}
+.pm-rating-score {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.pm-rating-divider {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 12px;
+}
+.pm-rating-count {
+  font-size: 12px;
+  color: rgba(255, 235, 205, 0.65);
+}
+.pm-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(246, 195, 101, 0.2);
   gap: 10px;
 }
-.pm-curr-price {
-  font-size: 24px;
-  font-weight: bold;
-  color: #f6c365;
-}
-.pm-orig-price {
-  font-size: 15px;
-  color: rgba(251, 233, 204, 0.5);
-  text-decoration: line-through;
-}
-.pm-discount-badge {
-  font-size: 11px;
-  color: #22c55e;
-  font-weight: bold;
-}
-.pm-shipping-note {
-  font-size: 12px;
-  color: #a7f3d0;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.pm-desc {
-  font-size: 13px;
-  line-height: 1.45;
-  color: #fbe9cc;
-  margin: 4px 0 0;
-}
-.pm-features {
-  margin: 4px 0 0;
-  padding: 0;
-  list-style: none;
+.pm-price-col {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 12px;
-  color: #e5d0b5;
+  gap: 3px;
 }
-.pm-footer {
-  padding: 14px 20px;
-  border-top: 1px solid rgba(246, 195, 101, 0.22);
-  background: rgba(22, 9, 4, 0.85);
+.pm-price-line {
   display: flex;
-  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+}
+.pm-curr-price {
+  font-size: 22px;
+  font-weight: 800;
+  color: #f6c365;
+  line-height: 1;
+}
+.pm-orig-price {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: line-through;
+  line-height: 1;
+}
+.pm-discount-pill {
+  display: inline-block;
+  background: rgba(34, 197, 94, 0.16);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  color: #4ade80;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  padding: 2px 7px;
+  border-radius: 6px;
+  width: fit-content;
 }
 .pm-wa-btn {
-  width: 100%;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 7px;
   background: linear-gradient(135deg, #25D366, #128C7E);
   color: #ffffff;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
-  padding: 12px 20px;
+  padding: 10px 18px;
   border-radius: 999px;
   text-decoration: none;
-  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
   border: 1px solid #4ade80;
   transition: all .2s ease;
+  flex-shrink: 0;
 }
 .pm-wa-btn:hover {
   filter: brightness(1.1);
   transform: translateY(-1px);
-  box-shadow: 0 6px 22px rgba(37, 211, 102, 0.5);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
 }
 .pm-wa-btn:active {
   transform: scale(0.98);
 }
+.pm-wa-icon {
+  flex-shrink: 0;
+}
 @media (max-width: 600px) {
   #productModal {
-    max-height: 88vh;
-  }
-  .pm-header {
-    padding: 12px 16px 10px;
-  }
-  .pm-title {
-    font-size: 15px;
-  }
-  .pm-body {
-    padding: 12px 16px;
-    gap: 10px;
+    max-width: 340px;
+    padding: 12px;
   }
   .pm-image-box {
-    height: 100px;
+    height: 160px;
   }
-  .pm-product-emoji {
-    font-size: 44px;
+  .pm-title {
+    font-size: 16px;
+  }
+  .pm-tagline {
+    font-size: 12px;
   }
   .pm-curr-price {
     font-size: 20px;
   }
   .pm-wa-btn {
-    font-size: 14px;
-    padding: 10px 16px;
+    font-size: 13px;
+    padding: 9px 14px;
   }
 }
 #toast {
@@ -1203,30 +1223,6 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   text-transform: uppercase;
   font-weight: bold;
   white-space: nowrap;
-}
-.live-full-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  font-weight: 700;
-  color: #ffe08a;
-  background: rgba(246, 195, 101, 0.18);
-  border: 1px solid rgba(246, 195, 101, 0.45);
-  padding: 2px 7px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: all .2s ease;
-  white-space: nowrap;
-  letter-spacing: .02em;
-  text-transform: none;
-  flex-shrink: 0;
-}
-.live-full-chip:hover {
-  background: rgba(246, 195, 101, 0.35);
-  border-color: var(--gold);
-  color: #ffffff;
-  box-shadow: 0 0 10px rgba(246, 195, 101, 0.4);
 }
 #liveLyrics {
   cursor: pointer;
@@ -1297,9 +1293,11 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:14px 20px;
+  padding:12px 18px;
   border-bottom:1px solid rgba(246, 195, 101, 0.25);
   background:rgba(35, 14, 5, 0.7);
+  gap:10px;
+  flex-wrap:wrap;
 }
 .lm-title{
   font-size:16px;
@@ -1307,6 +1305,39 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   letter-spacing:.12em;
   color:var(--gold);
   text-transform:uppercase;
+}
+.lm-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.lm-play-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:linear-gradient(135deg, rgba(246, 195, 101, 0.22), rgba(240, 138, 28, 0.22));
+  border:1px solid rgba(246, 195, 101, 0.5);
+  color:var(--gold);
+  border-radius:999px;
+  padding:5px 12px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .2s ease;
+  line-height:1;
+}
+.lm-play-btn:hover{
+  background:linear-gradient(135deg, rgba(246, 195, 101, 0.38), rgba(240, 138, 28, 0.38));
+  color:#ffffff;
+  border-color:#ffd58a;
+  box-shadow:0 0 12px rgba(246, 195, 101, 0.35);
+  transform:translateY(-1px);
+}
+.lm-play-btn.playing{
+  background:linear-gradient(135deg, rgba(240, 138, 28, 0.45), rgba(212, 175, 55, 0.45));
+  color:#fff9ea;
+  border-color:#ffd58a;
+  box-shadow:0 0 14px rgba(246, 195, 101, 0.5);
 }
 .lm-close{
   background:rgba(255, 255, 255, 0.08);
@@ -1328,6 +1359,44 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
 .lm-close:hover{
   background:rgba(246, 195, 101, 0.2);
   border-color:var(--gold);
+}
+.lm-bottom-bar{
+  padding:10px 18px;
+  border-top:1px solid rgba(246, 195, 101, 0.2);
+  background:rgba(25, 10, 4, 0.88);
+  display:flex;
+  justify-content:center;
+  flex-shrink:0;
+}
+.lm-bottom-play-btn{
+  width:100%;
+  max-width:320px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:linear-gradient(135deg, #f6c365, #f08a1c);
+  color:#1a0802;
+  font-size:13px;
+  font-weight:800;
+  padding:9px 18px;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 4px 16px rgba(240, 138, 28, 0.4);
+  transition:all .2s ease;
+}
+.lm-bottom-play-btn:hover{
+  filter:brightness(1.1);
+  transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(240, 138, 28, 0.6);
+}
+.lm-bottom-play-btn:active{
+  transform:scale(0.98);
+}
+.lm-bottom-play-btn.playing{
+  background:linear-gradient(135deg, #f08a1c, #d97706);
+  color:#ffffff;
 }
 .lm-body{
   padding:18px 24px;
@@ -1545,11 +1614,6 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .live-full-chip {
-    font-size: 9px;
-    padding: 2px 5px;
-    gap: 2px;
-  }
   #toast {
     font-size: 13px;
     padding: 6px 14px;
@@ -1760,7 +1824,13 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   <button class="lang-pill" data-lang="bn">বাংলা</button>
   <button class="lang-pill" data-lang="ru" title="Русский">RU</button>
 </div>
-    <button id="closeLyrics" class="lm-close" title="Close">✕</button>
+    <div class="lm-actions">
+      <button type="button" id="lmPlayBhajanBtn" class="lm-play-btn" title="Listen to Damodarashtakam">
+        <span class="lm-play-icon">▶</span>
+        <span class="lm-play-label">Listen</span>
+      </button>
+      <button id="closeLyrics" class="lm-close" title="Close">✕</button>
+    </div>
   </div>
   <div class="lm-body" id="lyricsBody">
     
@@ -1842,6 +1912,12 @@ namo 'nanta-līlāya devāya tubhyam</div>
       <p>3D Aarti &amp; Darshan by <a href="https://www.asitpurohit.in" target="_blank" rel="noopener">Asit Purohit</a> (<a href="https://metamotion.in" target="_blank" rel="noopener">MetaMotion</a>) · <a href="https://vedas.asitpurohit.in" target="_blank" rel="noopener">Vedabase AI</a></p>
     </div>
   </div>
+  <div class="lm-bottom-bar">
+    <button type="button" id="lmBottomPlayBtn" class="lm-bottom-play-btn" title="Play or pause Damodarashtakam">
+      <span class="lm-bottom-play-icon">▶</span>
+      <span class="lm-bottom-play-label">Play Damodarashtakam Bhajan</span>
+    </button>
+  </div>
 </div>
 
 <div id="calendarModal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="calTitle">
@@ -1872,57 +1948,61 @@ namo 'nanta-līlāya devāya tubhyam</div>
   </div>
 </div>
 
-<!-- Product Ad & WhatsApp Order Modal (Placeholder / Ad Space) -->
+<!-- Product Ad & WhatsApp Order Modal (Card Style with Temple Design System) -->
 <div id="productModal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
-  <div class="pm-header">
-    <div class="pm-title-box">
-      <span class="pm-badge">AD SPACE AVAILABLE</span>
-      <div id="pmTitle" class="pm-title">Your Product / Ad Here</div>
-    </div>
-    <button id="closeProductModal" class="pm-close" aria-label="Close Ad View">✕</button>
-  </div>
+  <div class="pm-card">
+    <button id="closeProductModal" class="pm-close-btn" aria-label="Close Product View" title="Close">✕</button>
 
-  <div class="pm-body">
-    <!-- Ad Space Visual Representation -->
-    <div class="pm-image-area">
-      <div class="pm-image-box">
-        <div class="pm-placeholder-inner">
-          <span class="pm-product-emoji">📢</span>
-          <span class="pm-placeholder-text">Your Product Photo &amp; Brand</span>
+    <!-- Product Image Box -->
+    <div class="pm-image-box">
+      <button type="button" id="pmHeartBtn" class="pm-heart-btn" aria-label="Add to Wishlist" title="Save to Wishlist">🤍</button>
+      <div class="pm-img-placeholder">
+        <svg class="pm-img-svg" viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="8" width="54" height="48" rx="8" stroke="rgba(246, 195, 101, 0.45)" fill="rgba(246, 195, 101, 0.06)"/>
+          <circle cx="22" cy="24" r="5" fill="rgba(246, 195, 101, 0.75)" stroke="none"/>
+          <path d="M11 48l16-16 11 11 8-8 12 13" stroke="rgba(246, 195, 101, 0.8)"/>
+        </svg>
+        <span class="pm-img-text">Your Product Image</span>
+      </div>
+    </div>
+
+    <!-- Product Content Details -->
+    <div class="pm-content">
+      <div id="pmTitle" class="pm-title">Your Product Name</div>
+      <div class="pm-tagline">Your product tag line</div>
+
+      <!-- Rating Row -->
+      <div class="pm-rating-row">
+        <div class="pm-stars" aria-label="4.7 out of 5 stars">
+          <span class="pm-star filled">★</span>
+          <span class="pm-star filled">★</span>
+          <span class="pm-star filled">★</span>
+          <span class="pm-star filled">★</span>
+          <span class="pm-star half">★</span>
         </div>
-        <span class="pm-save-tag">AD SPACE</span>
+        <span class="pm-rating-score">4.7</span>
+        <span class="pm-rating-divider">|</span>
+        <span class="pm-rating-count">(128)</span>
+      </div>
+
+      <!-- Price & CTA Row -->
+      <div class="pm-bottom-row">
+        <div class="pm-price-col">
+          <div class="pm-price-line">
+            <span class="pm-curr-price">₹1,299</span>
+            <span class="pm-orig-price">₹1,799</span>
+          </div>
+          <span class="pm-discount-pill">28% OFF</span>
+        </div>
+
+        <a id="waOrderBtn" href="https://wa.me/917978018261?text=Hare%20Krishna!%20I%20am%20interested%20in%20featuring%20or%20buying%20this%20product%20on%20Sri%20Damodar%20Temple%20Darshan." target="_blank" rel="noopener" class="pm-wa-btn" title="Contact on WhatsApp">
+          <svg class="pm-wa-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.888 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          <span>WhatsApp</span>
+        </a>
       </div>
     </div>
-
-    <!-- Product Details Placeholders -->
-    <div class="pm-details">
-      <div class="pm-price-row">
-        <span class="pm-curr-price">₹ Your Price</span>
-        <span class="pm-orig-price">₹ MRP</span>
-        <span class="pm-discount-badge">Your Offer / Deal</span>
-      </div>
-      <div class="pm-shipping-note">🎯 Reach 10,000+ Devotees visiting daily</div>
-
-      <p class="pm-desc">
-        Feature your devotional products, books, puja items, or brand directly in front of thousands of active devotees during 3D Aarti Darshan.
-      </p>
-
-      <ul class="pm-features">
-        <li>✨ Prominent placement on both mobile &amp; desktop</li>
-        <li>📲 Direct 1-tap WhatsApp lead or website button</li>
-        <li>🪔 High festive engagement during Kartik Maas</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- WhatsApp CTA Button -->
-  <div class="pm-footer">
-    <a id="waOrderBtn" href="https://wa.me/?text=Hare%20Krishna!%20I%20am%20interested%20in%20advertising%20my%20product%20on%20Sri%20Damodar%20Aarti%20(damodar.lol)." target="_blank" rel="noopener" class="pm-wa-btn">
-      <svg class="wa-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.888 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
-      <span>Contact / Place Ad on WhatsApp</span>
-    </a>
   </div>
 </div>
 
@@ -2094,12 +2174,9 @@ namo 'nanta-līlāya devāya tubhyam</div>
 
 <div id="top">
   <div id="ttl">Sri Damodar Aarti</div>
-  <div id="liveLyrics" title="Click to view full lyrics">
+  <div id="liveLyrics" title="Click verse card to view all 8 verses">
     <div class="live-top-row">
-      <div class="live-badge-group">
-        <div id="liveBadge">Sri Damodarashtakam</div>
-        <span class="live-full-chip" title="Click to view all 8 verses with meanings">📖 All 8 Verses ↗</span>
-      </div>
+      <div id="liveBadge">Sri Damodarashtakam</div>
       <div class="lang-pills">
   <button class="lang-pill" data-lang="en">EN</button>
   <button class="lang-pill" data-lang="hi">हिन्दी</button>
@@ -2395,8 +2472,52 @@ const FULL_VERSES = [{"v": 1, "num": {"en": "Verse 1", "hi": "श्लोक �
 const SYNC_LYRICS = [{"start": 0, "end": 13.5, "v": 1, "role": {"en": "Verse 1 · Lead", "hi": "श्लोक १ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୧ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ১ · মুখ্য স্বর", "ru": "Стих 1 · Запев"}, "sanskrit": {"en": "namāmīśvaraṁ sac-cid-ānanda-rūpaṁ\nlasat-kuṇḍalaṁ gokule bhrājamānam", "hi": "नमामीश्वरं सच्चिदानन्दरूपं\nलसत्कुण्डलं गोकुले भ्राजमानम्", "or": "ନମାମୀଶ୍ଵରଂ ସଚ୍ଚିଦାନନ୍ଦ ରୂପମ୍\nଲସତ୍ କୁଣ୍ଡଲଂ ଗୋକୁଲେ ଭ୍ରାଜମାନମ୍", "bn": "নমামীশ্বরং সচ্চিদানন্দরূপং\nলসত্কুণ্ডলং গোকুলে ভ্রাজমানম্", "ru": "намамишварам сач-чид-ананда-рупам\nласат-кундалам гокуле бхраджаманам"}, "trans": {"en": "To the Supreme Lord, whose form is eternal existence, knowledge, and bliss, with glistening earrings in Gokula...", "hi": "सच्चिदानन्द रूप परमेश्वर को प्रणाम, जिनके मकराकृत कुण्डल गोकुल में सुशोभित हैं...", "or": "ସଚ୍ଚିଦାନନ୍ଦ ସ୍ୱରୂପ ପରମେଶ୍ୱରଙ୍କୁ ପ୍ରଣାମ, ଯାହାଙ୍କ କୁଣ୍ଡଳ ଗୋକୁଳରେ ଝଲସୁଛି...", "bn": "সচ্চিদানন্দ রূপ পরমেশ্বরকে প্রণাম, যাঁর মকরাকৃত কুণ্ডল গোকুলে সুশোভিত...", "ru": "Я склоняюсь перед Господом, чья форма — вечность, знание и блаженство, с сияющими серьгами в Гокуле..."}}, {"start": 13.5, "end": 24.5, "v": 1, "role": {"en": "Verse 1 · Response", "hi": "श्लोक १ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୧ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ১ · সমবেত স্বর", "ru": "Стих 1 · Хор"}, "sanskrit": {"en": "namāmīśvaraṁ sac-cid-ānanda-rūpaṁ\nlasat-kuṇḍalaṁ gokule bhrājamānam", "hi": "नमामीश्वरं सच्चिदानन्दरूपं\nलसत्कुण्डलं गोकुले भ्राजमानम्", "or": "ନମାମୀଶ୍ଵରଂ ସଚ୍ଚିଦାନନ୍ଦ ରୂପମ୍\nଲସତ୍ କୁଣ୍ଡଲଂ ଗୋକୁଲେ ଭ୍ରାଜମାନମ୍", "bn": "নমামীশ্বরং সচ্চিদানন্দরূপং\nলসত্কুণ্ডলং গোকুলে ভ্রাজমানম্", "ru": "намамишварам сач-чид-ананда-рупам\nласат-кундалам гокуле бхраджаманам"}, "trans": {"en": "To the Supreme Lord, whose form is eternal existence, knowledge, and bliss, with glistening earrings in Gokula...", "hi": "सच्चिदानन्द रूप परमेश्वर को प्रणाम, जिनके मकराकृत कुण्डल गोकुल में सुशोभित हैं...", "or": "ସଚ୍ଚିଦାନନ୍ଦ ସ୍ୱରୂପ ପରମେଶ୍ୱରଙ୍କୁ ପ୍ରଣାମ, ଯାହାଙ୍କ କୁଣ୍ଡଳ ଗୋକୁଳରେ ଝଲସୁଛି...", "bn": "সচ্চিদানন্দ রূপ পরমেশ্বরকে প্রণাম, যাঁর মকরাকৃত কুণ্ডল গোকুলে সুশোভিত...", "ru": "Я склоняюсь перед Господом, чья форма — вечность, знание и блаженство, с сияющими серьгами в Гокуле..."}}, {"start": 24.5, "end": 36, "v": 1, "role": {"en": "Verse 1 · Lead", "hi": "श्लोक १ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୧ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ১ · মুখ্য স্বর", "ru": "Стих 1 · Запев"}, "sanskrit": {"en": "yaśodā-bhiyolūkhalād dhāvamānaṁ\nparāmṛṣṭam atyantato drutya gopyā", "hi": "यशोदाभियोलूखलाद्धावमानं\nपरामृष्टमत्यन्ततो द्रुत्य गोप्या", "or": "ୟଶୋଦା ଭିୟୋଲୁଖଲାଦ୍ ଧାବମାନଂ\nପରାମୃଷ୍ଟମ୍ ଅତ୍ୟନ୍ତତୋ ଦୃତ୍ୟ ଗୋପ୍ୟା", "bn": "যশোদাভিয়োলূখলাদ্ধাবমানং\nপরামৃষ্টমত্যন্ততো দ্রুত্য গোপ্যা", "ru": "яшода-бхийолукхалад дхаваманам\nпарамриштам атянтато друтя гопя"}, "trans": {"en": "Who in fear of Mother Yashoda quickly flees from the mortar, and is caught from behind by her swift pursuit...", "hi": "जो माता यशोदा के डर से ओखल से कूदकर भागे, और यशोदा जी ने तीव्र दौड़कर जिन्हें पकड़ा...", "or": "ଯିଏ ମାତା ଯଶୋଦାଙ୍କ ଭୟରେ ଓଖଳରୁ ଦୌଡ଼ି ପଳାଉଥିଲେ ଏବଂ ଯଶୋଦା ମାତା ଧରିନେଲେ...", "bn": "যশোদা মাতার ভয়ে ওখল থেকে নেমে দ্রুত ধাবমান এবং জননী কর্তৃক পশ্চাৎ হতে ধৃত...", "ru": "В страхе перед матушкой Яшодой Он бежит от ступы, но она догоняет Его в быстром беге..."}}, {"start": 36, "end": 47, "v": 1, "role": {"en": "Verse 1 · Response", "hi": "श्लोक १ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୧ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ১ · সমবেত স্বর", "ru": "Стих 1 · Хор"}, "sanskrit": {"en": "yaśodā-bhiyolūkhalād dhāvamānaṁ\nparāmṛṣṭam atyantato drutya gopyā", "hi": "यशोदाभियोलूखलाद्धावमानं\nपरामृष्टमत्यन्ततो द्रुत्य गोप्या", "or": "ୟଶୋଦା ଭିୟୋଲୁଖଲାଦ୍ ଧାବମାନଂ\nପରାମୃଷ୍ଟମ୍ ଅତ୍ୟନ୍ତତୋ ଦୃତ୍ୟ ଗୋପ୍ୟା", "bn": "যশোদাভিয়োলূখলাদ্ধাবমানং\nপরামৃষ্টমত্যন্ততো দ্রুত্য গোপ্যা", "ru": "яшода-бхийолукхалад дхаваманам\nпарамриштам атянтато друтя гопя"}, "trans": {"en": "Who in fear of Mother Yashoda quickly flees from the mortar, and is caught from behind by her swift pursuit...", "hi": "जो माता यशोदा के डर से ओखल से कूदकर भागे, और यशोदा जी ने तीव्र दौड़कर जिन्हें पकड़ा...", "or": "ଯିଏ ମାତା ଯଶୋଦାଙ୍କ ଭୟରେ ଓଖଳରୁ ଦୌଡ଼ି ପଳାଉଥିଲେ ଏବଂ ଯଶୋଦା ମାତା ଧରିନେଲେ...", "bn": "যশোদা মাতার ভয়ে ওখল থেকে নেমে দ্রুত ধাবমান এবং জননী কর্তৃক পশ্চাৎ হতে ধৃত...", "ru": "В страхе перед матушкой Яшодой Он бежит от ступы, но она догоняет Его в быстром беге..."}}, {"start": 47, "end": 58.5, "v": 2, "role": {"en": "Verse 2 · Lead", "hi": "श्लोक २ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୨ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ২ · মুখ্য স্বর", "ru": "Стих 2 · Запев"}, "sanskrit": {"en": "rudantaṁ muhur netra-yugmaṁ mṛjantam\nkarāmbhoja-yugmena sātaṅka-netram", "hi": "रुदन्तं मुहुर्नेत्रयुग्मं मृजन्तम्\nकराम्भोजयुग्मेन सातङ्कनेत्रम्", "or": "ରୁଦନ୍ତଂ ମୁହୁର୍ ନେତ୍ର ୟୁଗ୍ମଂ ମୃଜନ୍ତମ୍\nକରାମ୍ଭୋଜ ୟୁଗ୍ମେନ ସାତଙ୍କ ନେତ୍ରମ୍", "bn": "রুদন্তং মুহুর্নেত্রযুগ্মং মৃজন্তং\nকরাম্ভোজযুগ্মেন সাতঙ্কনেত্রম্", "ru": "рудантам мухур нетра-югмам мриджантам\nкарамбходжа-югмена сатанка-нетрам"}, "trans": {"en": "Seeing the whipping stick, He cries and rubs His eyes repeatedly with His lotus hands, full of fear...", "hi": "माता के हाथ में छड़ी देख जो रोते हुए कमल-हाथों से अपनी भयभीत आँखें मल रहे हैं...", "or": "ବାଡ଼ି ଦେଖି ଭୟରେ କାନ୍ଦି କାନ୍ଦି ଯିଏ ଦୁଇ ପଦ୍ମ ହାତରେ ଆଖି ମଳୁଛନ୍ତି...", "bn": "মায়ের হাতের লাঠি দেখে সজল চোখে পদ্মহস্তে চোখ মুছছেন, যাঁর নয়ন ভয়ার্ত...", "ru": "Увидев хворостину, Он плачет и трет глаза лотосными ручками, полный страха..."}}, {"start": 58.5, "end": 70, "v": 2, "role": {"en": "Verse 2 · Response", "hi": "श्लोक २ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୨ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ২ · সমবেত স্বর", "ru": "Стих 2 · Хор"}, "sanskrit": {"en": "rudantaṁ muhur netra-yugmaṁ mṛjantam\nkarāmbhoja-yugmena sātaṅka-netram", "hi": "रुदन्तं मुहुर्नेत्रयुग्मं मृजन्तम्\nकराम्भोजयुग्मेन सातङ्कनेत्रम्", "or": "ରୁଦନ୍ତଂ ମୁହୁର୍ ନେତ୍ର ୟୁଗ୍ମଂ ମୃଜନ୍ତମ୍\nକରାମ୍ଭୋଜ ୟୁଗ୍ମେନ ସାତଙ୍କ ନେତ୍ରମ୍", "bn": "রুদন্তং মুহুর্নেত্রযুগ্মং মৃজন্তং\nকরাম্ভোজযুগ্মেন সাতঙ্কনেত্রম্", "ru": "рудантам мухур нетра-югмам мриджантам\nкарамбходжа-югмена сатанка-нетрам"}, "trans": {"en": "Seeing the whipping stick, He cries and rubs His eyes repeatedly with His lotus hands, full of fear...", "hi": "माता के हाथ में छड़ी देख जो रोते हुए कमल-हाथों से अपनी भयभीत आँखें मल रहे हैं...", "or": "ବାଡ଼ି ଦେଖି ଭୟରେ କାନ୍ଦି କାନ୍ଦି ଯିଏ ଦୁଇ ପଦ୍ମ ହାତରେ ଆଖି ମଳୁଛନ୍ତି...", "bn": "মায়ের হাতের লাঠি দেখে সজল চোখে পদ্মহস্তে চোখ মুছছেন, যাঁর নয়ন ভয়ার্ত...", "ru": "Увидев хворостину, Он плачет и трет глаза лотосными ручками, полный страха..."}}, {"start": 70, "end": 81.5, "v": 2, "role": {"en": "Verse 2 · Lead", "hi": "श्लोक २ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୨ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ২ · মুখ্য স্বর", "ru": "Стих 2 · Запев"}, "sanskrit": {"en": "muhuḥ śvāsa-kampa-tri-rekhāṅka-kaṇṭha-\nsthita-graiva-dāmodaraṁ bhakti-baddham", "hi": "मुहुः श्वासकम्पत्रिरेखाङ्ककण्ठ-\nस्थितग्रैवं दामोदरं भक्तिबद्धम्", "or": "ମୁହୁଃ ଶ୍ଵାସ କମ୍ପ ତ୍ରିରେଖାଙ୍କ କଣ୍ଠ-\nସ୍ଥିତ ଗ୍ରୈବଂ ଦାମୋଦରଂ ଭକ୍ତି ବଦ୍ଧମ୍", "bn": "মুহুঃ শ্বাসকম্পত্রিরেখাঙ্ককণ্ঠ-\nস্থিতগ্রৈব-দামোদরং ভক্তিবদ্ধম্", "ru": "мухух шваса-кампа-трирекханка-кантха-\nстхита-граивам дамодарам бхакти-баддхам"}, "trans": {"en": "Sobbing repeatedly, the pearl necklace on His neck trembles. Bound only by love—to Him I bow down.", "hi": "सिसकियों से कंठ का हार काँप रहा है। केवल शुद्ध प्रेम-भक्ति से बँधे उन दामोदर को मेरा नमन।", "or": "ଶ୍ୱାସରେ କଣ୍ଠର ହାର କମ୍ପିତ ହେଉଛି। କେବଳ ପ୍ରେମଭକ୍ତିରେ ବନ୍ଧା ସେହି ଦାମୋଦରଙ୍କୁ ପ୍ରଣାମ।", "bn": "ঘন ঘন দীর্ঘশ্বাসে যাঁর কণ্ঠের মুক্তার হার কাঁপছে, প্রেমে আবদ্ধ সেই দামোদরকে বন্দনা করি...", "ru": "От всхлипов дрожит жемчужное ожерелье на шее. Связанному лишь любовью — Ему я поклоняюсь."}}, {"start": 81.5, "end": 93, "v": 2, "role": {"en": "Verse 2 · Response", "hi": "श्लोक २ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୨ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ২ · সমবেত স্বর", "ru": "Стих 2 · Хор"}, "sanskrit": {"en": "muhuḥ śvāsa-kampa-tri-rekhāṅka-kaṇṭha-\nsthita-graiva-dāmodaraṁ bhakti-baddham", "hi": "मुहुः श्वासकम्पत्रिरेखाङ्ककण्ठ-\nस्थितग्रैवं दामोदरं भक्तिबद्धम्", "or": "ମୁହୁଃ ଶ୍ଵାସ କମ୍ପ ତ୍ରିରେଖାଙ୍କ କଣ୍ଠ-\nସ୍ଥିତ ଗ୍ରୈବଂ ଦାମୋଦରଂ ଭକ୍ତି ବଦ୍ଧମ୍", "bn": "মুহুঃ শ্বাসকম্পত্রিরেখাঙ্ককণ্ঠ-\nস্থিতগ্রৈব-দামোদরং ভক্তিবদ্ধম্", "ru": "мухух шваса-кампа-трирекханка-кантха-\nстхита-граивам дамодарам бхакти-баддхам"}, "trans": {"en": "Sobbing repeatedly, the pearl necklace on His neck trembles. Bound only by love—to Him I bow down.", "hi": "सिसकियों से कंठ का हार काँप रहा है। केवल शुद्ध प्रेम-भक्ति से बँधे उन दामोदर को मेरा नमन।", "or": "ଶ୍ୱାସରେ କଣ୍ଠର ହାର କମ୍ପିତ ହେଉଛି। କେବଳ ପ୍ରେମଭକ୍ତିରେ ବନ୍ଧା ସେହି ଦାମୋଦରଙ୍କୁ ପ୍ରଣାମ।", "bn": "ঘন ঘন দীর্ঘশ্বাসে যাঁর কণ্ঠের মুক্তার হার কাঁপছে, প্রেমে আবদ্ধ সেই দামোদরকে বন্দনা করি...", "ru": "От всхлипов дрожит жемчужное ожерелье на шее. Связанному лишь любовью — Ему я поклоняюсь."}}, {"start": 93, "end": 104.5, "v": 3, "role": {"en": "Verse 3 · Lead", "hi": "श्लोक ३ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୩ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৩ · মুখ্য স্বর", "ru": "Стих 3 · Запев"}, "sanskrit": {"en": "itīdṛk sva-līlābhir ānanda-kuṇḍe\nsva-ghoṣaṁ nimajjantam ākhyāpayantam", "hi": "इतीदृक् स्वलीलाभिरानन्दकुण्डे\nस्वघोषं निमज्जन्तमाख्यापयन्तम्", "or": "ଇତିଦୃକ୍ ସ୍ଵଲୀଲାଭିର୍ ଆନନ୍ଦ କୁଣ୍ଡେ\nସ୍ଵଘୋଷମ୍ ନିମଜ୍ଜନ୍ତମ୍ ଆଖ୍ୟାପୟନ୍ତମ୍", "bn": "ইতীদৃক্ স্বলীলাভিরানন্দকুণ্ডে\nস্বঘোষং নিমজ্জন্তমাখ্যাপয়ন্তম্", "ru": "итидрик сва-лилабхир ананда-кунде\nсва-гхошам нимадджантам акхьяпаянтам"}, "trans": {"en": "By such childhood pastimes He drowns the inhabitants of Gokula in pools of ecstatic bliss...", "hi": "ऐसी बाल-लीलाओं से जो समस्त गोकुलवासियों को परमानन्द के कुण्ड में डुबो देते हैं...", "or": "ଏହିପରି ମଧୁର ଶୈଶବ ଲୀଳାରେ ଯିଏ ସମସ୍ତ ଗୋକୁଳବାସୀଙ୍କୁ ଆନନ୍ଦ ସାଗରରେ ବୁଡ଼ାଇ ରଖନ୍ତି...", "bn": "যিনি মধুর বাল্যলীলায় গোকুলবাসীকে পরমানন্দ-সাগরে নিমজ্জিত করছেন...", "ru": "Такими детскими играми Он погружает жителей Гокулы в океан высшего блаженства..."}}, {"start": 104.5, "end": 116, "v": 3, "role": {"en": "Verse 3 · Response", "hi": "श्लोक ३ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୩ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৩ · সমবেত স্বর", "ru": "Стих 3 · Хор"}, "sanskrit": {"en": "itīdṛk sva-līlābhir ānanda-kuṇḍe\nsva-ghoṣaṁ nimajjantam ākhyāpayantam", "hi": "इतीदृक् स्वलीलाभिरानन्दकुण्डे\nस्वघोषं निमज्जन्तमाख्यापयन्तम्", "or": "ଇତିଦୃକ୍ ସ୍ଵଲୀଲାଭିର୍ ଆନନ୍ଦ କୁଣ୍ଡେ\nସ୍ଵଘୋଷମ୍ ନିମଜ୍ଜନ୍ତମ୍ ଆଖ୍ୟାପୟନ୍ତମ୍", "bn": "ইতীদৃক্ স্বলীলাভিরানন্দকুণ্ডে\nস্বঘোষং নিমজ্জন্তমাখ্যাপয়ন্তম্", "ru": "итидрик сва-лилабхир ананда-кунде\nсва-гхошам нимадджантам акхьяпаянтам"}, "trans": {"en": "By such childhood pastimes He drowns the inhabitants of Gokula in pools of ecstatic bliss...", "hi": "ऐसी बाल-लीलाओं से जो समस्त गोकुलवासियों को परमानन्द के कुण्ड में डुबो देते हैं...", "or": "ଏହିପରି ମଧୁର ଶୈଶବ ଲୀଳାରେ ଯିଏ ସମସ୍ତ ଗୋକୁଳବାସୀଙ୍କୁ ଆନନ୍ଦ ସାଗରରେ ବୁଡ଼ାଇ ରଖନ୍ତି...", "bn": "যিনি মধুর বাল্যলীলায় গোকুলবাসীকে পরমানন্দ-সাগরে নিমজ্জিত করছেন...", "ru": "Такими детскими играми Он погружает жителей Гокулы в океан высшего блаженства..."}}, {"start": 116, "end": 127.5, "v": 3, "role": {"en": "Verse 3 · Lead", "hi": "श्लोक ३ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୩ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৩ · মুখ্য স্বর", "ru": "Стих 3 · Запев"}, "sanskrit": {"en": "tadīyeśita-jñeṣu bhaktair jitatvaṁ\npunaḥ prematas taṁ śatāvṛtti vande", "hi": "तदीयेशितज्ञेषु भक्तैर्जितत्वं\nपुनः प्रेमतस्तं शतावृत्ति वन्दे", "or": "ତଦୀୟେଷିତ ଜ୍ଞେଷୁ ଭକ୍ତୈର୍ ଜିତତ୍ବଂ\nପୁନଃ ପ୍ରେମତସ୍‌ ତଂ ଶତାବୃତ୍ତି ବନ୍ଦେ", "bn": "তদীয়েষিতাজ্ঞেষু ভক্তৈর্জিতত্বং\nপুনঃ প্রেমতস্তং শতাবৃত্তি বন্দে", "ru": "тадийешита-джнешу бхактаир джитатвам\nпунах прематас там шатавритти ванде"}, "trans": {"en": "He reveals that He is conquered only by pure love. With deep love, I offer obeisances hundreds of times.", "hi": "जो प्रकट करते हैं कि वे केवल अनन्य प्रेमियों से जीते जाते हैं—उन्हें शत-शत बार प्रणाम।", "or": "ଯିଏ ଜଣାନ୍ତି ଯେ ପ୍ରଭୁ କେବଳ ପ୍ରେମଭକ୍ତି ଦ୍ୱାରା ହିଁ ବଶ ହୁଅନ୍ତି—ତାଙ୍କୁ ଶତ ପ୍ରଣାମ।", "bn": "প্রকাশ করেন যে তিনি কেবল ভক্তের প্রেমেই বশীভূত হন—তাঁকে সপ্রেমে শত শত প্রণাম...", "ru": "Он являет истину: «Любовь преданных побеждает Меня». С глубокой любовью склоняюсь сотни раз."}}, {"start": 127.5, "end": 139.5, "v": 3, "role": {"en": "Verse 3 · Response", "hi": "श्लोक ३ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୩ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৩ · সমবেত স্বর", "ru": "Стих 3 · Хор"}, "sanskrit": {"en": "tadīyeśita-jñeṣu bhaktair jitatvaṁ\npunaḥ prematas taṁ śatāvṛtti vande", "hi": "तदीयेशितज्ञेषु भक्तैर्जितत्वं\nपुनः प्रेमतस्तं शतावृत्ति वन्दे", "or": "ତଦୀୟେଷିତ ଜ୍ଞେଷୁ ଭକ୍ତୈର୍ ଜିତତ୍ବଂ\nପୁନଃ ପ୍ରେମତସ୍‌ ତଂ ଶତାବୃତ୍ତି ବନ୍ଦେ", "bn": "তদীয়েষিতাজ্ঞেষু ভক্তৈর্জিতত্বং\nপুনঃ প্রেমতস্তং শতাবৃত্তি বন্দে", "ru": "тадийешита-джнешу бхактаир джитатвам\nпунах прематас там шатавритти ванде"}, "trans": {"en": "He reveals that He is conquered only by pure love. With deep love, I offer obeisances hundreds of times.", "hi": "जो प्रकट करते हैं कि वे केवल अनन्य प्रेमियों से जीते जाते हैं—उन्हें शत-शत बार प्रणाम।", "or": "ଯିଏ ଜଣାନ୍ତି ଯେ ପ୍ରଭୁ କେବଳ ପ୍ରେମଭକ୍ତି ଦ୍ୱାରା ହିଁ ବଶ ହୁଅନ୍ତି—ତାଙ୍କୁ ଶତ ପ୍ରଣାମ।", "bn": "প্রকাশ করেন যে তিনি কেবল ভক্তের প্রেমেই বশীভূত হন—তাঁকে সপ্রেমে শত শত প্রণাম...", "ru": "Он являет истину: «Любовь преданных побеждает Меня». С глубокой любовью склоняюсь сотни раз."}}, {"start": 139.5, "end": 151, "v": 4, "role": {"en": "Verse 4 · Lead", "hi": "श्लोक ४ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୪ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৪ · মুখ্য স্বর", "ru": "Стих 4 · Запев"}, "sanskrit": {"en": "varaṁ deva mokṣaṁ na mokṣāvadhiṁ vā\nna cānyaṁ vṛṇe 'haṁ vareṣād apīha", "hi": "वरं देव मोक्षं न मोक्षावधिं वा\nन चान्यं वृणेऽहं वरेशादपीह", "or": "ବରଂ ଦେବ ମୋକ୍ଷଂ ନ ମୋକ୍ଷାବଧିଂ ବା\nନ ଚାନ୍ୟମ୍ ବୃଣେ ‘ହଂ ବରେଷାଦ୍ ଅପିହ", "bn": "বরং দেব মোক্ষং ন মোক্ষাবধিং বা\nন চান্যং বৃণেঽহং বরেশাদপীহ", "ru": "варам дева мокшам на мокшавадхим ва\nна чаньям врине ’хам варешад апиха"}, "trans": {"en": "O Lord, I do not pray for impersonal liberation, nor life in Vaikuntha, nor any other boon...", "hi": "हे देव! मैं न मोक्ष चाहता हूँ, न वैकुण्ठ वास, और न ही कोई अन्य वरदान...", "or": "ହେ ପ୍ରଭୁ! ମୁଁ ମୋକ୍ଷ ଚାହେଁ ନାହିଁ କି ବୈକୁଣ୍ଠ ବାସ, କୌଣସି ଅନ୍ୟ ବର ମଧ୍ୟ ନୁହେଁ...", "bn": "হে দেব! আমি মোক্ষ বা বৈকুণ্ঠধাম কিংবা অন্য কোনো জাগতিক বর চাই না...", "ru": "О Господь, я не молю ни об освобождении, ни о жизни на Вайкунтхе, ни о каких дарах..."}}, {"start": 151, "end": 162.5, "v": 4, "role": {"en": "Verse 4 · Response", "hi": "श्लोक ४ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୪ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৪ · সমবেত স্বর", "ru": "Стих 4 · Хор"}, "sanskrit": {"en": "varaṁ deva mokṣaṁ na mokṣāvadhiṁ vā\nna cānyaṁ vṛṇe 'haṁ vareṣād apīha", "hi": "वरं देव मोक्षं न मोक्षावधिं वा\nन चान्यं वृणेऽहं वरेशादपीह", "or": "ବରଂ ଦେବ ମୋକ୍ଷଂ ନ ମୋକ୍ଷାବଧିଂ ବା\nନ ଚାନ୍ୟମ୍ ବୃଣେ ‘ହଂ ବରେଷାଦ୍ ଅପିହ", "bn": "বরং দেব মোক্ষং ন মোক্ষাবধিং বা\nন চান্যং বৃণেঽহং বরেশাদপীহ", "ru": "варам дева мокшам на мокшавадхим ва\nна чаньям врине ’хам варешад апиха"}, "trans": {"en": "O Lord, I do not pray for impersonal liberation, nor life in Vaikuntha, nor any other boon...", "hi": "हे देव! मैं न मोक्ष चाहता हूँ, न वैकुण्ठ वास, और न ही कोई अन्य वरदान...", "or": "ହେ ପ୍ରଭୁ! ମୁଁ ମୋକ୍ଷ ଚାହେଁ ନାହିଁ କି ବୈକୁଣ୍ଠ ବାସ, କୌଣସି ଅନ୍ୟ ବର ମଧ୍ୟ ନୁହେଁ...", "bn": "হে দেব! আমি মোক্ষ বা বৈকুণ্ঠধাম কিংবা অন্য কোনো জাগতিক বর চাই না...", "ru": "О Господь, я не молю ни об освобождении, ни о жизни на Вайкунтхе, ни о каких дарах..."}}, {"start": 162.5, "end": 174, "v": 4, "role": {"en": "Verse 4 · Lead", "hi": "श्लोक ४ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୪ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৪ · মুখ্য স্বর", "ru": "Стих 4 · Запев"}, "sanskrit": {"en": "idaṁ te vapur nātha gopāla-bālaṁ\nsadā me manasy āvirāstāṁ kim anyaiḥ", "hi": "इदं ते वपुर्नाथ गोपालबालं\nसदा मे मनस्याविरास्तां किमन्यैः", "or": "ଇଦଂ ତେ ବପୁର୍ ନାଥ ଗୋପାଲ ବାଲଂ\nସଦା ମେ ମନସ୍ୟାବିରାସ୍ତାଂ କିମ୍ ଅନୈଃ", "bn": "ইদং তে বপুর্নাথ গোপালবালং\nসদা মে মনস্যাবিরাস্তাং কিমন্যৈঃ", "ru": "идам те вапур натха гопала-балам\nсада ме манась авирастхам ким аньяих"}, "trans": {"en": "My only prayer is that this sweet cowherd boy form of Yours may ever be manifest in my heart.", "hi": "मेरी केवल यही कामना है कि आपका यह बाल-गोपाल रूप सदा मेरे मन में प्रकाशित रहे।", "or": "କେବଳ ଏତିକି କାମନା ଯେ ଆପଣଙ୍କ ଏହି ବାଳ-ଗୋପାଳ ରୂପ ସଦା ମୋ ମନରେ ବିରାଜମାନ କରୁ।", "bn": "কেবল প্রার্থনা—তোমার এই গোপালবালক রূপটি যেন সর্বদা আমার হৃদয়ে বিরাজ করে...", "ru": "Молю лишь об одном: пусть Твой образ маленького пастушка Гопала вечно сияет в моем сердце!"}}, {"start": 174, "end": 185.5, "v": 4, "role": {"en": "Verse 4 · Response", "hi": "श्लोक ४ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୪ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৪ · সমবেত স্বর", "ru": "Стих 4 · Хор"}, "sanskrit": {"en": "idaṁ te vapur nātha gopāla-bālaṁ\nsadā me manasy āvirāstāṁ kim anyaiḥ", "hi": "इदं ते वपुर्नाथ गोपालबालं\nसदा मे मनस्याविरास्तां किमन्यैः", "or": "ଇଦଂ ତେ ବପୁର୍ ନାଥ ଗୋପାଲ ବାଲଂ\nସଦା ମେ ମନସ୍ୟାବିରାସ୍ତାଂ କିମ୍ ଅନୈଃ", "bn": "ইদং তে বপুর্নাথ গোপালবালং\nসদা মে মনস্যাবিরাস্তাং কিমন্যৈঃ", "ru": "идам те вапур натха гопала-балам\nсада ме манась авирастхам ким аньяих"}, "trans": {"en": "My only prayer is that this sweet cowherd boy form of Yours may ever be manifest in my heart.", "hi": "मेरी केवल यही कामना है कि आपका यह बाल-गोपाल रूप सदा मेरे मन में प्रकाशित रहे।", "or": "କେବଳ ଏତିକି କାମନା ଯେ ଆପଣଙ୍କ ଏହି ବାଳ-ଗୋପାଳ ରୂପ ସଦା ମୋ ମନରେ ବିରାଜମାନ କରୁ।", "bn": "কেবল প্রার্থনা—তোমার এই গোপালবালক রূপটি যেন সর্বদা আমার হৃদয়ে বিরাজ করে...", "ru": "Молю лишь об одном: пусть Твой образ маленького пастушка Гопала вечно сияет в моем сердце!"}}, {"start": 185.5, "end": 197, "v": 5, "role": {"en": "Verse 5 · Lead", "hi": "श्लोक ५ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୫ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৫ · মুখ্য স্বর", "ru": "Стих 5 · Запев"}, "sanskrit": {"en": "idaṁ te mukhāmbhojam atyanta-nīlair\nvṛtaṁ kuntalaiḥ snigdha-raktaiś ca gopyā", "hi": "इदं ते मुखाम्भोजमत्यन्तनीलैर्\nवृतं कुन्तलैः स्निग्धरक्तैश्च गोप्या", "or": "ଇଦଂ ତେ ମୁଖାମ୍ଭୋଜମ୍ ଅତ୍ୟନ୍ତ ନୀଲୈର୍\nବୃତଂ କୁନ୍ତଲୈଃ ସ୍ନିଗ୍ଧ ରକ୍ତୈଶ୍ଚ ଗୋପ୍ୟା", "bn": "ইদং তে মুখাম্ভোজমত্যন্তনীলৈর্-\nবৃতং কুন্তলৈঃ স্নিগ্ধরক্তৈশ্চ গোপ্যা", "ru": "идам те мукхамбходжам атянта-нилаир\nвритам кунталаих снигдха-рактаиш ча гопя"}, "trans": {"en": "Your lotus face, framed by dark curls and kissed repeatedly by Mother Yashoda...", "hi": "काले घुँघराले बालों से घिरा और माता यशोदा द्वारा बार-बार चूमा गया आपका मुखकमल...", "or": "କୁଞ୍ଚିତ କେଶ ଦ୍ୱାରା ଶୋଭିତ ଓ ଯଶୋଦା ମାତାଙ୍କ ଦ୍ୱାରା ବାରମ୍ବାର ଚୁମ୍ବିତ ଆପଣଙ୍କ ମୁଖପଦ୍ମ...", "bn": "তোমার কমলমুখ নীলবর্ণ কুঞ্চিত কেশে সুশোভিত এবং মাতা যশোদা কর্তৃক বারবার চুম্বিত...", "ru": "Твой лотосный лик, обрамленный темными локонами и осыпанный поцелуями матушки Яшоды..."}}, {"start": 197, "end": 208.5, "v": 5, "role": {"en": "Verse 5 · Response", "hi": "श्लोक ५ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୫ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৫ · সমবেত স্বর", "ru": "Стих 5 · Хор"}, "sanskrit": {"en": "idaṁ te mukhāmbhojam atyanta-nīlair\nvṛtaṁ kuntalaiḥ snigdha-raktaiś ca gopyā", "hi": "इदं ते मुखाम्भोजमत्यन्तनीलैर्\nवृतं कुन्तलैः स्निग्धरक्तैश्च गोप्या", "or": "ଇଦଂ ତେ ମୁଖାମ୍ଭୋଜମ୍ ଅତ୍ୟନ୍ତ ନୀଲୈର୍\nବୃତଂ କୁନ୍ତଲୈଃ ସ୍ନିଗ୍ଧ ରକ୍ତୈଶ୍ଚ ଗୋପ୍ୟା", "bn": "ইদং তে মুখাম্ভোজমত্যন্তনীলৈর্-\nবৃতং কুন্তলৈঃ স্নিগ্ধরক্তৈশ্চ গোপ্যা", "ru": "идам те мукхамбходжам атянта-нилаир\nвритам кунталаих снигдха-рактаиш ча гопя"}, "trans": {"en": "Your lotus face, framed by dark curls and kissed repeatedly by Mother Yashoda...", "hi": "काले घुँघराले बालों से घिरा और माता यशोदा द्वारा बार-बार चूमा गया आपका मुखकमल...", "or": "କୁଞ୍ଚିତ କେଶ ଦ୍ୱାରା ଶୋଭିତ ଓ ଯଶୋଦା ମାତାଙ୍କ ଦ୍ୱାରା ବାରମ୍ବାର ଚୁମ୍ବିତ ଆପଣଙ୍କ ମୁଖପଦ୍ମ...", "bn": "তোমার কমলমুখ নীলবর্ণ কুঞ্চিত কেশে সুশোভিত এবং মাতা যশোদা কর্তৃক বারবার চুম্বিত...", "ru": "Твой лотосный лик, обрамленный темными локонами и осыпанный поцелуями матушки Яшоды..."}}, {"start": 208.5, "end": 220, "v": 5, "role": {"en": "Verse 5 · Lead", "hi": "श्लोक ५ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୫ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৫ · মুখ্য স্বর", "ru": "Стих 5 · Запев"}, "sanskrit": {"en": "muhuś cumbitaṁ bimba-raktādharaṁ me\nmanasy āvirāstām alaṁ lakṣa-lābhair", "hi": "मुहुश्चुम्बितं बिम्बरक्ताधरं मे\nमनस्याविरास्तामलं लक्षलाभैः", "or": "ମୁହୁଶ୍ ଚୁମ୍ବିତଂ ବିମ୍ବ ରକ୍ତାଧରଂ ମେ\nମନସ୍ୟାବିରାସ୍ତାମଲଂ ଲକ୍ଷ ଲାଭୈଃ", "bn": "মুহুশ্চুম্বিতং বিম্বরক্তাধরং মে\nমনস্যাবিরাস্তামলং লক্ষলাভৈঃ", "ru": "мухуш чумбитам бимба-рактадхарам ме\nманась авирастхам алам лакша-лабхаих"}, "trans": {"en": "Glows with red bimba-fruit lips. May this vision always remain in my heart. Millions of other gifts are useless!", "hi": "बिम्बफल समान लाल होठों वाला वह मुख सदा मेरे मन में रहे। मुझे अन्य लाखों लाभों से क्या प्रयोजन!", "or": "ଲାଲ୍ ଅଧରଯୁକ୍ତ ମୁଖପଦ୍ମ ସଦା ମୋ ମନରେ ରହୁ। ଅନ୍ୟ ଲକ୍ଷ ଲକ୍ଷ ଲାଭରେ ମୋର କିଛି ପ୍ରୟୋଜନ ନାହିଁ!", "bn": "রক্তিম বিম্বাধরযুক্ত তোমার মুখপদ্ম হৃদয়ে উদ্ভাসিত হোক—কোটি কোটি লাভে আমার কি প্রয়োজন!", "ru": "Сияет губами цвета плода бимба. Пусть этот лик пребудет в моем уме! Миллионы наград не нужны."}}, {"start": 220, "end": 231.5, "v": 5, "role": {"en": "Verse 5 · Response", "hi": "श्लोक ५ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୫ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৫ · সমবেত স্বর", "ru": "Стих 5 · Хор"}, "sanskrit": {"en": "muhuś cumbitaṁ bimba-raktādharaṁ me\nmanasy āvirāstām alaṁ lakṣa-lābhair", "hi": "मुहुश्चुम्बितं बिम्बरक्ताधरं मे\nमनस्याविरास्तामलं लक्षलाभैः", "or": "ମୁହୁଶ୍ ଚୁମ୍ବିତଂ ବିମ୍ବ ରକ୍ତାଧରଂ ମେ\nମନସ୍ୟାବିରାସ୍ତାମଲଂ ଲକ୍ଷ ଲାଭୈଃ", "bn": "মুহুশ্চুম্বিতং বিম্বরক্তাধরং মে\nমনস্যাবিরাস্তামলং লক্ষলাভৈঃ", "ru": "мухуш чумбитам бимба-рактадхарам ме\nманась авирастхам алам лакша-лабхаих"}, "trans": {"en": "Glows with red bimba-fruit lips. May this vision always remain in my heart. Millions of other gifts are useless!", "hi": "बिम्बफल समान लाल होठों वाला वह मुख सदा मेरे मन में रहे। मुझे अन्य लाखों लाभों से क्या प्रयोजन!", "or": "ଲାଲ୍ ଅଧରଯୁକ୍ତ ମୁଖପଦ୍ମ ସଦା ମୋ ମନରେ ରହୁ। ଅନ୍ୟ ଲକ୍ଷ ଲକ୍ଷ ଲାଭରେ ମୋର କିଛି ପ୍ରୟୋଜନ ନାହିଁ!", "bn": "রক্তিম বিম্বাধরযুক্ত তোমার মুখপদ্ম হৃদয়ে উদ্ভাসিত হোক—কোটি কোটি লাভে আমার কি প্রয়োজন!", "ru": "Сияет губами цвета плода бимба. Пусть этот лик пребудет в моем уме! Миллионы наград не нужны."}}, {"start": 231.5, "end": 243, "v": 6, "role": {"en": "Verse 6 · Lead", "hi": "श्लोक ६ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୬ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৬ · মুখ্য স্বর", "ru": "Стих 6 · Запев"}, "sanskrit": {"en": "namo deva dāmodarānanta viṣṇo\nprasīda prabho duḥkha-jālābdhi-magnam", "hi": "नमो देव दामोदरानन्त विष्णो\nप्रसीद प्रभो दुःखजालाब्धिमग्नम्", "or": "ନମୋ ଦେବ ଦାମୋଦରାନନ୍ତ ବିଷ୍ଣୋ\nପ୍ରସୀଦ ପ୍ରଭୋ ଦୁଃଖ ଜାଲାବ୍‌ଦ୍ଧି ମଗ୍ନମ୍", "bn": "নমো দেব দামোদরানন্ত বিষ্ণো\nপ্রসীদ প্রভো দুঃখজালাব্ধিমগ্নম্", "ru": "намо дева дамодарананта вишно\nпрасида прабхо духкха-джалабдхи-магнам"}, "trans": {"en": "O Damodara! O infinite Vishnu! Be pleased with me, O Master! Drowning in an ocean of worldly sorrow...", "hi": "हे देव दामोदर! हे अनन्त विष्णु! हे प्रभु प्रसन्न होइए! मैं दुःख-सागर में डूबा हुआ हूँ...", "or": "ହେ ପ୍ରଭୁ ଦାମୋଦର! ହେ ଅନନ୍ତ ବିଷ୍ଣୁ! ଦୁଃଖସାଗରରେ ବୁଡ଼ି ରହିଥିବା ମୋ ଉପରେ ପ୍ରସନ୍ନ ହୁଅନ୍ତୁ...", "bn": "হে দামোদর! হে অনন্ত বিষ্ণু! আমার প্রতি প্রসন্ন হও; সংসার-দুঃখসাগরে মগ্ন আমি...", "ru": "О Дамодара! О Ананта! О Вишну! Смилуйся надо мной, Господь, тонущим в океане мирских скорбей..."}}, {"start": 243, "end": 254.5, "v": 6, "role": {"en": "Verse 6 · Response", "hi": "श्लोक ६ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୬ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৬ · সমবেত স্বর", "ru": "Стих 6 · Хор"}, "sanskrit": {"en": "namo deva dāmodarānanta viṣṇo\nprasīda prabho duḥkha-jālābdhi-magnam", "hi": "नमो देव दामोदरानन्त विष्णो\nप्रसीद प्रभो दुःखजालाब्धिमग्नम्", "or": "ନମୋ ଦେବ ଦାମୋଦରାନନ୍ତ ବିଷ୍ଣୋ\nପ୍ରସୀଦ ପ୍ରଭୋ ଦୁଃଖ ଜାଲାବ୍‌ଦ୍ଧି ମଗ୍ନମ୍", "bn": "নমো দেব দামোদরানন্ত বিষ্ণো\nপ্রসীদ প্রভো দুঃখজালাব্ধিমগ্নম্", "ru": "намо дева дамодарананта вишно\nпрасида прабхо духкха-джалабдхи-магнам"}, "trans": {"en": "O Damodara! O infinite Vishnu! Be pleased with me, O Master! Drowning in an ocean of worldly sorrow...", "hi": "हे देव दामोदर! हे अनन्त विष्णु! हे प्रभु प्रसन्न होइए! मैं दुःख-सागर में डूबा हुआ हूँ...", "or": "ହେ ପ୍ରଭୁ ଦାମୋଦର! ହେ ଅନନ୍ତ ବିଷ୍ଣୁ! ଦୁଃଖସାଗରରେ ବୁଡ଼ି ରହିଥିବା ମୋ ଉପରେ ପ୍ରସନ୍ନ ହୁଅନ୍ତୁ...", "bn": "হে দামোদর! হে অনন্ত বিষ্ণু! আমার প্রতি প্রসন্ন হও; সংসার-দুঃখসাগরে মগ্ন আমি...", "ru": "О Дамодара! О Ананта! О Вишну! Смилуйся надо мной, Господь, тонущим в океане мирских скорбей..."}}, {"start": 254.5, "end": 266, "v": 6, "role": {"en": "Verse 6 · Lead", "hi": "श्लोक ६ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୬ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৬ · মুখ্য স্বর", "ru": "Стих 6 · Запев"}, "sanskrit": {"en": "kṛpā-dṛṣṭi-vṛṣṭyāti-dīnaṁ batānu-\ngṛhāṇeśa mām ajñam edhy akṣi-dṛśyaḥ", "hi": "कृपादृष्टिवृष्ट्यातिदीनं बतानु-\nगृहाणेश मामज्ञमेध्यक्षिदृश्यः", "or": "କୃପା ଦୃଷ୍ଟି ବୃଷ୍ଟ୍ଯାତି ଦୀନଂବତାନୁ\nଗୃହାଣେସ ମାମଜ୍ଞମ୍ ଏଧ୍ୟକ୍ଷି ଦୃଶ୍ୟହଃ", "bn": "কৃপাদৃষ্টিবৃষ্ট্যাতিদীনং বতানু-\nগৃহাণেশ মামজ্ঞমেধ্যক্ষিদৃশ্যঃ", "ru": "крипа-дришти-вриштяти-динам батану-\nгриханеша мам аджням едхй акши-дришьях"}, "trans": {"en": "Please shower Your glance of mercy upon me, deliver this fallen soul, and become visible before my eyes!", "hi": "मुझ दीन-हीन अज्ञानी पर अपनी कृपादृष्टि की वर्षा कर मेरा उद्धार कीजिए और नेत्रों के समक्ष प्रकट होइए!", "or": "ଏହି ଅଜ୍ଞାନୀ ଦୀନଜନ ଉପରେ କୃପାଦୃଷ୍ଟି ବୃଷ୍ଟି କରି ମୋତେ ଉଦ୍ଧାର କରନ୍ତୁ ଓ ନେତ୍ର ସମ୍ମୁଖରେ ପ୍ରକଟ ହୁଅନ୍ତୁ!", "bn": "তোমার পরম করুণাময় অমৃতদৃষ্টি বর্ষণ করে এই দীন অজ্ঞকে দয়া কর, নয়নগোচর হও!", "ru": "Окропи меня дождем Своего милостивого взгляда, спаси падшую душу и предстань пред моим взором!"}}, {"start": 266, "end": 277.5, "v": 6, "role": {"en": "Verse 6 · Response", "hi": "श्लोक ६ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୬ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৬ · সমবেত স্বর", "ru": "Стих 6 · Хор"}, "sanskrit": {"en": "kṛpā-dṛṣṭi-vṛṣṭyāti-dīnaṁ batānu-\ngṛhāṇeśa mām ajñam edhy akṣi-dṛśyaḥ", "hi": "कृपादृष्टिवृष्ट्यातिदीनं बतानु-\nगृहाणेश मामज्ञमेध्यक्षिदृश्यः", "or": "କୃପା ଦୃଷ୍ଟି ବୃଷ୍ଟ୍ଯାତି ଦୀନଂବତାନୁ\nଗୃହାଣେସ ମାମଜ୍ଞମ୍ ଏଧ୍ୟକ୍ଷି ଦୃଶ୍ୟହଃ", "bn": "কৃপাদৃষ্টিবৃষ্ট্যাতিদীনং বতানু-\nগৃহাণেশ মামজ্ঞমেধ্যক্ষিদৃশ্যঃ", "ru": "крипа-дришти-вриштяти-динам батану-\nгриханеша мам аджням едхй акши-дришьях"}, "trans": {"en": "Please shower Your glance of mercy upon me, deliver this fallen soul, and become visible before my eyes!", "hi": "मुझ दीन-हीन अज्ञानी पर अपनी कृपादृष्टि की वर्षा कर मेरा उद्धार कीजिए और नेत्रों के समक्ष प्रकट होइए!", "or": "ଏହି ଅଜ୍ଞାନୀ ଦୀନଜନ ଉପରେ କୃପାଦୃଷ୍ଟି ବୃଷ୍ଟି କରି ମୋତେ ଉଦ୍ଧାର କରନ୍ତୁ ଓ ନେତ୍ର ସମ୍ମୁଖରେ ପ୍ରକଟ ହୁଅନ୍ତୁ!", "bn": "তোমার পরম করুণাময় অমৃতদৃষ্টি বর্ষণ করে এই দীন অজ্ঞকে দয়া কর, নয়নগোচর হও!", "ru": "Окропи меня дождем Своего милостивого взгляда, спаси падшую душу и предстань пред моим взором!"}}, {"start": 277.5, "end": 289, "v": 7, "role": {"en": "Verse 7 · Lead", "hi": "श्लोक ७ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୭ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৭ · মুখ্য স্বর", "ru": "Стих 7 · Запев"}, "sanskrit": {"en": "kuverātmajau baddha-mūrtyaiva yadvat\ntvayā mocitau bhakti-bhājau kṛtau ca", "hi": "कुबेरात्मजौ बद्धमूर्त्यैव यद्वत्\nत्वया मोचितौ भक्तिभाजौ कृतौ च", "or": "କୁବେରାତ୍ମଜୌ ବଦ୍ଧ ମୂର୍ତୈବ ୟଦ୍ଵତ୍\nତ୍ଵୟା ମୋଚିତୌ ଭକ୍ତି ଭାଜୌ କୃତୌ ଚ", "bn": "কুবেরাত্মজৌ বদ্ধমূর্ত্যৈব যদ্বৎ\nত্বয়া মোচিতৌ ভক্তিভাজৌ কৃতৌ চ", "ru": "кувератмаджау баддха-муртяива ядват\nтвая мочитау бхакти-бхаджау критау ча"}, "trans": {"en": "Just as You liberated the sons of Kuvera from tree bodies and gave them pure devotional service...", "hi": "जैसे ओखल से बँधे रहकर भी आपने कुबेर-पुत्रों को वृक्ष-योनि से मुक्त कर प्रेम-भक्ति दी थी...", "or": "ଯେପରି ଓଖଳରେ ବନ୍ଧା ଥାଇ ଆପଣ କୁବେରଙ୍କ ପୁତ୍ରଦ୍ୱୟଙ୍କୁ ଉଦ୍ଧାର କରି ଭକ୍ତି ଦାନ କରିଥିଲେ...", "bn": "যমলার্জুন তরুরূপী কুবেরপুত্রদের তুমি যেভাবে উদ্ধার করে ভক্তিভাজন করেছিলে...", "ru": "Как Ты освободил сыновей Куверы от древесного проклятия и даровал им преданное служение..."}}, {"start": 289, "end": 300.5, "v": 7, "role": {"en": "Verse 7 · Response", "hi": "श्लोक ७ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୭ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৭ · সমবেত স্বর", "ru": "Стих 7 · Хор"}, "sanskrit": {"en": "kuverātmajau baddha-mūrtyaiva yadvat\ntvayā mocitau bhakti-bhājau kṛtau ca", "hi": "कुबेरात्मजौ बद्धमूर्त्यैव यद्वत्\nत्वया मोचितौ भक्तिभाजौ कृतौ च", "or": "କୁବେରାତ୍ମଜୌ ବଦ୍ଧ ମୂର୍ତୈବ ୟଦ୍ଵତ୍\nତ୍ଵୟା ମୋଚିତୌ ଭକ୍ତି ଭାଜୌ କୃତୌ ଚ", "bn": "কুবেরাত্মজৌ বদ্ধমূর্ত্যৈব যদ্বৎ\nত্বয়া মোচিতৌ ভক্তিভাজৌ কৃতৌ চ", "ru": "кувератмаджау баддха-муртяива ядват\nтвая мочитау бхакти-бхаджау критау ча"}, "trans": {"en": "Just as You liberated the sons of Kuvera from tree bodies and gave them pure devotional service...", "hi": "जैसे ओखल से बँधे रहकर भी आपने कुबेर-पुत्रों को वृक्ष-योनि से मुक्त कर प्रेम-भक्ति दी थी...", "or": "ଯେପରି ଓଖଳରେ ବନ୍ଧା ଥାଇ ଆପଣ କୁବେରଙ୍କ ପୁତ୍ରଦ୍ୱୟଙ୍କୁ ଉଦ୍ଧାର କରି ଭକ୍ତି ଦାନ କରିଥିଲେ...", "bn": "যমলার্জুন তরুরূপী কুবেরপুত্রদের তুমি যেভাবে উদ্ধার করে ভক্তিভাজন করেছিলে...", "ru": "Как Ты освободил сыновей Куверы от древесного проклятия и даровал им преданное служение..."}}, {"start": 300.5, "end": 312, "v": 7, "role": {"en": "Verse 7 · Lead", "hi": "श्लोक ७ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୭ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৭ · মুখ্য স্বর", "ru": "Стих 7 · Запев"}, "sanskrit": {"en": "tathā prema-bhaktiṁ svakāṁ me prayaccha\nna mokṣe graho me 'sti dāmodareha", "hi": "तथा प्रेमभक्तिं स्वकां मे प्रयच्छ\nन मोक्षे ग्रहो मेऽस्ति दामोदरेह", "or": "ତଥା ପ୍ରେମ ଭକ୍ତିଂ ସ୍ଵକାଂ ମେ ପ୍ରୟଚ୍ଛ\nନ ମୋକ୍ଷେ ଗ୍ରହୋ ମେ ‘ସ୍ତି ଦାମୋଦରେହ", "bn": "তথা প্রেমভক্তিং স্বকাং মে প্রযচ্ছ\nন মোক্ষে গ্রহো মেঽস্তি দামোদরেহ", "ru": "татха према-бхактим свакам ме праяччха\nна мокше грахо ме ’сти дамодареха"}, "trans": {"en": "Please bestow upon me Your own ecstatic prema-bhakti. For impersonal liberation I have no desire!", "hi": "उसी प्रकार मुझे भी अपनी प्रेमा-भक्ति प्रदान कीजिए। मोक्ष की मुझे कोई इच्छा नहीं है!", "or": "ସେହିପରି ମୋତେ ମଧ୍ୟ ଆପଣଙ୍କ ପ୍ରେମଭକ୍ତି ଦାନ କରନ୍ତୁ। ମୋକ୍ଷ ପାଇଁ ମୋର କୌଣସି ଲାଳସା ନାହିଁ!", "bn": "তেমনি আমাকেও তোমার প্রেমভক্তি দান কর—মোক্ষের প্রতি আমার কোনোই কামনা নেই!", "ru": "Так даруй и мне Свою према-бхакти! К безличному освобождению я не питаю ни малейшего влечения."}}, {"start": 312, "end": 323, "v": 7, "role": {"en": "Verse 7 · Response", "hi": "श्लोक ७ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୭ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৭ · সমবেত স্বর", "ru": "Стих 7 · Хор"}, "sanskrit": {"en": "tathā prema-bhaktiṁ svakāṁ me prayaccha\nna mokṣe graho me 'sti dāmodareha", "hi": "तथा प्रेमभक्तिं स्वकां मे प्रयच्छ\nन मोक्षे ग्रहो मेऽस्ति दामोदरेह", "or": "ତଥା ପ୍ରେମ ଭକ୍ତିଂ ସ୍ଵକାଂ ମେ ପ୍ରୟଚ୍ଛ\nନ ମୋକ୍ଷେ ଗ୍ରହୋ ମେ ‘ସ୍ତି ଦାମୋଦରେହ", "bn": "তথা প্রেমভক্তিং স্বকাং মে প্রযচ্ছ\nন মোক্ষে গ্রহো মেঽস্তি দামোদরেহ", "ru": "татха према-бхактим свакам ме праяччха\nна мокше грахо ме ’сти дамодареха"}, "trans": {"en": "Please bestow upon me Your own ecstatic prema-bhakti. For impersonal liberation I have no desire!", "hi": "उसी प्रकार मुझे भी अपनी प्रेमा-भक्ति प्रदान कीजिए। मोक्ष की मुझे कोई इच्छा नहीं है!", "or": "ସେହିପରି ମୋତେ ମଧ୍ୟ ଆପଣଙ୍କ ପ୍ରେମଭକ୍ତି ଦାନ କରନ୍ତୁ। ମୋକ୍ଷ ପାଇଁ ମୋର କୌଣସି ଲାଳସା ନାହିଁ!", "bn": "তেমনি আমাকেও তোমার প্রেমভক্তি দান কর—মোক্ষের প্রতি আমার কোনোই কামনা নেই!", "ru": "Так даруй и мне Свою према-бхакти! К безличному освобождению я не питаю ни малейшего влечения."}}, {"start": 323, "end": 334.5, "v": 8, "role": {"en": "Verse 8 · Lead", "hi": "श्लोक ८ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୮ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৮ · মুখ্য স্বর", "ru": "Стих 8 · Запев"}, "sanskrit": {"en": "namas te 'stu dāmne sphurad-dīpti-dhāmne\ntvadīyodarāyātha viśvasya dhāmne", "hi": "नमस्तेऽस्तु दाम्ने स्फुरद्दीप्तिधाम्ने\nत्वदीयोदरायाथ विश्वस्य धाम्ने", "or": "ନମସ୍ତେ ‘ସ୍ତୁ ଦାମ୍ନେ ସ୍ଫୁରଦ୍ ଦୀପ୍ତି ଧାମ୍ନେ\nତ୍ୱଦୀୟୋଦରାୟାଥ ବିଶ୍ଵସ୍ୟ ଧାମ୍ନେ", "bn": "নমস্তেঽস্তু দাম্নে স্ফুরদ্দীপ্তিধাম্নে\nত্বদীয়োদরায়াথ বিশ্বস্য ধাম্নে", "ru": "намас те ’сту дамне спхурад-дипти-дамне\nтвадийодараятха вишвасья дамне"}, "trans": {"en": "Obeisances to the radiant rope binding Your abdomen, the abode of the entire universe!", "hi": "आपके उदर पर बँधी तेजोमय रस्सी को प्रणाम! सम्पूर्ण ब्रह्माण्ड के आश्रय आपके उदर को प्रणाम!", "or": "ଆପଣଙ୍କ ଉଦରରେ ବନ୍ଧା ଦୀପ୍ତିମୟ ରଜ୍ଜୁକୁ ପ୍ରଣାମ! ସମଗ୍ର ବିଶ୍ୱର ଆଶ୍ରୟ ଆପଣଙ୍କ ଉଦରକୁ ପ୍ରଣାମ!", "bn": "তোমার উদরবন্ধন জ্যোতির্ময় রজ্জুকে এবং নিখিল বিশ্বের আধার তোমার উদরকে প্রণাম...", "ru": "Поклоны сияющей веревке на Твоем животе, и Твоему лону — обители всей вселенной!"}}, {"start": 334.5, "end": 346, "v": 8, "role": {"en": "Verse 8 · Response", "hi": "श्लोक ८ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୮ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৮ · সমবেত স্বর", "ru": "Стих 8 · Хор"}, "sanskrit": {"en": "namas te 'stu dāmne sphurad-dīpti-dhāmne\ntvadīyodarāyātha viśvasya dhāmne", "hi": "नमस्तेऽस्तु दाम्ने स्फुरद्दीप्तिधाम्ने\nत्वदीयोदरायाथ विश्वस्य धाम्ने", "or": "ନମସ୍ତେ ‘ସ୍ତୁ ଦାମ୍ନେ ସ୍ଫୁରଦ୍ ଦୀପ୍ତି ଧାମ୍ନେ\nତ୍ୱଦୀୟୋଦରାୟାଥ ବିଶ୍ଵସ୍ୟ ଧାମ୍ନେ", "bn": "নমস্তেঽস্তু দাম্নে স্ফুরদ্দীপ্তিধাম্নে\nত্বদীয়োদরায়াথ বিশ্বস্য ধাম্নে", "ru": "намас те ’сту дамне спхурад-дипти-дамне\nтвадийодараятха вишвасья дамне"}, "trans": {"en": "Obeisances to the radiant rope binding Your abdomen, the abode of the entire universe!", "hi": "आपके उदर पर बँधी तेजोमय रस्सी को प्रणाम! सम्पूर्ण ब्रह्माण्ड के आश्रय आपके उदर को प्रणाम!", "or": "ଆପଣଙ୍କ ଉଦରରେ ବନ୍ଧା ଦୀପ୍ତିମୟ ରଜ୍ଜୁକୁ ପ୍ରଣାମ! ସମଗ୍ର ବିଶ୍ୱର ଆଶ୍ରୟ ଆପଣଙ୍କ ଉଦରକୁ ପ୍ରଣାମ!", "bn": "তোমার উদরবন্ধন জ্যোতির্ময় রজ্জুকে এবং নিখিল বিশ্বের আধার তোমার উদরকে প্রণাম...", "ru": "Поклоны сияющей веревке на Твоем животе, и Твоему лону — обители всей вселенной!"}}, {"start": 346, "end": 357.5, "v": 8, "role": {"en": "Verse 8 · Lead", "hi": "श्लोक ८ · मुख्य स्वर", "or": "ଶ୍ଳୋକ ୮ · ମୁଖ୍ୟ ସ୍ୱର", "bn": "শ্লোক ৮ · মুখ্য স্বর", "ru": "Стих 8 · Запев"}, "sanskrit": {"en": "namo rādhikāyai tvadīya-priyāyai\nnamo 'nanta-līlāya devāya tubhyam", "hi": "नमो राधिकायै त्वदीयप्रियायै\nनमोऽनन्तलीलाय देवाय तुभ्यम्", "or": "ନମୋ ରାଧିକାୟୈ ତ୍ଵଦୀୟ ପ୍ରିୟାୟୈ\nନମୋ ‘ନନ୍ତ ଲୀଲାୟ ଦେବାୟ ତୁଭ୍ୟମ୍", "bn": "নমো রাধিকায়ৈ ত্বদীয়প্রিয়ায়ৈ\nনমোঽনন্তলীলায় দেবায় তুভ্যম্", "ru": "намо радхикайи твадийа-прияяи\nнамо ’нанта-лилая девая тубхьям"}, "trans": {"en": "Obeisances to Srimati Radharani, Your beloved, and unto You, O Supreme Lord of unlimited pastimes!", "hi": "आपकी परम प्रिया श्रीमती राधारानी को प्रणाम, और अनन्त लीलाओं के स्वामी आप परमेश्वर को नमन!", "or": "ଆପଣଙ୍କ ପ୍ରିୟତମା ଶ୍ରୀମତୀ ରାଧାରାଣୀଙ୍କୁ ପ୍ରଣାମ, ଏବଂ ଅନନ୍ତ ଲୀଳାମୟ ପ୍ରଭୁ ଆପଣଙ୍କୁ ପ୍ରଣାମ!", "bn": "তোমার পরমাপ্রিয়া শ্রীমতি রাধিকাকে প্রণাম, এবং অনন্ত লীলাময় তোমাকেও প্রণাম জানাই!", "ru": "Поклоны Твоей возлюбленной Шримати Радхарани и Тебе, являющему безграничные божественные игры!"}}, {"start": 357.5, "end": 369, "v": 8, "role": {"en": "Verse 8 · Response", "hi": "श्लोक ८ · समवेत स्वर", "or": "ଶ୍ଳୋକ ୮ · ସମବେତ ସ୍ୱର", "bn": "শ্লোক ৮ · সমবেত স্বর", "ru": "Стих 8 · Хор"}, "sanskrit": {"en": "namo rādhikāyai tvadīya-priyāyai\nnamo 'nanta-līlāya devāya tubhyam", "hi": "नमो राधिकायै त्वदीयप्रियायै\nनमोऽनन्तलीलाय देवाय तुभ्यम्", "or": "ନମୋ ରାଧିକାୟୈ ତ୍ଵଦୀୟ ପ୍ରିୟାୟୈ\nନମୋ ‘ନନ୍ତ ଲୀଲାୟ ଦେବାୟ ତୁଭ୍ୟମ୍", "bn": "নমো রাধিকায়ৈ ত্বদীয়প্রিয়ায়ৈ\nনমোঽনন্তলীলায় দেবায় তুভ্যম্", "ru": "намо радхикайи твадийа-прияяи\nнамо ’нанта-лилая девая тубхьям"}, "trans": {"en": "Obeisances to Srimati Radharani, Your beloved, and unto You, O Supreme Lord of unlimited pastimes!", "hi": "आपकी परम प्रिया श्रीमती राधारानी को प्रणाम, और अनन्त लीलाओं के स्वामी आप परमेश्वर को नमन!", "or": "ଆପଣଙ୍କ ପ୍ରିୟତମା ଶ୍ରୀମତୀ ରାଧାରାଣୀଙ୍କୁ ପ୍ରଣାମ, ଏବଂ ଅନନ୍ତ ଲୀଳାମୟ ପ୍ରଭୁ ଆପଣଙ୍କୁ ପ୍ରଣାମ!", "bn": "তোমার পরমাপ্রিয়া শ্রীমতি রাধিকাকে প্রণাম, এবং অনন্ত লীলাময় তোমাকেও প্রণাম জানাই!", "ru": "Поклоны Твоей возлюбленной Шримати Радхарани и Тебе, являющему безграничные божественные игры!"}}, {"start": 369, "end": 374, "v": 0, "role": {"en": "Complete", "hi": "सम्पूर्ण", "or": "ସମ୍ପୂର୍ଣ୍ଣ", "bn": "সম্পূর্ণ", "ru": "Завершение"}, "sanskrit": {"en": "॥ iti śrī-dāmodarāṣṭakaṁ sampūrṇam ॥\njaya śrī-rādhā-dāmodara !", "hi": "॥ इति श्रीदामोदराष्टकं सम्पूर्णम् ॥\nजय श्रीराधा-दामोदर !", "or": "॥ ଇତି ଶ୍ରୀଦାମୋଦରାଷ୍ଟକଂ ସମ୍ପୂର୍ଣ୍ଣମ୍ ॥\nଜୟ ଶ୍ରୀରାଧା-ଦାମୋଦର !", "bn": "॥ ইতি শ্রীদামোদরাষ্টকম্ সম্পূর্ণম্ ॥\nজয় শ্রীরাধা-দামোদর!", "ru": "॥ ити шри-дамодараштакам сампурнам ॥\nджая шри-радха-дамодара !"}, "trans": {"en": "Thus ends Sri Damodarashtakam. Jaya Sri Sri Radha-Damodara!", "hi": "इस प्रकार श्रीदामोदराष्टकम् सम्पन्न हुआ। जय श्रीराधा-दामोदर!", "or": "ଏହିପରି ଶ୍ରୀଦାମୋଦରାଷ୍ଟକଂ ସମ୍ପୂର୍ଣ୍ଣ ହେଲା। ଜୟ ଶ୍ରୀରାଧା-ଦାମୋଦର!", "bn": "এইভাবে শ্রীদামোদরাষ্টকম্ সমাপ্ত হলো। জয় শ্রীশ্রীরাধা-দামোদর!", "ru": "Так завершается Шри Дамодараштакам. Слава Шри Шри Радха-Дамодаре!"}}];
 
 let currentLang = 'en';
+
+const LANG_SLUGS = {
+  hi: 'hindi',
+  or: 'odia',
+  bn: 'bengali',
+  en: 'english',
+  ru: 'russian'
+};
+const SLUG_TO_LANG = {
+  hindi: 'hi',
+  odia: 'or',
+  bengali: 'bn',
+  english: 'en',
+  russian: 'ru'
+};
+
 (function initLanguageResolution(){
   const VALID_LANGS = ['en', 'hi', 'or', 'bn', 'ru'];
+
+  // Check direct lyrics URL arrival (/lyrics/hindi, /hindi-lyrics, #lyrics-hindi, etc.)
+  try {
+    const curPath = window.location.pathname.toLowerCase();
+    const curHash = (window.location.hash || '').toLowerCase();
+    const pMatch = curPath.match(/^\/lyrics(?:\/([a-z]+))?/) || curPath.match(/^\/([a-z]+)-lyrics/);
+    const hMatch = curHash.match(/^#lyrics(?:-([a-z]+))?/);
+
+    if(pMatch || hMatch){
+      window.__directLyricsArrival = true;
+      const slug = (pMatch && pMatch[1]) || (hMatch && hMatch[1]) || '';
+      if(slug && SLUG_TO_LANG[slug]){
+        currentLang = SLUG_TO_LANG[slug];
+        return;
+      } else if(!slug){
+        try {
+          const saved = localStorage.getItem('damodar_lang');
+          if(saved && VALID_LANGS.includes(saved)){
+            currentLang = saved;
+            return;
+          }
+        } catch(e){}
+        currentLang = 'hi';
+        return;
+      }
+    }
+  } catch(e){}
+
   // 1. Google Search / Direct URL parameter (?lang=hi, ?lang=bn, ?lang=or)
   try {
     const params = new URLSearchParams(window.location.search);
@@ -2440,21 +2561,6 @@ function renderModalVerses(){
   `).join('');
 }
 
-const LANG_SLUGS = {
-  hi: 'hindi',
-  or: 'odia',
-  bn: 'bengali',
-  en: 'english',
-  ru: 'russian'
-};
-const SLUG_TO_LANG = {
-  hindi: 'hi',
-  odia: 'or',
-  bengali: 'bn',
-  english: 'en',
-  russian: 'ru'
-};
-
 function getLyricsUrl(lang){
   const slug = LANG_SLUGS[lang] || 'hindi';
   return (window.location.protocol === 'file:') ? '#lyrics-' + slug : '/lyrics/' + slug;
@@ -2482,17 +2588,6 @@ function setLanguage(lang, noUrlUpdate){
   const titles = { en: "Sri Damodarashtakam", hi: "श्रीदामोदराष्टकम्", or: "ଶ୍ରୀଦାମୋଦରାଷ୍ଟକଂ", bn: "শ্রীদামোদরাষ্টকম্", ru: "Шри Дамодараштака" };
   const modalTitle = $('lmTitle');
   if(modalTitle) modalTitle.textContent = titles[lang] || titles.en;
-
-  // Update live lyrics chip label
-  const chipLabels = {
-    en: "📖 All 8 Verses ↗",
-    hi: "📖 सभी ८ श्लोक ↗",
-    or: "📖 ସମସ୍ତ ୮ ଶ୍ଳୋକ ↗",
-    bn: "📖 সকল ৮ শ্লোক ↗",
-    ru: "📖 Все 8 стихов ↗"
-  };
-  const liveFullChip = document.querySelector('.live-full-chip');
-  if(liveFullChip) liveFullChip.textContent = chipLabels[lang] || chipLabels.en;
 
   // Re-render modal verses
   renderModalVerses();
@@ -2750,12 +2845,18 @@ updateDamodarBadge();
 function openProductModal(){
   const pm = $('productModal');
   if(!pm) return;
+  window.__lyricsModalOpen = true;
+  const lBackdrop = $('lyricsBackdrop');
+  if(lBackdrop) lBackdrop.classList.remove('hidden');
   pm.classList.remove('hidden');
 }
 
 function closeProductModal(){
   const pm = $('productModal');
   if(!pm) return;
+  window.__lyricsModalOpen = false;
+  const lBackdrop = $('lyricsBackdrop');
+  if(lBackdrop) lBackdrop.classList.add('hidden');
   pm.classList.add('hidden');
 }
 
@@ -2805,6 +2906,15 @@ function initCircleAd(){
     closePBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       closeProductModal();
+    });
+  }
+
+  const heartBtn = $('pmHeartBtn');
+  if(heartBtn){
+    heartBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      heartBtn.classList.toggle('active');
+      heartBtn.textContent = heartBtn.classList.contains('active') ? '❤️' : '🤍';
     });
   }
 
@@ -2868,6 +2978,59 @@ if(bAudio){
   bAudio.ontimeupdate = updateLiveLyrics;
 }
 
+function updateLyricsPlayButtons(){
+  const isPlaying = bAudio && !bAudio.paused;
+  const playBtn = $('lmPlayBhajanBtn');
+  if(playBtn){
+    const icon = playBtn.querySelector('.lm-play-icon');
+    const label = playBtn.querySelector('.lm-play-label');
+    if(isPlaying){
+      playBtn.classList.add('playing');
+      if(icon) icon.textContent = '⏸';
+      if(label) label.textContent = 'Pause';
+    } else {
+      playBtn.classList.remove('playing');
+      if(icon) icon.textContent = '▶';
+      if(label) label.textContent = 'Listen';
+    }
+  }
+  const bottomBtn = $('lmBottomPlayBtn');
+  if(bottomBtn){
+    const icon = bottomBtn.querySelector('.lm-bottom-play-icon');
+    const label = bottomBtn.querySelector('.lm-bottom-play-label');
+    if(isPlaying){
+      bottomBtn.classList.add('playing');
+      if(icon) icon.textContent = '⏸';
+      if(label) label.textContent = 'Pause Damodarashtakam';
+    } else {
+      bottomBtn.classList.remove('playing');
+      if(icon) icon.textContent = '▶';
+      if(label) label.textContent = 'Play Damodarashtakam Bhajan';
+    }
+  }
+}
+
+function toggleLyricsBhajan(){
+  window.__directLyricsArrival = false;
+  if(typeof ac === "function"){
+    const a = ac();
+    if(a && a.state === "suspended") a.resume();
+  }
+  if(!bAudio) return;
+  if(bAudio.paused){
+    const p = bAudio.play();
+    if(p !== undefined){
+      p.then(() => {
+        bhajanStarted = true;
+        updateLyricsPlayButtons();
+      }).catch(err => console.warn("Audio play error:", err));
+    }
+  } else {
+    bAudio.pause();
+    updateLyricsPlayButtons();
+  }
+}
+
 // Single-click on #liveLyrics expands full lyrics modal
 const liveLyricsElem = $('liveLyrics');
 function openFullLyrics(noPush){
@@ -2876,6 +3039,7 @@ function openFullLyrics(noPush){
   const lBackdrop = $('lyricsBackdrop');
   if(lBackdrop) lBackdrop.classList.remove('hidden');
   renderModalVerses();
+  updateLyricsPlayButtons();
   lModal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
@@ -2918,6 +3082,7 @@ if(lBackdrop){
   lBackdrop.addEventListener('click', (e) => {
     e.stopPropagation();
     closeFullLyrics();
+    closeProductModal();
   });
   lBackdrop.addEventListener('pointerdown', (e) => e.stopPropagation());
   lBackdrop.addEventListener('pointermove', (e) => e.stopPropagation());
@@ -2940,6 +3105,27 @@ if(closeLBtn && lModal){
   };
 }
 
+const lmPlayBhajanBtn = $('lmPlayBhajanBtn');
+if(lmPlayBhajanBtn){
+  lmPlayBhajanBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleLyricsBhajan();
+  });
+}
+
+const lmBottomPlayBtn = $('lmBottomPlayBtn');
+if(lmBottomPlayBtn){
+  lmBottomPlayBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleLyricsBhajan();
+  });
+}
+
+if(bAudio){
+  bAudio.addEventListener('play', updateLyricsPlayButtons);
+  bAudio.addEventListener('pause', updateLyricsPlayButtons);
+}
+
 // Close modal when clicking outside or pressing Escape
 window.addEventListener('pointerdown', (e) => {
   if(lModal && !lModal.classList.contains('hidden')){
@@ -2956,7 +3142,7 @@ window.addEventListener('pointerdown', (e) => {
   const prodModalElem = $('productModal');
   if(prodModalElem && !prodModalElem.classList.contains('hidden')){
     if(!e.target.closest('#productModal') && !e.target.closest('#circleAd')){
-      prodModalElem.classList.add('hidden');
+      closeProductModal();
     }
   }
 });
@@ -2969,7 +3155,7 @@ window.addEventListener('keydown', (e) => {
     const calModalElem = $('calendarModal');
     if(calModalElem && !calModalElem.classList.contains('hidden')) calModalElem.classList.add('hidden');
     const prodModalElem = $('productModal');
-    if(prodModalElem && !prodModalElem.classList.contains('hidden')) prodModalElem.classList.add('hidden');
+    if(prodModalElem && !prodModalElem.classList.contains('hidden')) closeProductModal();
   }
 });
 
@@ -2997,6 +3183,7 @@ let bhajanStarted = false;
 
 function tryPlayBhajan(){
   if(bhajanStarted) return;
+  if(window.__directLyricsArrival) return;
   if(window.__introRunning) return;
   const overlay = document.getElementById("introVideoOverlay");
   if(overlay && overlay.style.display !== "none" && !overlay.classList.contains("fade-out")) return;
@@ -3010,6 +3197,7 @@ function tryPlayBhajan(){
   if(playPromise !== undefined){
     playPromise.then(() => {
       bhajanStarted = true;
+      updateLyricsPlayButtons();
       ["pointerdown", "touchstart", "touchend", "click", "keydown"].forEach(evt => {
         window.removeEventListener(evt, handleFirstInteraction);
       });
@@ -3020,6 +3208,7 @@ function tryPlayBhajan(){
 }
 
 function handleFirstInteraction(e){
+  if(window.__directLyricsArrival) return;
   if(window.__introRunning) return;
   const overlay = document.getElementById("introVideoOverlay");
   if(overlay && overlay.style.display !== "none" && !overlay.classList.contains("fade-out")) return;
@@ -4020,10 +4209,22 @@ if(rotHint){
       if(typeof window.openDamodaraStory === 'function') window.openDamodaraStory();
     }, 600);
   }
-  if(p.get('openLyrics') === '1'){
-    setTimeout(() => {
-      if(typeof window.openFullLyrics === 'function') window.openFullLyrics(false);
-    }, 600);
+  if(p.get('openLyrics') === '1' || window.__directLyricsArrival){
+    const tryLyrics = () => {
+      if(typeof window.enterTempleFromIntro === 'function'){
+        window.enterTempleFromIntro();
+      }
+      const overlay = document.getElementById('introVideoOverlay');
+      if(overlay){ overlay.style.display = 'none'; }
+      if(typeof window.openFullLyrics === 'function'){
+        window.openFullLyrics(true);
+      }
+    };
+    if(document.readyState === 'complete' || document.readyState === 'interactive'){
+      setTimeout(tryLyrics, 250);
+    } else {
+      window.addEventListener('DOMContentLoaded', () => setTimeout(tryLyrics, 250));
+    }
   }
   const lyricsSlugMatch = (window.location.hash && window.location.hash.match(/#lyrics-([a-z]+)/));
   if(lyricsSlugMatch && typeof window.openFullLyrics === 'function'){
