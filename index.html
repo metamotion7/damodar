@@ -3300,15 +3300,18 @@ if(rotHint){
     gl.vertexAttribPointer(A.a_r, 4, gl.FLOAT, false, 16, 0);
   }
 
-  /* ---------- Intro Audio: Music (Hare Krishna) & Voice Narration ---------- */
+  /* ---------- Intro Audio: Music (Hare Krishna ~25s) & Voice Narration ---------- */
   let introBgm = null, voiceTimer = null, lastVoice = -1, audioArmed = false;
+  let voicePlayedCount = 0;
+  const TOTAL_INTRO_SEC = 25.03;
   const AUDIO_EV = ['pointerdown', 'click', 'touchend', 'keydown'];
 
   try {
     introBgm = new Audio('scenes/intro_music.mp3');
     introBgm.preload = 'auto';
-    introBgm.loop = true;
+    introBgm.loop = false;
     introBgm.volume = 0.65;
+    introBgm.addEventListener('ended', onIntroMusicComplete);
   } catch(e){}
 
   const voiceClips = ['scenes/voice_0.mp3', 'scenes/voice_1.mp3'].map(u => {
@@ -3320,7 +3323,6 @@ if(rotHint){
     });
     a.addEventListener('ended', () => {
       if(introBgm) introBgm.volume = 0.65;
-      scheduleVoice();
     });
     return a;
   });
@@ -3330,12 +3332,6 @@ if(rotHint){
     if(i === lastVoice && Math.random() < 0.6) i = (i + 1) % voiceClips.length;
     lastVoice = i;
     return voiceClips[i];
-  }
-
-  function scheduleVoice(){
-    if(!introRunning || introEntered) return;
-    clearTimeout(voiceTimer);
-    voiceTimer = setTimeout(playRandomVoice, 2500 + Math.random() * 4000);
   }
 
   function armAudio(){
@@ -3354,21 +3350,41 @@ if(rotHint){
 
   function playIntroAudio(){
     if(!introRunning || introEntered) return;
-    if(introBgm){
+    if(introBgm && introBgm.paused){
       const pb = introBgm.play();
       if(pb && pb.catch) pb.catch(() => armAudio());
     }
-    playRandomVoice();
+    // Schedule one divine verse recitation to start at ~2.5s
+    if(voicePlayedCount === 0){
+      clearTimeout(voiceTimer);
+      voiceTimer = setTimeout(playRandomVoice, 2400);
+    }
   }
 
   function playRandomVoice(){
-    if(!introRunning || introEntered) return;
+    if(!introRunning || introEntered || voicePlayedCount > 0) return;
+    voicePlayedCount++;
     const a = pickVoice();
     a.currentTime = 0;
     const p = a.play();
     if(p && p.catch){
       p.catch(() => armAudio());
     }
+  }
+
+  function onIntroMusicComplete(){
+    if(autoTransitionStarted || introEntered) return;
+    autoTransitionStarted = true;
+    introProgress = 100;
+    const bar = document.getElementById('ivBarFill');
+    const pctEl = document.getElementById('ivPercentText');
+    const statusEl = document.getElementById('ivStatusText');
+    if(bar) bar.style.width = '100%';
+    if(pctEl) pctEl.textContent = '100%';
+    if(statusEl) statusEl.textContent = 'Sri Damodara Darshan is Ready…';
+    setTimeout(() => {
+      enterTempleFromIntro();
+    }, 450);
   }
 
   function stopAllIntroAudio(){
@@ -3379,6 +3395,7 @@ if(rotHint){
     }
     if(introBgm){
       try {
+        introBgm.removeEventListener('ended', onIntroMusicComplete);
         introBgm.pause();
         introBgm.currentTime = 0;
       } catch(e){}
@@ -3474,17 +3491,20 @@ if(rotHint){
     if(!introStartTime) introStartTime = now;
     const elapsed = (now - introStartTime) / 1000;
 
-    // Smooth loading progression synced with 3D model loading
-    let target = Math.min(92, elapsed * 14.5);
-    if(window.deityLoaded && elapsed > 5.5){
-      target = Math.min(100, 88 + (elapsed - 5.5) * 8);
-    }
-    if(window.deityLoaded && elapsed > 7.5){
-      target = 100;
+    // Track progression across the full ~25 seconds of the Hare Krishna intro track
+    let target = 0;
+    if(introBgm && !introBgm.paused && introBgm.duration > 0){
+      target = Math.min(100, (introBgm.currentTime / introBgm.duration) * 100);
+    } else {
+      // Steady progress matching 25s total intro time
+      target = Math.min(99, (elapsed / TOTAL_INTRO_SEC) * 100);
     }
 
-    introProgress += (target - introProgress) * 0.085;
-    if(introProgress > 99.2 && window.deityLoaded && elapsed > 6.0){
+    introProgress += (target - introProgress) * 0.12;
+
+    // Check if music has reached its final moments (~25s) and deity is loaded
+    const musicEnded = introBgm && (introBgm.ended || (introBgm.duration > 0 && introBgm.currentTime >= introBgm.duration - 0.25));
+    if((musicEnded || elapsed >= TOTAL_INTRO_SEC) && window.deityLoaded){
       introProgress = 100;
     }
 
@@ -3496,13 +3516,9 @@ if(rotHint){
     if(bar) bar.style.width = pct + '%';
     if(pctEl) pctEl.textContent = pct + '%';
 
-    // Automatic screen opening when loading finishes!
-    if(pct >= 100 && !autoTransitionStarted && !introEntered){
-      autoTransitionStarted = true;
-      if(statusEl) statusEl.textContent = 'Sri Damodara Darshan is Ready…';
-      setTimeout(() => {
-        enterTempleFromIntro();
-      }, 450);
+    // When the full 25s intro music finishes and deity is ready, open temple!
+    if(pct >= 100 && !autoTransitionStarted && !introEntered && window.deityLoaded){
+      onIntroMusicComplete();
     }
 
     // Video scene phase transitions
