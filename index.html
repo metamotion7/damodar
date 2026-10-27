@@ -1240,32 +1240,6 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   transition: all .3s ease;
   position: relative;
 }
-.top-nav-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 5px;
-  pointer-events: auto;
-}
-.live-expand-btn {
-  font-size: 11px;
-  color: #ffd58a;
-  background: rgba(246, 195, 101, 0.14);
-  border: 1px solid rgba(246, 195, 101, 0.35);
-  padding: 2px 9px;
-  border-radius: 999px;
-  font-weight: 600;
-  letter-spacing: .02em;
-  transition: all .2s ease;
-  white-space: nowrap;
-}
-#liveLyrics:hover .live-expand-btn {
-  background: rgba(246, 195, 101, 0.28);
-  border-color: #ffd58a;
-  color: #fff;
-}
 .live-top-row {
   display: flex;
   justify-content: space-between;
@@ -2132,20 +2106,17 @@ namo 'nanta-līlāya devāya tubhyam</div>
 </div>
 
 <div id="top">
-  <div class="top-nav-row">
-    <div id="ttl">Sri Damodar Aarti</div>
-    <div class="lang-pills">
-      <button class="lang-pill" data-lang="en">EN</button>
-      <button class="lang-pill" data-lang="hi">हिन्दी</button>
-      <button class="lang-pill" data-lang="or">ଓଡ଼ିଆ</button>
-      <button class="lang-pill" data-lang="bn">বাংলা</button>
-      <button class="lang-pill" data-lang="ru" title="Русский">RU</button>
-    </div>
-  </div>
-  <div id="liveLyrics" title="Click anywhere to view all 8 verses">
+  <div id="ttl">Sri Damodar Aarti</div>
+  <div id="liveLyrics" title="Click verse card to view all 8 verses">
     <div class="live-top-row">
       <div id="liveBadge">Sri Damodarashtakam</div>
-      <span class="live-expand-btn">View All 8 Verses ↗</span>
+      <div class="lang-pills">
+  <button class="lang-pill" data-lang="en">EN</button>
+  <button class="lang-pill" data-lang="hi">हिन्दी</button>
+  <button class="lang-pill" data-lang="or">ଓଡ଼ିଆ</button>
+  <button class="lang-pill" data-lang="bn">বাংলা</button>
+  <button class="lang-pill" data-lang="ru" title="Русский">RU</button>
+</div>
     </div>
     <div id="liveSanskrit">namāmīśvaraṁ sac-cid-ānanda-rūpaṁ
 lasat-kuṇḍalaṁ gokule bhrājamānam</div>
@@ -2586,13 +2557,35 @@ function setLanguage(lang, noUrlUpdate){
   if(typeof updateCircleAdPosition === 'function') requestAnimationFrame(updateCircleAdPosition);
 }
 
-// Bind all language pills
+// Bind all language pills and completely lock touch/pointer inside them
 function initLangPills(){
+  const pillsContainers = document.querySelectorAll('.lang-pills');
+  pillsContainers.forEach(container => {
+    ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'mousedown', 'mouseup'].forEach(evt => {
+      container.addEventListener(evt, (e) => {
+        e.stopPropagation();
+      }, { passive: false });
+    });
+  });
+
   document.querySelectorAll('.lang-pill').forEach(btn => {
-    btn.onclick = (e) => {
+    const handleLangSelect = (e) => {
       e.stopPropagation();
-      setLanguage(btn.dataset.lang);
+      if(e.cancelable) e.preventDefault();
+      const lang = btn.dataset.lang;
+      if(lang && lang !== currentLang){
+        setLanguage(lang);
+      }
     };
+
+    btn.addEventListener('touchend', handleLangSelect, { passive: false });
+    btn.addEventListener('click', handleLangSelect);
+
+    ['touchstart', 'pointerdown', 'pointerup', 'mousedown', 'mouseup'].forEach(evt => {
+      btn.addEventListener(evt, (e) => {
+        e.stopPropagation();
+      }, { passive: false });
+    });
   });
 }
 initLangPills();
@@ -3025,10 +3018,20 @@ if(lBackdrop){
 }
 
 if(liveLyricsElem){
-  liveLyricsElem.addEventListener('click', (e) => {
+  const openModalFromCard = (e) => {
+    // If touch/click originated from language buttons, NEVER open modal
+    if(e.target.closest('.lang-pill') || e.target.closest('.lang-pills')) return;
     e.stopPropagation();
     openFullLyrics();
-  });
+  };
+
+  liveLyricsElem.addEventListener('click', openModalFromCard);
+  liveLyricsElem.addEventListener('touchend', (e) => {
+    if(e.target.closest('.lang-pill') || e.target.closest('.lang-pills')) return;
+    if(!window.__lyricsModalOpen){
+      openModalFromCard(e);
+    }
+  }, { passive: true });
 }
 
 // Close modal when clicking outside or pressing Escape
