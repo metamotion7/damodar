@@ -122,38 +122,6 @@ canvas {
   pointer-events: auto;
 }
 
-.katha-back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: linear-gradient(135deg, rgba(246, 195, 101, 0.22), rgba(240, 138, 28, 0.22));
-  border: 1px solid rgba(246, 195, 101, 0.55);
-  color: #ffd58a;
-  border-radius: 9999px;
-  padding: 6px 14px;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all .2s ease;
-  line-height: 1;
-  text-decoration: none;
-  white-space: nowrap;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 18px rgba(0,0,0,0.7);
-  pointer-events: auto;
-}
-.katha-back-btn:hover {
-  background: linear-gradient(135deg, #f6c365, #f08a1c);
-  color: #1a0802;
-  border-color: #ffd58a;
-  box-shadow: 0 0 14px rgba(246, 195, 101, 0.4);
-  transform: translateY(-1px);
-}
-.katha-back-btn:active {
-  transform: scale(0.97);
-}
-
 .story-badge {
   display: inline-flex;
   align-items: center;
@@ -317,7 +285,6 @@ canvas {
 
 <div class="story-top-bar">
   <div class="story-badge-wrap">
-    <button type="button" id="kathaBackBtn" class="katha-back-btn" title="Back to Sri Damodar Temple Darshan">← Temple Darshan 🪔</button>
     <span class="story-badge">🪔 Damodara Lila Katha</span>
     <div class="story-lang-group" role="group" aria-label="Select Narration Language">
       <button type="button" class="story-lang-btn on" data-lang="hi">हिन्दी</button>
@@ -1404,14 +1371,6 @@ function updateCaption(tSec){
       returnToTemple();
     }
   });
-
-  const kathaBackBtn = document.getElementById('kathaBackBtn');
-  if(kathaBackBtn){
-    kathaBackBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      returnToTemple();
-    });
-  }
 
   /* Listen for message from parent to pause audio */
   window.addEventListener('message', (e) => {
