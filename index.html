@@ -1536,6 +1536,7 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   z-index: 10;
   text-align: center;
   margin-top: 6px;
+  pointer-events: none;
 }
 .iv-badge {
   display: inline-flex;
@@ -1544,8 +1545,8 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   background: rgba(23, 10, 4, 0.75);
   border: 1px solid rgba(212, 175, 55, 0.35);
   border-radius: 9999px;
-  padding: 4px 14px;
-  font-size: 11px;
+  padding: 3px 12px;
+  font-size: 10.5px;
   letter-spacing: .14em;
   color: var(--gold);
   text-transform: uppercase;
@@ -3430,9 +3431,39 @@ if(rotHint){
   if(ringCv){
     const rg = ringCv.getContext('2d');
     if(rg){
-      const TXT = 'Hare Krishna Hare Krishna Krishna Krishna Hare Hare   •   Hare Rama Hare Rama Rama Rama Hare Hare   •   ';
-      const ch = TXT.split('');
-      let wid = [], L = 0, rw = 0, rh = 0, rdp = 1, rlf = 0, rt0 = performance.now();
+      const MANTRA = 'Hare Krishna Hare Krishna Krishna Krishna Hare Hare • Hare Rama Hare Rama Rama Rama Hare Hare • ';
+      let rw = 0, rh = 0, rdp = 1, rlf = 0, rt0 = performance.now();
+      let cachedChars = [], cachedCenters = [], cachedC = 0;
+
+      function updateTextMetrics(f, C, R_ring){
+        rg.font = f + 'px Georgia, "Times New Roman", serif';
+        let singleWid = [];
+        let L_single = 0;
+        for(let i = 0; i < MANTRA.length; i++){
+          const w = rg.measureText(MANTRA[i]).width + f * 0.04;
+          singleWid.push(w);
+          L_single += w;
+        }
+
+        // Exact number of full repetitions that wrap seamlessly around circumference C
+        const reps = Math.max(1, Math.round(C / L_single));
+        const L_total = reps * L_single;
+        const scale = C / L_total; // Scale letter spacing so total circumference is filled with 0 gap/seam
+
+        cachedChars = [];
+        cachedCenters = [];
+        cachedC = C;
+
+        let curr = 0;
+        for(let r = 0; r < reps; r++){
+          for(let i = 0; i < MANTRA.length; i++){
+            const w = singleWid[i] * scale;
+            cachedChars.push(MANTRA[i]);
+            cachedCenters.push(curr + w / 2);
+            curr += w;
+          }
+        }
+      }
 
       function ringLoop(rnow){
         if(!introRunning || introEntered) return;
@@ -3448,22 +3479,18 @@ if(rotHint){
           rlf = 0;
         }
 
-        const m = Math.min(rw, rh), f = Math.max(12, Math.min(28, m * 0.032));
+        const m = Math.min(rw, rh), f = Math.max(12, Math.min(26, m * 0.030));
         rg.setTransform(rdp, 0, 0, rdp, 0, 0);
         rg.clearRect(0, 0, rw, rh);
-        rg.font = f + 'px Georgia, "Times New Roman", serif';
-        if(f !== rlf){
-          rlf = f; L = 0;
-          wid = ch.map(c => {
-            const q = rg.measureText(c).width + f * 0.05;
-            L += q;
-            return q;
-          });
-        }
 
         const sec = (rnow - rt0) / 1000;
-        const R_ring = m * 0.455, C = 6.28318 * R_ring, off = sec * f * 2.2, cx = rw / 2, cy = rh / 2;
-        const rLoader = m * 0.425;
+        const R_ring = m * 0.442, C = 2 * Math.PI * R_ring, cx = rw / 2, cy = rh / 2;
+        const rLoader = m * 0.412;
+
+        if(f !== rlf || Math.abs(C - cachedC) > 1){
+          rlf = f;
+          updateTextMetrics(f, C, R_ring);
+        }
 
         // --- 1. Circular Loader Track (Faint background guide) ---
         const a_loader = Math.min(1, sec / 0.8);
@@ -3517,28 +3544,28 @@ if(rotHint){
           rg.restore();
         }
 
-        // --- 3. Rotating Sacred Quote Ring ---
-        const a_text = Math.max(0, Math.min(1, (sec - 1.5) / 1.5));
-        if(a_text > 0){
+        // --- 3. Rotating Sacred Quote Ring (100% Continuous Seamless Loop) ---
+        const a_text = Math.max(0, Math.min(1, (sec - 1.2) / 1.5));
+        if(a_text > 0 && cachedChars.length > 0){
           rg.textAlign = 'center';
           rg.textBaseline = 'middle';
           rg.fillStyle = '#f4daa0';
 
-          let x = 0;
-          for(let i = 0; i < ch.length; i++){
-            const c = x + wid[i] / 2;
-            x += wid[i];
-            if(ch[i] === ' ') continue;
-            for(let s = (c + off) % L; s < C; s += L){
-              const fade = L > C ? Math.max(0, Math.min(1, Math.min(s, C - s) / (C * 0.05))) : 1;
-              const th = -1.5708 + s / R_ring;
-              rg.globalAlpha = a_text * 0.92 * fade;
-              rg.save();
-              rg.translate(cx + Math.cos(th) * R_ring, cy + Math.sin(th) * R_ring);
-              rg.rotate(th + 1.5708);
-              rg.fillText(ch[i], 0, 0);
-              rg.restore();
-            }
+          const rotSpeed = f * 1.8; // px / sec
+          const off = sec * rotSpeed;
+
+          for(let i = 0; i < cachedChars.length; i++){
+            if(cachedChars[i] === ' ') continue;
+            // Uniform continuous wrap around [0, C) with zero seam
+            const pos = ((cachedCenters[i] + off) % C + C) % C;
+            const th = -Math.PI / 2 + pos / R_ring;
+
+            rg.globalAlpha = a_text * 0.92;
+            rg.save();
+            rg.translate(cx + Math.cos(th) * R_ring, cy + Math.sin(th) * R_ring);
+            rg.rotate(th + Math.PI / 2);
+            rg.fillText(cachedChars[i], 0, 0);
+            rg.restore();
           }
         }
       }
