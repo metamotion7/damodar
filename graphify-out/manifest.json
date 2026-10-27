@@ -1,0 +1,432 @@
+{
+  "/Users/asitpurohit/temple-darshan/vercel.json": {
+    "mtime": 1793117511.4312603,
+    "ast_hash": "8ec14afc554e19dea2be8b2a0aa9c41e",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/manifest.json": {
+    "mtime": 1793084691.6762211,
+    "ast_hash": "169cee66ae885d890a47ce4709cf61c7",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/.vercel/anonymous.json": {
+    "mtime": 1793042921.8417916,
+    "ast_hash": "b8f6199eedf45af79334459a5e0d0474",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/.vercel/output/config.json": {
+    "mtime": 1793042921.9724143,
+    "ast_hash": "f6becbb3521dab265d1dd05d99fe6548",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/.vercel/output/builds.json": {
+    "mtime": 1793042921.966701,
+    "ast_hash": "c5ea55ad6341abe4659fe046d1585a9f",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/.vercel/output/diagnostics/cli_traces.json": {
+    "mtime": 1793042959.5992496,
+    "ast_hash": "0fb97f6ea6d961bd1288e8893669d4a1",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/.vercel/output/diagnostics/deploy-manifest.json": {
+    "mtime": 1793042921.9701943,
+    "ast_hash": "0f636a2b80d78799854485ba3be3a102",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/.vercel/output/diagnostics/project-manifest.json": {
+    "mtime": 1793042921.9702065,
+    "ast_hash": "f722a0f556715c764d12779a2c995546",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/index.html": {
+    "mtime": 1793117580.0738997,
+    "ast_hash": "3b2558d729370012b7dcd8c18e40603a",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/README.md": {
+    "mtime": 1793042731.7709389,
+    "ast_hash": "5239c079fded926913d01094089438dd",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/robots.txt": {
+    "mtime": 1793047189.7001882,
+    "ast_hash": "5382435908df6d30ea6ad7cde04c67b8",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/.vercel/output/static/index.html": {
+    "mtime": 1793082814.7427516,
+    "ast_hash": "71cda5d578d700160b4851edc46f0a66",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/favicon-16x16.png": {
+    "mtime": 1793084645.8812144,
+    "ast_hash": "69682a25126d672d3f70ef9fa2cb630d",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/apple-touch-icon.png": {
+    "mtime": 1793084645.91318,
+    "ast_hash": "df7aa2828b7bc46da32831bf4e49bba7",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/t2.webp": {
+    "mtime": 1793049032.0648167,
+    "ast_hash": "08ad7133f5430c3e6f2a1d2f1dd28873",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/bg.webp": {
+    "mtime": 1793049032.0685837,
+    "ast_hash": "3990e7defd082854c3c80a51a4f68781",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/favicon-512x512.png": {
+    "mtime": 1793084645.9084356,
+    "ast_hash": "10fdc732b1f51aaaa66d10b51e49cbb9",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/og-image.jpg": {
+    "mtime": 1793068090.019099,
+    "ast_hash": "4aef49a6109dc4b243ce620134888917",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/favicon-48x48.png": {
+    "mtime": 1793084645.8859296,
+    "ast_hash": "ed5bb1f0a24a7f3696b46c014df7d671",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/favicon.png": {
+    "mtime": 1793084645.9278483,
+    "ast_hash": "10fdc732b1f51aaaa66d10b51e49cbb9",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/t1.webp": {
+    "mtime": 1793049032.0621006,
+    "ast_hash": "ae0b30427d0386c8affc708091590ac2",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/favicon-192x192.png": {
+    "mtime": 1793084645.8906596,
+    "ast_hash": "b3f84e6fd053240a48f673536afa6fef",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/t0.webp": {
+    "mtime": 1793049032.0593812,
+    "ast_hash": "cdfe87e814071e946e55ddd34a3abb18",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/favicon-32x32.png": {
+    "mtime": 1793084645.8838902,
+    "ast_hash": "156c5300067516f7838e171f9e57073f",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/scene_5.jpg": {
+    "mtime": 1793085197.4517963,
+    "ast_hash": "c1bb651f0498eb6cc22d2c6c3f697975",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/scene_4.jpg": {
+    "mtime": 1793085197.4449542,
+    "ast_hash": "3e43630f65e1a6b40f28e5233ff35282",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/scene_3.jpg": {
+    "mtime": 1793085197.4399722,
+    "ast_hash": "bf6ced84ee2df7da1c9ad7e3aadaebe9",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/scene_2.jpg": {
+    "mtime": 1793085197.4358833,
+    "ast_hash": "746638b92edc62bebd86a9e018917ce6",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/scene_0.jpg": {
+    "mtime": 1793085197.4274752,
+    "ast_hash": "8bd15f14fd3bd8525d21fa0102ab638c",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/scene_1.jpg": {
+    "mtime": 1793085197.4325624,
+    "ast_hash": "0049567822a0f9b69ca3a67136e1ba80",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/audio.mp3": {
+    "mtime": 1793043501.8740346,
+    "ast_hash": "117f8bc4b8aaa5ebc2f91e66efa8d141",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/intro_music.mp3": {
+    "mtime": 1793091893.5419807,
+    "ast_hash": "bb4640bd87491ab8681d33405963f0fa",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/intro_music.mp3": {
+    "mtime": 1793091893.5454168,
+    "ast_hash": "bb4640bd87491ab8681d33405963f0fa",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/voice_0.mp3": {
+    "mtime": 1793090217.337831,
+    "ast_hash": "1b01ccc54d633ae4a8f04a7e1e36f6b4",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/voice_1.mp3": {
+    "mtime": 1793091893.5488615,
+    "ast_hash": "cacb89c76d145fda9499851640b9c172",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_9.jpg": {
+    "mtime": 1793098128.8177423,
+    "ast_hash": "d970da173943ce328b60ee623fc4c723",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_8.jpg": {
+    "mtime": 1793098128.815791,
+    "ast_hash": "160ee45a15fa4fd791d185432a997f30",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_20.jpg": {
+    "mtime": 1793098128.8387737,
+    "ast_hash": "58ea9c890ccb7123cb390b4a57ee35dc",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_21.jpg": {
+    "mtime": 1793098128.8412793,
+    "ast_hash": "43eb599550e7f0aaa7d9bc8eeb7f335a",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_23.jpg": {
+    "mtime": 1793098128.8457656,
+    "ast_hash": "1ac0100b08dd359bc8d158368fae47c0",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_22.jpg": {
+    "mtime": 1793098128.8432853,
+    "ast_hash": "041302554d14d029980166cb8cefd601",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_25.jpg": {
+    "mtime": 1793098128.849825,
+    "ast_hash": "4b712c3671714bdff3e8b054c8f0824a",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_19.jpg": {
+    "mtime": 1793098128.836808,
+    "ast_hash": "3ee6cf11094486512109f1a73bff430b",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_18.jpg": {
+    "mtime": 1793098128.8346415,
+    "ast_hash": "7a264cd324c3509fd70f21f9c9f65e2c",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_24.jpg": {
+    "mtime": 1793098128.8484213,
+    "ast_hash": "c42dbd2ea3f51ed23d8ee2d762cacb24",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_15.jpg": {
+    "mtime": 1793098128.8297138,
+    "ast_hash": "314335db69b5755de6aa2d4fcdac62a6",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_14.jpg": {
+    "mtime": 1793098128.8280253,
+    "ast_hash": "cb879305b7fe81e18200f3c50d060a55",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_16.jpg": {
+    "mtime": 1793098128.8312745,
+    "ast_hash": "44a2640253f7833779c4f1e4665db35b",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_17.jpg": {
+    "mtime": 1793098128.832892,
+    "ast_hash": "a3a22d1098018dc5702e33f266e5f101",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_13.jpg": {
+    "mtime": 1793098128.8257718,
+    "ast_hash": "97f7b8373900e84d71e22f94e1e0dd3e",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_12.jpg": {
+    "mtime": 1793098128.8237832,
+    "ast_hash": "929f16a411a5720cf878b1f525f21c51",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_10.jpg": {
+    "mtime": 1793098128.819073,
+    "ast_hash": "af48f5243291e6b8cc1092d69210f529",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_11.jpg": {
+    "mtime": 1793098128.8216,
+    "ast_hash": "702099a8454cdc3c221eb57322d602b4",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_5.jpg": {
+    "mtime": 1793098128.8103833,
+    "ast_hash": "399bca01edbffbb6d9cae41b4007d5e5",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_4.jpg": {
+    "mtime": 1793098128.8087554,
+    "ast_hash": "b82df3bab2ad8b6272d339fcf49779b2",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_6.jpg": {
+    "mtime": 1793098128.8119242,
+    "ast_hash": "53d2937cca21eb5c9d6c192ed58dd7d7",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_7.jpg": {
+    "mtime": 1793098128.8139088,
+    "ast_hash": "d7bebfae50d32a20b2b74d7a938adb25",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_3.jpg": {
+    "mtime": 1793098128.8069656,
+    "ast_hash": "1fe6452ce7c9ddbfeb3216419e00c0cb",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_2.jpg": {
+    "mtime": 1793098128.8056972,
+    "ast_hash": "939e02473465af2dcd236121076393a7",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_0.jpg": {
+    "mtime": 1793098128.8026874,
+    "ast_hash": "bb23596fa1ac5c23483d4ce5500f974f",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/scenes/scene_1.jpg": {
+    "mtime": 1793098128.804492,
+    "ast_hash": "98ce227572d9dc8961581ea5728a3aaa",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/audio/story_or.mp3": {
+    "mtime": 1793098085.9726577,
+    "ast_hash": "dd1bc4380810d8465d5199d07fa050b0",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/audio/story_ru.mp3": {
+    "mtime": 1793099213.3427303,
+    "ast_hash": "30c1b83877ce5346efd711c43e06236f",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/audio/story_hi.mp3": {
+    "mtime": 1793098085.720335,
+    "ast_hash": "a09de45f5b03d27a7a2cb8991def9ded",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/audio/story_en.mp3": {
+    "mtime": 1793102505.760563,
+    "ast_hash": "589a8cb1e60ff98d59660acda0082f54",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/audio/story_bn.mp3": {
+    "mtime": 1793098085.8947988,
+    "ast_hash": "814736a7037578016029ad5e3c6fd4b7",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/story/audio/story_bgm.mp3": {
+    "mtime": 1793097517.4509149,
+    "ast_hash": "b1ab31309642c536d3895b1f6d7fddcd",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/lyrics-data.js": {
+    "mtime": 1793101794.0394435,
+    "ast_hash": "6e40c7012be3c462fad8cfd461ecc3c1",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/darshan.html": {
+    "mtime": 1793102134.6263485,
+    "ast_hash": "496408e438464d9daa1ec45554556c7e",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/katha.html": {
+    "mtime": 1793117749.3931694,
+    "ast_hash": "a1c07ccb1fa502a0346a72e5c0bb1176",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/choice_offering.png": {
+    "mtime": 1793107093.0868962,
+    "ast_hash": "c1a0e8aa84cbed81cf9bc9f318792928",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/scene_choices.png": {
+    "mtime": 1793105642.9807496,
+    "ast_hash": "7733ca521db7b746d754a6627e128be5",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/choice_katha.png": {
+    "mtime": 1793106979.389676,
+    "ast_hash": "535c6abd5d92d154d701585d07ca4ae8",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/scenes/choice_lyrics.png": {
+    "mtime": 1793106979.3929875,
+    "ast_hash": "aef32a8624cfd69a0164612d2334f7d2",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/hindi.html": {
+    "mtime": 1793112383.076647,
+    "ast_hash": "57f17f256c13c66c6acb666b222866aa",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/index.html": {
+    "mtime": 1793103303.4718673,
+    "ast_hash": "b8f15febae92c9ce43d79e70fc06108f",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/russian.html": {
+    "mtime": 1793103838.39041,
+    "ast_hash": "629ec69ed68232c50d8d274066128e6d",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/lyrics-english.html": {
+    "mtime": 1793112415.8468845,
+    "ast_hash": "7f63c42ad0d8759df8e5d441e970a6e9",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/bengali.html": {
+    "mtime": 1793112398.788039,
+    "ast_hash": "93280f4fc5d41c5e88f4bbcf38fb088f",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/lyrics-russian.html": {
+    "mtime": 1793103838.3907092,
+    "ast_hash": "629ec69ed68232c50d8d274066128e6d",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/english.html": {
+    "mtime": 1793112410.4359856,
+    "ast_hash": "7f63c42ad0d8759df8e5d441e970a6e9",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/lyrics-bengali.html": {
+    "mtime": 1793112415.8454251,
+    "ast_hash": "93280f4fc5d41c5e88f4bbcf38fb088f",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/lyrics-hindi.html": {
+    "mtime": 1793112415.841405,
+    "ast_hash": "57f17f256c13c66c6acb666b222866aa",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/odia.html": {
+    "mtime": 1793112388.153509,
+    "ast_hash": "9fa6e5d16d263be965f33c0c2b709033",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/lyrics-odia.html": {
+    "mtime": 1793112415.8433979,
+    "ast_hash": "9fa6e5d16d263be965f33c0c2b709033",
+    "semantic_hash": ""
+  },
+  "/Users/asitpurohit/temple-darshan/_lyrics_archive/lyrics.html": {
+    "mtime": 1793101886.9832125,
+    "ast_hash": "b8f15febae92c9ce43d79e70fc06108f",
+    "semantic_hash": ""
+  }
+}

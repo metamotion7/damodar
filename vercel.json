@@ -1,5 +1,9 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/story", "destination": "/katha", "permanent": true },
+    { "source": "/story/:lang(hindi|english|odia|bengali|russian|hi|en|or|bn|ru)", "destination": "/katha/:lang", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/lyrics", "destination": "/index" },
     { "source": "/lyrics/:lang([a-zA-Z0-9_-]+)", "destination": "/index" },
@@ -9,6 +13,7 @@
     { "source": "/russian-lyrics", "destination": "/index" },
     { "source": "/english-lyrics", "destination": "/index" },
     { "source": "/katha", "destination": "/katha" },
+    { "source": "/katha/:lang([a-zA-Z0-9_-]+)", "destination": "/katha" },
     { "source": "/darshan", "destination": "/darshan" }
   ],
   "headers": [
@@ -26,7 +31,7 @@
       ]
     },
     {
-      "source": "/(index|story|katha|lyrics|darshan|lyrics/.*)?(\\.html)?",
+      "source": "/(index|katha|lyrics|darshan|lyrics/.*|katha/.*)?(\\.html)?",
       "headers": [
         {
           "key": "Cache-Control",

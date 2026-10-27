@@ -1,0 +1,1013 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "lyrics-data.js",
+      "file_type": "code",
+      "source_file": "lyrics-data.js",
+      "source_location": "L1",
+      "id": "lyrics_data_js",
+      "community": 9,
+      "norm_label": "lyrics-data.js"
+    },
+    {
+      "label": "vercel.json",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L1",
+      "id": "vercel_json",
+      "community": 7,
+      "norm_label": "vercel.json"
+    },
+    {
+      "label": "cleanUrls",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L2",
+      "id": "temple_darshan_vercel_cleanurls",
+      "community": 7,
+      "norm_label": "cleanurls"
+    },
+    {
+      "label": "redirects",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L3",
+      "id": "temple_darshan_vercel_redirects",
+      "community": 7,
+      "norm_label": "redirects"
+    },
+    {
+      "label": "rewrites",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L7",
+      "id": "temple_darshan_vercel_rewrites",
+      "community": 7,
+      "norm_label": "rewrites"
+    },
+    {
+      "label": "headers",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L19",
+      "id": "temple_darshan_vercel_headers",
+      "community": 7,
+      "norm_label": "headers"
+    },
+    {
+      "label": "manifest.json",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L1",
+      "id": "manifest_json",
+      "community": 1,
+      "norm_label": "manifest.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L2",
+      "id": "temple_darshan_manifest_name",
+      "community": 1,
+      "norm_label": "name"
+    },
+    {
+      "label": "short_name",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L3",
+      "id": "temple_darshan_manifest_short_name",
+      "community": 1,
+      "norm_label": "short_name"
+    },
+    {
+      "label": "description",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L4",
+      "id": "temple_darshan_manifest_description",
+      "community": 1,
+      "norm_label": "description"
+    },
+    {
+      "label": "icons",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L5",
+      "id": "temple_darshan_manifest_icons",
+      "community": 1,
+      "norm_label": "icons"
+    },
+    {
+      "label": "theme_color",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L19",
+      "id": "temple_darshan_manifest_theme_color",
+      "community": 1,
+      "norm_label": "theme_color"
+    },
+    {
+      "label": "background_color",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L20",
+      "id": "temple_darshan_manifest_background_color",
+      "community": 1,
+      "norm_label": "background_color"
+    },
+    {
+      "label": "display",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L21",
+      "id": "temple_darshan_manifest_display",
+      "community": 1,
+      "norm_label": "display"
+    },
+    {
+      "label": "start_url",
+      "file_type": "code",
+      "source_file": "manifest.json",
+      "source_location": "L22",
+      "id": "temple_darshan_manifest_start_url",
+      "community": 1,
+      "norm_label": "start_url"
+    },
+    {
+      "label": "anonymous.json",
+      "file_type": "code",
+      "source_file": ".vercel/anonymous.json",
+      "source_location": "L1",
+      "id": "vercel_anonymous_json",
+      "community": 5,
+      "norm_label": "anonymous.json"
+    },
+    {
+      "label": "projectId",
+      "file_type": "code",
+      "source_file": ".vercel/anonymous.json",
+      "source_location": "L2",
+      "id": "vercel_anonymous_projectid",
+      "community": 5,
+      "norm_label": "projectid"
+    },
+    {
+      "label": "token",
+      "file_type": "code",
+      "source_file": ".vercel/anonymous.json",
+      "source_location": "L3",
+      "id": "vercel_anonymous_token",
+      "community": 5,
+      "norm_label": "token"
+    },
+    {
+      "label": "claimUrl",
+      "file_type": "code",
+      "source_file": ".vercel/anonymous.json",
+      "source_location": "L4",
+      "id": "vercel_anonymous_claimurl",
+      "community": 5,
+      "norm_label": "claimurl"
+    },
+    {
+      "label": "expiresAt",
+      "file_type": "code",
+      "source_file": ".vercel/anonymous.json",
+      "source_location": "L5",
+      "id": "vercel_anonymous_expiresat",
+      "community": 5,
+      "norm_label": "expiresat"
+    },
+    {
+      "label": "config.json",
+      "file_type": "code",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L1",
+      "id": "vercel_output_config_json",
+      "community": 4,
+      "norm_label": "config.json"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L2",
+      "id": "output_config_version",
+      "community": 4,
+      "norm_label": "version"
+    },
+    {
+      "label": "routes",
+      "file_type": "code",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L3",
+      "id": "output_config_routes",
+      "community": 4,
+      "norm_label": "routes"
+    },
+    {
+      "label": "overrides",
+      "file_type": "code",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L27",
+      "id": "output_config_overrides",
+      "community": 4,
+      "norm_label": "overrides"
+    },
+    {
+      "label": "index.html",
+      "file_type": "code",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L28",
+      "id": "output_config_overrides_index_html",
+      "community": 4,
+      "norm_label": "index.html"
+    },
+    {
+      "label": "path",
+      "file_type": "code",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L29",
+      "id": "output_config_index_html_path",
+      "community": 4,
+      "norm_label": "path"
+    },
+    {
+      "label": "crons",
+      "file_type": "code",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L32",
+      "id": "output_config_crons",
+      "community": 4,
+      "norm_label": "crons"
+    },
+    {
+      "label": "builds.json",
+      "file_type": "code",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L1",
+      "id": "vercel_output_builds_json",
+      "community": 3,
+      "norm_label": "builds.json"
+    },
+    {
+      "label": "//",
+      "file_type": "code",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L2",
+      "id": "output_builds",
+      "community": 3,
+      "norm_label": "//"
+    },
+    {
+      "label": "target",
+      "file_type": "code",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L3",
+      "id": "output_builds_target",
+      "community": 3,
+      "norm_label": "target"
+    },
+    {
+      "label": "argv",
+      "file_type": "code",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L4",
+      "id": "output_builds_argv",
+      "community": 3,
+      "norm_label": "argv"
+    },
+    {
+      "label": "cliVersion",
+      "file_type": "code",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L11",
+      "id": "output_builds_cliversion",
+      "community": 3,
+      "norm_label": "cliversion"
+    },
+    {
+      "label": "detectedFramework",
+      "file_type": "code",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L12",
+      "id": "output_builds_detectedframework",
+      "community": 3,
+      "norm_label": "detectedframework"
+    },
+    {
+      "label": "status",
+      "file_type": "code",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L13",
+      "id": "output_builds_detectedframework_status",
+      "community": 3,
+      "norm_label": "status"
+    },
+    {
+      "label": "builds",
+      "file_type": "code",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L15",
+      "id": "output_builds_builds",
+      "community": 3,
+      "norm_label": "builds"
+    },
+    {
+      "label": "cli_traces.json",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/cli_traces.json",
+      "source_location": "L1",
+      "id": "vercel_output_diagnostics_cli_traces_json",
+      "community": 8,
+      "norm_label": "cli_traces.json"
+    },
+    {
+      "label": "deploy-manifest.json",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "id": "vercel_output_diagnostics_deploy_manifest_json",
+      "community": 0,
+      "norm_label": "deploy-manifest.json"
+    },
+    {
+      "label": "manifestVersion",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_deploy_manifest_manifestversion",
+      "community": 0,
+      "norm_label": "manifestversion"
+    },
+    {
+      "label": "builds",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_deploy_manifest_builds",
+      "community": 0,
+      "norm_label": "builds"
+    },
+    {
+      "label": "@vercel/static:.",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_deploy_manifest_builds_vercel_static",
+      "community": 0,
+      "norm_label": "@vercel/static:."
+    },
+    {
+      "label": "runtime",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_deploy_manifest_vercel_static_runtime",
+      "community": 0,
+      "norm_label": "runtime"
+    },
+    {
+      "label": "buildType",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_deploy_manifest_vercel_static_buildtype",
+      "community": 0,
+      "norm_label": "buildtype"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_deploy_manifest_vercel_static_dependencies",
+      "community": 0,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "root",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_deploy_manifest_vercel_static_root",
+      "community": 0,
+      "norm_label": "root"
+    },
+    {
+      "label": "builder",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_deploy_manifest_vercel_static_builder",
+      "community": 0,
+      "norm_label": "builder"
+    },
+    {
+      "label": "services",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_deploy_manifest_services",
+      "community": 0,
+      "norm_label": "services"
+    },
+    {
+      "label": "project-manifest.json",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "id": "vercel_output_diagnostics_project_manifest_json",
+      "community": 2,
+      "norm_label": "project-manifest.json"
+    },
+    {
+      "label": "@vercel/static:.",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_project_manifest_vercel_static",
+      "community": 2,
+      "norm_label": "@vercel/static:."
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_project_manifest_vercel_static_version",
+      "community": 2,
+      "norm_label": "version"
+    },
+    {
+      "label": "runtime",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_project_manifest_vercel_static_runtime",
+      "community": 2,
+      "norm_label": "runtime"
+    },
+    {
+      "label": "buildType",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_project_manifest_vercel_static_buildtype",
+      "community": 2,
+      "norm_label": "buildtype"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_project_manifest_vercel_static_dependencies",
+      "community": 2,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "workspace",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_project_manifest_vercel_static_workspace",
+      "community": 2,
+      "norm_label": "workspace"
+    },
+    {
+      "label": "builder",
+      "file_type": "code",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "id": "diagnostics_project_manifest_vercel_static_builder",
+      "community": 2,
+      "norm_label": "builder"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "id": "readme_md",
+      "community": 6,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Sri Damodar Aarti 3D",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "id": "temple_darshan_readme_sri_damodar_aarti_3d",
+      "community": 6,
+      "norm_label": "sri damodar aarti 3d"
+    },
+    {
+      "label": "Features",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L5",
+      "id": "temple_darshan_readme_features",
+      "community": 6,
+      "norm_label": "features"
+    },
+    {
+      "label": "Deployment",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L12",
+      "id": "temple_darshan_readme_deployment",
+      "community": 6,
+      "norm_label": "deployment"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_json",
+      "target": "temple_darshan_vercel_cleanurls"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "vercel_json",
+      "target": "temple_darshan_vercel_redirects",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_json",
+      "target": "temple_darshan_vercel_rewrites"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_json",
+      "target": "temple_darshan_vercel_headers"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "manifest_json",
+      "target": "temple_darshan_manifest_name"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "manifest_json",
+      "target": "temple_darshan_manifest_short_name"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "manifest_json",
+      "target": "temple_darshan_manifest_description"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "manifest_json",
+      "target": "temple_darshan_manifest_icons"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "manifest_json",
+      "target": "temple_darshan_manifest_theme_color"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "manifest_json",
+      "target": "temple_darshan_manifest_background_color"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "manifest_json",
+      "target": "temple_darshan_manifest_display"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "manifest.json",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "manifest_json",
+      "target": "temple_darshan_manifest_start_url"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/anonymous.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_anonymous_json",
+      "target": "vercel_anonymous_projectid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/anonymous.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_anonymous_json",
+      "target": "vercel_anonymous_token"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/anonymous.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_anonymous_json",
+      "target": "vercel_anonymous_claimurl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/anonymous.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_anonymous_json",
+      "target": "vercel_anonymous_expiresat"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_config_json",
+      "target": "output_config_version"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_config_json",
+      "target": "output_config_routes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_config_json",
+      "target": "output_config_overrides"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_config_json",
+      "target": "output_config_crons"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L28",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "output_config_overrides",
+      "target": "output_config_overrides_index_html"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/config.json",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "output_config_overrides_index_html",
+      "target": "output_config_index_html_path"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_builds_json",
+      "target": "output_builds"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_builds_json",
+      "target": "output_builds_target"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_builds_json",
+      "target": "output_builds_argv"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_builds_json",
+      "target": "output_builds_cliversion"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_builds_json",
+      "target": "output_builds_detectedframework"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_builds_json",
+      "target": "output_builds_builds"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/builds.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "output_builds_detectedframework",
+      "target": "output_builds_detectedframework_status"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_diagnostics_deploy_manifest_json",
+      "target": "diagnostics_deploy_manifest_manifestversion"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_diagnostics_deploy_manifest_json",
+      "target": "diagnostics_deploy_manifest_builds"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_diagnostics_deploy_manifest_json",
+      "target": "diagnostics_deploy_manifest_services"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_deploy_manifest_builds",
+      "target": "diagnostics_deploy_manifest_builds_vercel_static"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_deploy_manifest_builds_vercel_static",
+      "target": "diagnostics_deploy_manifest_vercel_static_runtime"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_deploy_manifest_builds_vercel_static",
+      "target": "diagnostics_deploy_manifest_vercel_static_buildtype"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_deploy_manifest_builds_vercel_static",
+      "target": "diagnostics_deploy_manifest_vercel_static_dependencies"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_deploy_manifest_builds_vercel_static",
+      "target": "diagnostics_deploy_manifest_vercel_static_root"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/deploy-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_deploy_manifest_builds_vercel_static",
+      "target": "diagnostics_deploy_manifest_vercel_static_builder"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_output_diagnostics_project_manifest_json",
+      "target": "diagnostics_project_manifest_vercel_static"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_project_manifest_vercel_static",
+      "target": "diagnostics_project_manifest_vercel_static_version"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_project_manifest_vercel_static",
+      "target": "diagnostics_project_manifest_vercel_static_runtime"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_project_manifest_vercel_static",
+      "target": "diagnostics_project_manifest_vercel_static_buildtype"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_project_manifest_vercel_static",
+      "target": "diagnostics_project_manifest_vercel_static_dependencies"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_project_manifest_vercel_static",
+      "target": "diagnostics_project_manifest_vercel_static_workspace"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vercel/output/diagnostics/project-manifest.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "diagnostics_project_manifest_vercel_static",
+      "target": "diagnostics_project_manifest_vercel_static_builder"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_md",
+      "target": "temple_darshan_readme_sri_damodar_aarti_3d"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "temple_darshan_readme_sri_damodar_aarti_3d",
+      "target": "temple_darshan_readme_features"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "temple_darshan_readme_sri_damodar_aarti_3d",
+      "target": "temple_darshan_readme_deployment"
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "c4d8970fe47ae7f7b35ef5f9ffc561de374a70ce"
+}

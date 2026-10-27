@@ -75,7 +75,7 @@
         {
           "@type": "WebPage",
           "name": "Damodara Lila Katha (26 Scenes Story)",
-          "url": "https://damodar.lol/story",
+          "url": "https://damodar.lol/katha",
           "description": "26 sacred illustrated scenes of Damodara Lila with soothing narration in 5 languages and Krishna flute music."
         },
         {
@@ -112,7 +112,7 @@
         "Virtual 3D Deep Daan"
       ],
       "url": [
-        "https://damodar.lol/story",
+        "https://damodar.lol/katha",
         "https://damodar.lol/lyrics",
         "https://damodar.lol/lyrics?lang=hi",
         "https://damodar.lol/lyrics?lang=or",
@@ -4061,7 +4061,7 @@ if(rotHint){
       window.addEventListener('DOMContentLoaded', () => setTimeout(tryDirect, 200));
     }
   }
-  if(p.get('openStory') === '1'){
+  if(p.get('openStory') === '1' || p.get('openKatha') === '1'){
     setTimeout(() => {
       if(typeof window.openDamodaraStory === 'function') window.openDamodaraStory();
     }, 600);
@@ -4098,7 +4098,7 @@ if(rotHint){
       sessionStorage.setItem('cameFromTemple', '1');
       sessionStorage.setItem('damodar_intro_done', '1');
     } catch(e){}
-    const target = (window.location.protocol === 'file:') ? 'story.html' : 'story';
+    const target = (window.location.protocol === 'file:') ? 'katha.html' : 'katha';
     window.location.href = target;
   }
 
