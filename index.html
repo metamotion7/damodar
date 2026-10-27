@@ -1307,34 +1307,6 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   color:var(--gold);
   text-transform:uppercase;
 }
-.lm-back-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:linear-gradient(135deg, rgba(246, 195, 101, 0.22), rgba(240, 138, 28, 0.22));
-  border:1px solid rgba(246, 195, 101, 0.55);
-  color:#ffd58a;
-  border-radius:999px;
-  padding:6px 14px;
-  font-size:12px;
-  font-weight:700;
-  cursor:pointer;
-  transition:all .2s ease;
-  line-height:1;
-  text-decoration:none;
-  white-space:nowrap;
-  flex-shrink:0;
-}
-.lm-back-btn:hover{
-  background:linear-gradient(135deg, #f6c365, #f08a1c);
-  color:#1a0802;
-  border-color:#ffd58a;
-  box-shadow:0 0 14px rgba(246, 195, 101, 0.4);
-  transform:translateY(-1px);
-}
-.lm-back-btn:active{
-  transform:scale(0.97);
-}
 .lm-body{
   padding:18px 24px;
   overflow-y:auto;
@@ -1761,7 +1733,6 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   <button class="lang-pill" data-lang="bn">বাংলা</button>
   <button class="lang-pill" data-lang="ru" title="Русский">RU</button>
 </div>
-    <button type="button" id="backToTempleBtn" class="lm-back-btn" title="Back to Sri Damodar Temple Darshan">← Temple Darshan 🪔</button>
   </div>
   <div class="lm-body" id="lyricsBody">
     
@@ -2387,7 +2358,6 @@ if(bAudio){
   bAudio.currentTime = 0;
 }
 const lModal = $('lyricsModal');
-const backToTempleBtn = $('backToTempleBtn');
 const sLiveElem = $('liveSanskrit');
 const tLiveElem = $('liveTrans');
 const bLiveBadge = $('liveBadge');
@@ -2975,13 +2945,6 @@ if(liveLyricsElem){
     e.stopPropagation();
     openFullLyrics();
   });
-}
-
-if(backToTempleBtn){
-  backToTempleBtn.onclick = (e) => {
-    e.stopPropagation();
-    closeFullLyrics();
-  };
 }
 
 // Close modal when clicking outside or pressing Escape
