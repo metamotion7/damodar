@@ -1677,195 +1677,6 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   }
 }
 
-/* ===== Intro Choice Overlay (3-Circle Triangular Formation) ===== */
-#introChoiceOverlay {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-  opacity: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
-  transform: scale(0.95);
-}
-#introChoiceOverlay.choice-visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: scale(1);
-}
-
-.choice-container {
-  position: relative;
-  width: min(80vmin, 620px);
-  height: min(80vmin, 620px);
-  max-width: 90vw;
-  max-height: 90vh;
-  z-index: 12;
-  margin: auto;
-}
-
-.choice-card {
-  all: unset;
-  position: absolute;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.28s ease;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-}
-.choice-card:hover {
-  transform: translate(-50%, -50%) scale(1.08);
-}
-.choice-card:active {
-  transform: translate(-50%, -50%) scale(0.96);
-}
-
-/* Exact Triangular Coordinates inside the big circle */
-.choice-katha {
-  top: 24%;
-  left: 50%;
-}
-.choice-lyrics {
-  top: 68%;
-  left: 26%;
-}
-.choice-offering {
-  top: 68%;
-  left: 74%;
-}
-
-.choice-center-lotus {
-  position: absolute;
-  top: 48%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  font-size: clamp(22px, 4.5vmin, 36px);
-  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.75));
-  opacity: 0.9;
-  user-select: none;
-  animation: lotusPulse 3s infinite ease-in-out;
-}
-@keyframes lotusPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.8; }
-  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; filter: drop-shadow(0 0 18px rgba(255, 220, 100, 0.95)); }
-}
-
-.choice-img-frame {
-  position: relative;
-  width: clamp(80px, 21vmin, 160px);
-  height: clamp(80px, 21vmin, 160px);
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid #d4af37;
-  box-shadow: 
-    0 0 24px rgba(212, 175, 55, 0.55),
-    0 8px 30px rgba(0, 0, 0, 0.9),
-    inset 0 0 15px rgba(0, 0, 0, 0.5);
-  background: #080402;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.choice-offering .choice-img-frame {
-  width: clamp(90px, 23vmin, 175px);
-  height: clamp(90px, 23vmin, 175px);
-  border: 3.5px solid #ffd700;
-  box-shadow: 
-    0 0 30px rgba(255, 215, 0, 0.7),
-    0 10px 35px rgba(0, 0, 0, 0.95),
-    inset 0 0 20px rgba(255, 215, 0, 0.25);
-}
-
-.choice-card:hover .choice-img-frame {
-  border-color: #ffe680;
-  box-shadow: 
-    0 0 42px rgba(255, 220, 100, 0.95),
-    0 12px 42px rgba(0, 0, 0, 0.95);
-}
-
-.choice-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.4s ease;
-}
-.choice-card:hover .choice-photo {
-  transform: scale(1.1);
-}
-
-.choice-tag {
-  margin-top: 8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 12px;
-  background: linear-gradient(135deg, rgba(32, 15, 6, 0.95), rgba(16, 7, 2, 0.98));
-  border: 1px solid rgba(212, 175, 55, 0.6);
-  border-radius: 9999px;
-  color: #fff2d6;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(9.5px, 1.5vmin, 12px);
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-  transition: all 0.25s ease;
-}
-.choice-tag-primary {
-  border-color: #ffd700;
-  color: #ffd700;
-  background: linear-gradient(135deg, rgba(45, 22, 8, 0.96), rgba(22, 10, 3, 0.98));
-  box-shadow: 0 0 18px rgba(255, 215, 0, 0.35);
-}
-.choice-card:hover .choice-tag {
-  border-color: #ffd700;
-  color: #ffd700;
-  box-shadow: 0 0 22px rgba(255, 215, 0, 0.6);
-}
-
-/* Choice countdown pill at bottom */
-.choice-bottom-bar {
-  position: absolute;
-  bottom: clamp(14px, 3.5vh, 28px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 15;
-  pointer-events: auto;
-}
-.choice-countdown-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(18, 9, 3, 0.88);
-  border: 1px solid rgba(212, 175, 55, 0.55);
-  border-radius: 9999px;
-  padding: 6px 18px;
-  color: #fce8cd;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(11px, 2vmin, 13px);
-  font-weight: 600;
-  letter-spacing: .03em;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7), 0 0 12px rgba(212, 175, 55, 0.25);
-  animation: choicePillGlow 2.5s infinite ease-in-out;
-}
-@keyframes choicePillGlow {
-  0%, 100% { box-shadow: 0 4px 18px rgba(0,0,0,0.7), 0 0 12px rgba(212,175,55,0.25); }
-  50% { box-shadow: 0 4px 22px rgba(0,0,0,0.8), 0 0 20px rgba(255,215,0,0.45); }
-}
-.choice-flame-icon {
-  font-size: 13px;
-  animation: ivFlamePulse 1.8s infinite;
-}
-
 .main-story-btn {
   all: unset;
   cursor: pointer;
@@ -2364,57 +2175,6 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
   
   <div class="intro-video-top">
     <span class="iv-badge">KARTIK MAAS • SRI DAMODARA</span>
-  </div>
-
-  <!-- 3-Circle Choice Overlay — shown after intro dialogue ends -->
-  <div id="introChoiceOverlay" role="navigation" aria-label="Choose your experience">
-    <div class="choice-container" id="choiceContainer">
-      <!-- 1. KATHA (Damodara Lila 26 Scenes) -->
-      <a href="/story" class="choice-card choice-katha" id="choiceKatha" aria-label="Damodara Lila Katha (26 Scenes)">
-        <div class="choice-img-frame">
-          <img src="scenes/circle_katha.jpg" alt="Damodara Lila Katha" class="choice-photo" />
-        </div>
-        <div class="choice-tag">
-          <span class="choice-icon">📖</span>
-          <span class="choice-title">KATHA</span>
-        </div>
-      </a>
-
-      <!-- 2. OFFERING (3D Temple & Aarti) -->
-      <button type="button" class="choice-card choice-offering" id="choiceOffering" aria-label="3D Offering Lamp — Damodar Aarti">
-        <div class="choice-img-frame">
-          <img src="scenes/circle_offering.jpg" alt="3D Offering Aarti" class="choice-photo" />
-        </div>
-        <div class="choice-tag choice-tag-primary">
-          <span class="choice-icon">🪔</span>
-          <span class="choice-title">OFFERING</span>
-        </div>
-      </button>
-
-      <!-- 3. LYRICS (Sri Damodarashtakam 8 Verses) -->
-      <a href="/lyrics" class="choice-card choice-lyrics" id="choiceLyrics" aria-label="Damodarashtakam Lyrics & Meaning">
-        <div class="choice-img-frame">
-          <img src="scenes/circle_lyrics.jpg" alt="Damodarashtakam Lyrics" class="choice-photo" />
-        </div>
-        <div class="choice-tag">
-          <span class="choice-icon">📜</span>
-          <span class="choice-title">LYRICS</span>
-        </div>
-      </a>
-
-      <!-- Central Sacred Lotus -->
-      <div class="choice-center-lotus" aria-hidden="true">
-        <span class="choice-lotus-icon">🪷</span>
-      </div>
-    </div>
-
-    <!-- Countdown status at bottom -->
-    <div class="choice-bottom-bar" id="choiceBottomBar">
-      <div class="choice-countdown-pill" id="choiceCountdownPill">
-        <span class="choice-flame-icon">🪔</span>
-        <span id="choiceCountdownText">Entering 3D Darshan in 5s…</span>
-      </div>
-    </div>
   </div>
 
   <div class="intro-slim-loader" id="introBottomBar">
@@ -3800,51 +3560,19 @@ if(rotHint){
     }
   }
 
-  /* ---------- Choice Screen State ---------- */
-  let choicePhaseActive = false;
-  let choiceStartTime = 0;
-  const CHOICE_DURATION = 5000; // 5 seconds
-  let choiceTimer = null;
-
-  function showChoiceScreen(){
-    if(choicePhaseActive || introEntered) return;
-    choicePhaseActive = true;
-    choiceStartTime = performance.now();
-
-    // Softly dim the background dots so the 3 golden crystal-clear cards shine
-    const cv = document.getElementById('dotVideoCv');
-    if(cv){
-      cv.style.transition = 'opacity 0.8s ease';
-      cv.style.opacity = '0.20';
-    }
-
-    // Hide the initial loading bar
-    const bar = document.getElementById('introBottomBar');
-    if(bar){
-      bar.style.transition = 'opacity 0.3s ease';
-      bar.style.opacity = '0';
-      bar.style.pointerEvents = 'none';
-    }
-
-    // Reveal the 3 choice portals overlay
-    const choiceEl = document.getElementById('introChoiceOverlay');
-    if(choiceEl){
-      choiceEl.classList.add('choice-visible');
-    }
-
-    // Auto-enter temple after exactly 5 seconds if user makes no selection
-    choiceTimer = setTimeout(() => {
-      if(!introEntered) enterTempleFromIntro();
-    }, CHOICE_DURATION);
-  }
-
   function onIntroMusicComplete(){
     if(autoTransitionStarted || introEntered) return;
     autoTransitionStarted = true;
     introProgress = 100;
+    const bar = document.getElementById('ivBarFill');
+    const pctEl = document.getElementById('ivPercentText');
+    const statusEl = document.getElementById('ivStatusText');
+    if(bar) bar.style.width = '100%';
+    if(pctEl) pctEl.textContent = '100%';
+    if(statusEl) statusEl.textContent = 'Sri Damodara Darshan is Ready…';
     setTimeout(() => {
-      showChoiceScreen();
-    }, 150);
+      enterTempleFromIntro();
+    }, 450);
   }
 
   function stopAllIntroAudio(){
@@ -3949,7 +3677,7 @@ if(rotHint){
 
         // --- 2. Circular Loader Active Arc ---
         const pctNorm = Math.max(0, Math.min(1, introProgress / 100));
-        if(!choicePhaseActive && pctNorm > 0.001){
+        if(pctNorm > 0.001){
           const startAngle = -Math.PI / 2;
           const endAngle = startAngle + pctNorm * Math.PI * 2;
           rg.save();
@@ -3998,53 +3726,6 @@ if(rotHint){
             rg.rotate(th + Math.PI / 2);
             rg.fillText(cachedChars[i], 0, 0);
             rg.restore();
-          }
-        }
-
-        // --- 4. Choice Countdown Ring (drains over 5s when choicePhaseActive) ---
-        if(choicePhaseActive && !introEntered){
-          const elapsed = rnow - choiceStartTime;
-          const remain = Math.max(0, 1 - elapsed / CHOICE_DURATION);
-          const cntR = rLoader;
-          const startA = -Math.PI / 2;
-          const endA = startA + remain * Math.PI * 2;
-
-          rg.save();
-          // Faint track
-          rg.globalAlpha = 0.20;
-          rg.strokeStyle = '#f4daa0';
-          rg.lineWidth = Math.max(1.5, m * 0.0035);
-          rg.beginPath();
-          rg.arc(cx, cy, cntR, 0, Math.PI * 2);
-          rg.stroke();
-
-          // Active countdown arc
-          rg.globalAlpha = 0.95;
-          rg.lineCap = 'round';
-          rg.shadowColor = remain > 0.25 ? 'rgba(255, 215, 0, 0.85)' : 'rgba(255, 80, 50, 0.95)';
-          rg.shadowBlur = Math.max(6, m * 0.018);
-          rg.strokeStyle = remain > 0.25 ? '#ffd700' : '#ff7744';
-          rg.lineWidth = Math.max(2.5, Math.min(6, m * 0.007));
-          rg.beginPath();
-          rg.arc(cx, cy, cntR, startA, endA);
-          rg.stroke();
-
-          // Spark bead at the leading head
-          const bx = cx + Math.cos(endA) * cntR;
-          const by = cy + Math.sin(endA) * cntR;
-          rg.shadowColor = '#fff2a8';
-          rg.shadowBlur = Math.max(8, m * 0.024);
-          rg.fillStyle = '#ffffff';
-          rg.beginPath();
-          rg.arc(bx, by, Math.max(2.5, m * 0.0065), 0, Math.PI * 2);
-          rg.fill();
-          rg.restore();
-
-          // Update countdown text on the bottom pill
-          const secs = Math.ceil(remain * CHOICE_DURATION / 1000);
-          const cdText = document.getElementById('choiceCountdownText');
-          if(cdText){
-            cdText.textContent = `Entering 3D Darshan in ${secs}s…`;
           }
         }
       }
@@ -4244,42 +3925,11 @@ if(rotHint){
   }
   window.enterTempleFromIntro = enterTempleFromIntro;
 
-  // ===== Choice Circle Click Handlers =====
-  (function setupChoiceClicks(){
-    const choiceOffering = document.getElementById('choiceOffering');
-    if(choiceOffering){
-      choiceOffering.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        clearTimeout(choiceTimer);
-        enterTempleFromIntro();
-      });
-    }
-
-    const choiceKatha = document.getElementById('choiceKatha');
-    if(choiceKatha){
-      choiceKatha.addEventListener('click', (e) => {
-        e.stopPropagation();
-        clearTimeout(choiceTimer);
-      });
-    }
-
-    const choiceLyrics = document.getElementById('choiceLyrics');
-    if(choiceLyrics){
-      choiceLyrics.addEventListener('click', (e) => {
-        e.stopPropagation();
-        clearTimeout(choiceTimer);
-      });
-    }
-  })();
-
-  // Fallback: click background during choice screen to enter temple immediately
+  // Fallback: click anywhere after loading is ready opens immediately
   const overlay = document.getElementById('introVideoOverlay');
   if(overlay){
-    overlay.addEventListener('click', (e) => {
-      if(e.target && e.target.closest('#introChoiceOverlay')) return;
-      if(choicePhaseActive){
-        clearTimeout(choiceTimer);
+    overlay.addEventListener('click', () => {
+      if(introProgress >= 100){
         enterTempleFromIntro();
       }
     });
