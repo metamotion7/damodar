@@ -1518,6 +1518,17 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   height: 100%;
   display: block;
   pointer-events: none;
+  z-index: 1;
+}
+
+#dotRingCv {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .intro-video-top {
@@ -1543,147 +1554,78 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   box-shadow: 0 4px 15px rgba(0,0,0,0.6);
 }
 
-.intro-video-bottom {
+/* Slim normal loading bar with percentage */
+.intro-slim-loader {
   position: relative;
   z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
   width: 100%;
-  max-width: 420px;
-  margin-bottom: clamp(12px, 3vh, 24px);
-}
-
-.iv-loader-box {
-  width: 100%;
-  background: rgba(14, 7, 3, 0.82);
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  border-radius: 16px;
-  padding: 12px 18px 14px;
-  box-sizing: border-box;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.15);
+  max-width: 380px;
+  margin-bottom: clamp(14px, 3.5vh, 28px);
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.iv-text-row {
+.iv-slim-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.iv-slim-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #b8860b, #ffd700, #fff2a8);
+  border-radius: 9999px;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.75);
+  transition: width 0.25s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.iv-slim-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 12px;
-  color: #dfc39f;
   letter-spacing: .03em;
+  color: #dfc39f;
 }
-.iv-status {
+
+.iv-slim-status {
   display: flex;
   align-items: center;
   gap: 6px;
   color: #f7e3c8;
   font-weight: 500;
+  font-size: 12px;
 }
+
 .iv-flame-icon {
-  font-size: 14px;
+  font-size: 13px;
   animation: ivFlamePulse 1.8s infinite;
 }
+
 @keyframes ivFlamePulse {
   0%, 100% { opacity: 0.7; transform: scale(0.95); }
   50% { opacity: 1; transform: scale(1.18); filter: drop-shadow(0 0 6px #ffaa33); }
 }
-.iv-percent {
+
+.iv-slim-percent {
   font-family: monospace;
   font-size: 12px;
   color: var(--gold);
   font-weight: 600;
 }
 
-.iv-bar-track {
-  width: 100%;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 9999px;
-  overflow: hidden;
-  position: relative;
-}
-.iv-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #994c14, #d4af37, #ffe082);
-  border-radius: 9999px;
-  box-shadow: 0 0 10px rgba(255, 170, 50, 0.7);
-  transition: width 0.3s ease;
-}
-
-.iv-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-}
-.iv-enter-btn {
-  width: 100%;
-  padding: 12px 24px;
-  border-radius: 9999px;
-  background: linear-gradient(135deg, #743209 0%, #3e1905 50%, #200a01 100%);
-  border: 1.5px solid #ffd875;
-  color: #fff6e4;
-  font-family: Georgia, serif;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: .04em;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  box-shadow: 0 6px 26px rgba(0,0,0,0.6), 0 0 25px rgba(255,180,60,0.5);
-  animation: ivEnterPulse 2s infinite;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-@keyframes ivEnterPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 6px 26px rgba(0,0,0,0.6), 0 0 22px rgba(255,180,60,0.45); }
-  50% { transform: scale(1.02); box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 0 32px rgba(255,190,70,0.75); }
-}
-.iv-enter-btn:hover {
-  transform: translateY(-2px) scale(1.03);
-}
-.iv-enter-btn.hidden {
-  display: none !important;
-}
-
-.iv-skip-btn {
-  background: none;
-  border: none;
-  color: #c9ab86;
-  font-family: Georgia, serif;
-  font-size: 12px;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  opacity: 0.85;
-}
-.iv-skip-btn:hover {
-  color: #fff;
-  opacity: 1;
-}
-
 @media (max-width: 600px) {
-  .intro-video-bottom {
-    max-width: 330px;
+  .intro-slim-loader {
+    max-width: 320px;
     margin-bottom: 16px;
   }
-  .iv-loader-box {
-    padding: 10px 14px 12px;
-  }
 }
-
 
 </style>
 </head>
@@ -2060,27 +2002,19 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
 <!-- Fullscreen HD Dotfield Intro Video & Loader -->
 <div id="introVideoOverlay">
   <canvas id="dotVideoCv"></canvas>
+  <canvas id="dotRingCv" aria-hidden="true"></canvas>
   
   <div class="intro-video-top">
     <span class="iv-badge">KARTIK MAAS • SRI DAMODARA</span>
   </div>
 
-  <div class="intro-video-bottom" id="introBottomBar">
-    <div class="iv-loader-box" id="ivLoaderBox">
-      <div class="iv-text-row">
-        <span class="iv-status"><span class="iv-flame-icon">🪔</span> <span id="ivStatusText">Preparing Sri Damodara Darshan…</span></span>
-        <span id="ivPercentText" class="iv-percent">0%</span>
-      </div>
-      <div class="iv-bar-track">
-        <div id="ivBarFill" class="iv-bar-fill"></div>
-      </div>
+  <div class="intro-slim-loader" id="introBottomBar">
+    <div class="iv-slim-track">
+      <div id="ivBarFill" class="iv-slim-fill"></div>
     </div>
-    
-    <div class="iv-actions">
-      <button id="ivEnterBtn" class="iv-enter-btn hidden" aria-label="Enter Temple Darshan">
-        <span>Enter Temple Darshan 🪔</span>
-      </button>
-      <button id="ivSkipBtn" class="iv-skip-btn">Skip Intro ⏩</button>
+    <div class="iv-slim-info">
+      <span class="iv-slim-status"><span class="iv-flame-icon">🪔</span> <span id="ivStatusText">Preparing Sri Damodara Darshan…</span></span>
+      <span id="ivPercentText" class="iv-slim-percent">0%</span>
     </div>
   </div>
 </div>
@@ -3179,11 +3113,12 @@ if(rotHint){
 // ===== Fullscreen HD Dotfield Video Intro Engine & Loader =====
 (function initDotfieldVideoIntro(){
   const cv = document.getElementById('dotVideoCv');
+  const ringCv = document.getElementById('dotRingCv');
   if(!cv) return;
   const gl = cv.getContext('webgl', { alpha: false, antialias: false });
   if(!gl) return;
 
-  const STAG = 0.45, ENTER = 2.2, HOLD = 2.0, DUR = 1.6;
+  const STAG = 0.45, ENTER = 2.2, HOLD = 2.2, DUR = 1.7;
 
   /* ---------- Shaders ---------- */
   const VS = 'precision highp float;attribute vec2 a_f,a_t;attribute vec3 a_fc,a_tc;attribute vec4 a_r;'
@@ -3248,7 +3183,7 @@ if(rotHint){
   let bufs = [], scatter = null, rndBuf = null, ambBuf = null, NA = 0;
   let cur = 0, phase = 'enter', t0 = 0, from = null, to = null, timer = 0, lastP = 0;
   let imgs = [], ready = false, introRunning = true, introEntered = false;
-  let introStartTime = 0, introProgress = 0;
+  let introStartTime = 0, introProgress = 0, autoTransitionStarted = false;
 
   function mk(a){
     const b = gl.createBuffer();
@@ -3313,17 +3248,17 @@ if(rotHint){
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = cv.clientWidth || window.innerWidth;
     H = cv.clientHeight || window.innerHeight;
-    P = Math.round(Math.min(W, H) * 0.96);
+    P = Math.round(Math.min(W, H) * 0.80);
     lastP = P;
     cv.width = Math.round(W * dpr);
     cv.height = Math.round(H * dpr);
     gl.viewport(0, 0, cv.width, cv.height);
 
-    R = Math.min(720, Math.round(P * dpr));
-    const cap = (/Mobi|Android|iPhone|iPad/.test(navigator.userAgent) || (navigator.hardwareConcurrency || 4) <= 4) ? 140000 : 240000;
-    NT = Math.max(50000, Math.min(cap, Math.round(P * P / 3.4)));
+    R = Math.min(960, Math.round(P * dpr));
+    const cap = (/Mobi|Android|iPhone|iPad/.test(navigator.userAgent) || (navigator.hardwareConcurrency || 4) <= 4) ? 170000 : 280000;
+    NT = Math.max(60000, Math.min(cap, Math.round(P * P / 2.6)));
     k = P / 650;
-    rs = Math.sqrt(0.7 * P * P / NT / Math.PI) / 0.85;
+    rs = P * Math.sqrt(1.6 / (4 * NT)) / 0.85;
 
     bufs.forEach(b => gl.deleteBuffer(b));
     bufs = imgs.map(im => mk(samplePts(im)));
@@ -3333,8 +3268,10 @@ if(rotHint){
     const ox = (W - P) / 2, oy = (H - P) / 2;
     const src0 = samplePts(imgs[0]);
     for(let i = 0; i < NT; i++){
-      first[i*5] = -ox + rnd() * W;
-      first[i*5+1] = -oy + rnd() * H;
+      const ra = P * 0.8 * Math.sqrt(rnd());
+      const an = rnd() * 6.28318;
+      first[i*5] = P / 2 + Math.cos(an) * ra;
+      first[i*5+1] = P / 2 + Math.sin(an) * ra;
       first[i*5+2] = src0[i*5+2];
       first[i*5+3] = src0[i*5+3];
       first[i*5+4] = src0[i*5+4];
@@ -3346,7 +3283,7 @@ if(rotHint){
     scatter = mk(first);
     rndBuf = mk(rn);
 
-    NA = Math.round(Math.min(3000, W * H / 700));
+    NA = Math.round(Math.min(4000, W * H / 700));
     const am = new Float32Array(NA * 3);
     for(let i = 0; i < NA * 3; i++) am[i] = rnd();
     ambBuf = mk(am);
@@ -3363,6 +3300,172 @@ if(rotHint){
     gl.vertexAttribPointer(A.a_r, 4, gl.FLOAT, false, 16, 0);
   }
 
+  /* ---------- Intro Audio: Music (Hare Krishna) & Voice Narration ---------- */
+  let introBgm = null, voiceTimer = null, lastVoice = -1, audioArmed = false;
+  const AUDIO_EV = ['pointerdown', 'click', 'touchend', 'keydown'];
+
+  try {
+    introBgm = new Audio('scenes/intro_music.mp3');
+    introBgm.preload = 'auto';
+    introBgm.loop = true;
+    introBgm.volume = 0.65;
+  } catch(e){}
+
+  const voiceClips = ['scenes/voice_0.mp3', 'scenes/voice_1.mp3'].map(u => {
+    const a = new Audio(u);
+    a.preload = 'auto';
+    a.volume = 0.95;
+    a.addEventListener('play', () => {
+      if(introBgm) introBgm.volume = 0.35;
+    });
+    a.addEventListener('ended', () => {
+      if(introBgm) introBgm.volume = 0.65;
+      scheduleVoice();
+    });
+    return a;
+  });
+
+  function pickVoice(){
+    let i = Math.floor(Math.random() * voiceClips.length);
+    if(i === lastVoice && Math.random() < 0.6) i = (i + 1) % voiceClips.length;
+    lastVoice = i;
+    return voiceClips[i];
+  }
+
+  function scheduleVoice(){
+    if(!introRunning || introEntered) return;
+    clearTimeout(voiceTimer);
+    voiceTimer = setTimeout(playRandomVoice, 2500 + Math.random() * 4000);
+  }
+
+  function armAudio(){
+    if(audioArmed || !introRunning || introEntered) return;
+    audioArmed = true;
+    AUDIO_EV.forEach(e => window.addEventListener(e, unlockAudio, true));
+  }
+
+  function unlockAudio(){
+    AUDIO_EV.forEach(e => window.removeEventListener(e, unlockAudio, true));
+    audioArmed = false;
+    if(introRunning && !introEntered){
+      playIntroAudio();
+    }
+  }
+
+  function playIntroAudio(){
+    if(!introRunning || introEntered) return;
+    if(introBgm){
+      const pb = introBgm.play();
+      if(pb && pb.catch) pb.catch(() => armAudio());
+    }
+    playRandomVoice();
+  }
+
+  function playRandomVoice(){
+    if(!introRunning || introEntered) return;
+    const a = pickVoice();
+    a.currentTime = 0;
+    const p = a.play();
+    if(p && p.catch){
+      p.catch(() => armAudio());
+    }
+  }
+
+  function stopAllIntroAudio(){
+    clearTimeout(voiceTimer);
+    if(audioArmed){
+      AUDIO_EV.forEach(e => window.removeEventListener(e, unlockAudio, true));
+      audioArmed = false;
+    }
+    if(introBgm){
+      try {
+        introBgm.pause();
+        introBgm.currentTime = 0;
+      } catch(e){}
+    }
+    voiceClips.forEach(a => {
+      try {
+        a.pause();
+        a.currentTime = 0;
+      } catch(e){}
+    });
+  }
+
+  // Attempt immediate playback on start
+  playIntroAudio();
+
+  /* ---------- Rotating Text Ring Canvas (#dotRingCv) ---------- */
+  if(ringCv){
+    const rg = ringCv.getContext('2d');
+    if(rg){
+      const TXT = 'In the month of Kartika one should worship Lord Damodara and daily recite the prayer known as Damodarashtaka, which has been spoken by the sage Satyavrata and which attracts Lord Damodara.   •   ';
+      const ch = TXT.split('');
+      let wid = [], L = 0, rw = 0, rh = 0, rdp = 1, rlf = 0, rt0 = performance.now();
+
+      function ringLoop(rnow){
+        if(!introRunning || introEntered) return;
+        requestAnimationFrame(ringLoop);
+
+        const cw = ringCv.clientWidth || window.innerWidth;
+        const chh = ringCv.clientHeight || window.innerHeight;
+        const d = Math.min(window.devicePixelRatio || 1, 2);
+        if(cw !== rw || chh !== rh || d !== rdp){
+          rw = cw; rh = chh; rdp = d;
+          ringCv.width = Math.round(rw * rdp);
+          ringCv.height = Math.round(rh * rdp);
+          rlf = 0;
+        }
+
+        const m = Math.min(rw, rh), f = Math.max(12, Math.min(28, m * 0.032));
+        rg.setTransform(rdp, 0, 0, rdp, 0, 0);
+        rg.clearRect(0, 0, rw, rh);
+        rg.font = f + 'px Georgia, "Times New Roman", serif';
+        if(f !== rlf){
+          rlf = f; L = 0;
+          wid = ch.map(c => {
+            const q = rg.measureText(c).width + f * 0.05;
+            L += q;
+            return q;
+          });
+        }
+
+        const sec = (rnow - rt0) / 1000, a = Math.max(0, Math.min(1, (sec - 2.5) / 2));
+        if(a <= 0) return;
+
+        const R_ring = m * 0.455, C = 6.28318 * R_ring, off = sec * f * 2.2, cx = rw / 2, cy = rh / 2;
+        rg.globalAlpha = a * 0.22;
+        rg.strokeStyle = '#f4daa0';
+        rg.lineWidth = 1;
+        rg.beginPath();
+        rg.arc(cx, cy, m * 0.425, 0, 6.28318);
+        rg.stroke();
+
+        rg.textAlign = 'center';
+        rg.textBaseline = 'middle';
+        rg.fillStyle = '#f4daa0';
+
+        let x = 0;
+        for(let i = 0; i < ch.length; i++){
+          const c = x + wid[i] / 2;
+          x += wid[i];
+          if(ch[i] === ' ') continue;
+          for(let s = (c + off) % L; s < C; s += L){
+            const fade = L > C ? Math.max(0, Math.min(1, Math.min(s, C - s) / (C * 0.05))) : 1;
+            const th = -1.5708 + s / R_ring;
+            rg.globalAlpha = a * 0.92 * fade;
+            rg.save();
+            rg.translate(cx + Math.cos(th) * R_ring, cy + Math.sin(th) * R_ring);
+            rg.rotate(th + 1.5708);
+            rg.fillText(ch[i], 0, 0);
+            rg.restore();
+          }
+        }
+      }
+      requestAnimationFrame(ringLoop);
+    }
+  }
+
+  /* ---------- WebGL Frame Animation & Auto-Transition ---------- */
   function frame(now){
     if(!introRunning) return;
     requestAnimationFrame(frame);
@@ -3371,38 +3474,38 @@ if(rotHint){
     if(!introStartTime) introStartTime = now;
     const elapsed = (now - introStartTime) / 1000;
 
-    // Smooth steady loading progression
-    // Even if background 3D loads fast, progress steadily flows across the intro
-    let target = Math.min(92, elapsed * 11);
-    if(window.deityLoaded && elapsed > 4.5){
-      target = Math.min(100, 88 + (elapsed - 4.5) * 5);
+    // Smooth loading progression synced with 3D model loading
+    let target = Math.min(92, elapsed * 14.5);
+    if(window.deityLoaded && elapsed > 5.5){
+      target = Math.min(100, 88 + (elapsed - 5.5) * 8);
     }
     if(window.deityLoaded && elapsed > 7.5){
       target = 100;
     }
 
-    introProgress += (target - introProgress) * 0.08;
-    if(introProgress > 99.4 && window.deityLoaded && elapsed > 6.0){
+    introProgress += (target - introProgress) * 0.085;
+    if(introProgress > 99.2 && window.deityLoaded && elapsed > 6.0){
       introProgress = 100;
     }
 
-    const pct = Math.floor(introProgress);
+    const pct = Math.min(100, Math.floor(introProgress));
     const bar = document.getElementById('ivBarFill');
     const pctEl = document.getElementById('ivPercentText');
     const statusEl = document.getElementById('ivStatusText');
-    const enterBtn = document.getElementById('ivEnterBtn');
 
     if(bar) bar.style.width = pct + '%';
     if(pctEl) pctEl.textContent = pct + '%';
 
-    if(pct >= 100){
-      if(statusEl) statusEl.textContent = 'Sri Damodara Darshan is Ready';
-      if(enterBtn && enterBtn.classList.contains('hidden')){
-        enterBtn.classList.remove('hidden');
-      }
+    // Automatic screen opening when loading finishes!
+    if(pct >= 100 && !autoTransitionStarted && !introEntered){
+      autoTransitionStarted = true;
+      if(statusEl) statusEl.textContent = 'Sri Damodara Darshan is Ready…';
+      setTimeout(() => {
+        enterTempleFromIntro();
+      }, 450);
     }
 
-    // Video phase transitions
+    // Video scene phase transitions
     let s = (now - t0) / 1000, tt, dur = DUR;
     if(phase === 'enter'){
       from = scatter;
@@ -3445,6 +3548,7 @@ if(rotHint){
 
     /* Ambient drifting gold particles */
     gl.useProgram(apr);
+    gl.blendFunc(gl.ONE, gl.ONE);
     gl.disableVertexAttribArray(A.a_f);
     gl.bindBuffer(gl.ARRAY_BUFFER, ambBuf);
     gl.enableVertexAttribArray(AA.a_o);
@@ -3457,6 +3561,7 @@ if(rotHint){
 
     /* Main sacred dot portrait */
     gl.useProgram(pr);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     for(const n in A) gl.enableVertexAttribArray(A[n]);
     bindMain(from, to);
     gl.uniform1f(U.u_tt, tt);
@@ -3478,7 +3583,7 @@ if(rotHint){
     timer = setTimeout(() => {
       const nw = cv.clientWidth || window.innerWidth;
       const nh = cv.clientHeight || window.innerHeight;
-      const np = Math.round(Math.min(nw, nh) * 0.96);
+      const np = Math.round(Math.min(nw, nh) * 0.80);
       if(Math.abs(np - lastP) / lastP < 0.03){
         W = nw; H = nh;
         dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -3518,6 +3623,7 @@ if(rotHint){
 
   window.stopIntroVideo = function(){
     introRunning = false;
+    stopAllIntroAudio();
   };
 
   /* ---------- Seamless Temple Transition ---------- */
@@ -3525,6 +3631,10 @@ if(rotHint){
     if(introEntered) return;
     introEntered = true;
 
+    // Stop all intro audio (music & narration)
+    stopAllIntroAudio();
+
+    // Start temple bhajan and darshan mode
     if(typeof tryPlayBhajan === 'function') tryPlayBhajan();
     mode = 'aarti';
     if(typeof setGoals === 'function') setGoals();
@@ -3537,20 +3647,18 @@ if(rotHint){
         overlay.style.display = 'none';
         introRunning = false;
         if(gl) gl.clear(gl.COLOR_BUFFER_BIT);
+        if(ringCv){
+          const rg = ringCv.getContext('2d');
+          if(rg) rg.clearRect(0, 0, ringCv.width, ringCv.height);
+        }
       }, 850);
     }
   }
 
-  const enterBtn = document.getElementById('ivEnterBtn');
-  if(enterBtn) enterBtn.addEventListener('click', enterTempleFromIntro);
-
-  const skipBtn = document.getElementById('ivSkipBtn');
-  if(skipBtn) skipBtn.addEventListener('click', enterTempleFromIntro);
-
+  // Fallback: click anywhere after loading is ready opens immediately
   const overlay = document.getElementById('introVideoOverlay');
   if(overlay){
-    overlay.addEventListener('click', e => {
-      if(e.target.closest('#ivSkipBtn') || e.target.closest('#ivEnterBtn')) return;
+    overlay.addEventListener('click', () => {
       if(introProgress >= 100){
         enterTempleFromIntro();
       }
