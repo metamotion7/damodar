@@ -2,7 +2,7 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/lyrics", "destination": "/index" },
-    { "source": "/lyrics/:lang*", "destination": "/index" },
+    { "source": "/lyrics/:lang([a-zA-Z0-9_-]+)", "destination": "/index" },
     { "source": "/hindi-lyrics", "destination": "/index" },
     { "source": "/odia-lyrics", "destination": "/index" },
     { "source": "/bengali-lyrics", "destination": "/index" },

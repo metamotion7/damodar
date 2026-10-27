@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<base href="/">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
@@ -1306,97 +1307,33 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   color:var(--gold);
   text-transform:uppercase;
 }
-.lm-actions{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.lm-play-btn{
+.lm-back-btn{
   display:inline-flex;
   align-items:center;
   gap:6px;
   background:linear-gradient(135deg, rgba(246, 195, 101, 0.22), rgba(240, 138, 28, 0.22));
-  border:1px solid rgba(246, 195, 101, 0.5);
-  color:var(--gold);
+  border:1px solid rgba(246, 195, 101, 0.55);
+  color:#ffd58a;
   border-radius:999px;
-  padding:5px 12px;
+  padding:6px 14px;
   font-size:12px;
   font-weight:700;
   cursor:pointer;
   transition:all .2s ease;
   line-height:1;
-}
-.lm-play-btn:hover{
-  background:linear-gradient(135deg, rgba(246, 195, 101, 0.38), rgba(240, 138, 28, 0.38));
-  color:#ffffff;
-  border-color:#ffd58a;
-  box-shadow:0 0 12px rgba(246, 195, 101, 0.35);
-  transform:translateY(-1px);
-}
-.lm-play-btn.playing{
-  background:linear-gradient(135deg, rgba(240, 138, 28, 0.45), rgba(212, 175, 55, 0.45));
-  color:#fff9ea;
-  border-color:#ffd58a;
-  box-shadow:0 0 14px rgba(246, 195, 101, 0.5);
-}
-.lm-close{
-  background:rgba(255, 255, 255, 0.08);
-  border:1px solid rgba(246, 195, 101, 0.35);
-  color:var(--gold);
-  border-radius:50%;
-  width:32px;
-  height:32px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:16px;
-  cursor:pointer;
-  padding:0;
-  transition:all .2s;
-  flex-shrink:0;
-  line-height:1;
-}
-.lm-close:hover{
-  background:rgba(246, 195, 101, 0.2);
-  border-color:var(--gold);
-}
-.lm-bottom-bar{
-  padding:10px 18px;
-  border-top:1px solid rgba(246, 195, 101, 0.2);
-  background:rgba(25, 10, 4, 0.88);
-  display:flex;
-  justify-content:center;
+  text-decoration:none;
+  white-space:nowrap;
   flex-shrink:0;
 }
-.lm-bottom-play-btn{
-  width:100%;
-  max-width:320px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
+.lm-back-btn:hover{
   background:linear-gradient(135deg, #f6c365, #f08a1c);
   color:#1a0802;
-  font-size:13px;
-  font-weight:800;
-  padding:9px 18px;
-  border-radius:999px;
-  border:none;
-  cursor:pointer;
-  box-shadow:0 4px 16px rgba(240, 138, 28, 0.4);
-  transition:all .2s ease;
-}
-.lm-bottom-play-btn:hover{
-  filter:brightness(1.1);
+  border-color:#ffd58a;
+  box-shadow:0 0 14px rgba(246, 195, 101, 0.4);
   transform:translateY(-1px);
-  box-shadow:0 6px 20px rgba(240, 138, 28, 0.6);
 }
-.lm-bottom-play-btn:active{
-  transform:scale(0.98);
-}
-.lm-bottom-play-btn.playing{
-  background:linear-gradient(135deg, #f08a1c, #d97706);
-  color:#ffffff;
+.lm-back-btn:active{
+  transform:scale(0.97);
 }
 .lm-body{
   padding:18px 24px;
@@ -1808,7 +1745,7 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
 </style>
 </head>
 <body>
-<div id="bg" aria-hidden="true" style="background-image:url(bg.webp)"></div>
+<div id="bg" aria-hidden="true" style="background-image:url(/bg.webp)"></div>
 <canvas id="gl"></canvas><canvas id="ov"></canvas>
 
 <!-- Fullscreen Backdrop Blur Overlay for Lyrics Modal -->
@@ -1824,13 +1761,7 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   <button class="lang-pill" data-lang="bn">বাংলা</button>
   <button class="lang-pill" data-lang="ru" title="Русский">RU</button>
 </div>
-    <div class="lm-actions">
-      <button type="button" id="lmPlayBhajanBtn" class="lm-play-btn" title="Listen to Damodarashtakam">
-        <span class="lm-play-icon">▶</span>
-        <span class="lm-play-label">Listen</span>
-      </button>
-      <button id="closeLyrics" class="lm-close" title="Close">✕</button>
-    </div>
+    <button type="button" id="backToTempleBtn" class="lm-back-btn" title="Back to Sri Damodar Temple Darshan">← Temple Darshan 🪔</button>
   </div>
   <div class="lm-body" id="lyricsBody">
     
@@ -1911,12 +1842,6 @@ namo 'nanta-līlāya devāya tubhyam</div>
       <p><strong>Sri Damodarashtakam</strong> from <em>Padma Purana</em> · Spoken by <strong>Satyavrata Muni</strong></p>
       <p>3D Aarti &amp; Darshan by <a href="https://www.asitpurohit.in" target="_blank" rel="noopener">Asit Purohit</a> (<a href="https://metamotion.in" target="_blank" rel="noopener">MetaMotion</a>) · <a href="https://vedas.asitpurohit.in" target="_blank" rel="noopener">Vedabase AI</a></p>
     </div>
-  </div>
-  <div class="lm-bottom-bar">
-    <button type="button" id="lmBottomPlayBtn" class="lm-bottom-play-btn" title="Play or pause Damodarashtakam">
-      <span class="lm-bottom-play-icon">▶</span>
-      <span class="lm-bottom-play-label">Play Damodarashtakam Bhajan</span>
-    </button>
   </div>
 </div>
 
@@ -2157,7 +2082,7 @@ namo 'nanta-līlāya devāya tubhyam</div>
     </article>
   </main>
 
-<audio id="bhajanAudio" loop preload="auto" playsinline webkit-playsinline src="audio.mp3"></audio>
+<audio id="bhajanAudio" loop preload="auto" playsinline webkit-playsinline src="/audio.mp3"></audio>
 
 <div id="damodarDayBadge" title="Click to view 30-Day Damodar Aarti Calendar" aria-label="30-Day Damodar Aarti Tracker">
   <span class="d-icon">🪔</span>
@@ -2292,9 +2217,9 @@ const rim=new THREE.DirectionalLight(0x7f8fc0,.4);rim.position.set(3,3,-5);scene
 const loadTex=(url,srgb)=>new Promise((res,rej)=>{const im=new Image();im.onload=()=>{const t=new THREE.Texture(im);t.flipY=false;t.wrapS=t.wrapT=THREE.RepeatWrapping;
   t.repeat.set(16.0036,16.0036);t.offset.set(1e-6,1e-6);t.anisotropy=8;if(srgb)t.encoding=THREE.sRGBEncoding;t.needsUpdate=true;res(t)};im.onerror=rej;im.src=url});
 async function loadDeity(){
-  const [a,b,n]=await Promise.all([loadTex('t0.webp',true),loadTex('t1.webp',false),loadTex('t2.webp',false)]);
+  const [a,b,n]=await Promise.all([loadTex('/t0.webp',true),loadTex('/t1.webp',false),loadTex('/t2.webp',false)]);
   const loader=new THREE.GLTFLoader();
-  const g=await new Promise((res,rej)=>loader.load('deity.glb',res,undefined,rej));
+  const g=await new Promise((res,rej)=>loader.load('/deity.glb',res,undefined,rej));
   const mat=new THREE.MeshStandardMaterial({map:a,metalnessMap:b,roughnessMap:b,normalMap:n,side:THREE.DoubleSide,envMapIntensity:.7});
   g.scene.traverse(o=>{if(o.isMesh)o.material=mat});scene.add(g.scene);
 }
@@ -2462,7 +2387,7 @@ if(bAudio){
   bAudio.currentTime = 0;
 }
 const lModal = $('lyricsModal');
-const closeLBtn = $('closeLyrics');
+const backToTempleBtn = $('backToTempleBtn');
 const sLiveElem = $('liveSanskrit');
 const tLiveElem = $('liveTrans');
 const bLiveBadge = $('liveBadge');
@@ -2978,59 +2903,6 @@ if(bAudio){
   bAudio.ontimeupdate = updateLiveLyrics;
 }
 
-function updateLyricsPlayButtons(){
-  const isPlaying = bAudio && !bAudio.paused;
-  const playBtn = $('lmPlayBhajanBtn');
-  if(playBtn){
-    const icon = playBtn.querySelector('.lm-play-icon');
-    const label = playBtn.querySelector('.lm-play-label');
-    if(isPlaying){
-      playBtn.classList.add('playing');
-      if(icon) icon.textContent = '⏸';
-      if(label) label.textContent = 'Pause';
-    } else {
-      playBtn.classList.remove('playing');
-      if(icon) icon.textContent = '▶';
-      if(label) label.textContent = 'Listen';
-    }
-  }
-  const bottomBtn = $('lmBottomPlayBtn');
-  if(bottomBtn){
-    const icon = bottomBtn.querySelector('.lm-bottom-play-icon');
-    const label = bottomBtn.querySelector('.lm-bottom-play-label');
-    if(isPlaying){
-      bottomBtn.classList.add('playing');
-      if(icon) icon.textContent = '⏸';
-      if(label) label.textContent = 'Pause Damodarashtakam';
-    } else {
-      bottomBtn.classList.remove('playing');
-      if(icon) icon.textContent = '▶';
-      if(label) label.textContent = 'Play Damodarashtakam Bhajan';
-    }
-  }
-}
-
-function toggleLyricsBhajan(){
-  window.__directLyricsArrival = false;
-  if(typeof ac === "function"){
-    const a = ac();
-    if(a && a.state === "suspended") a.resume();
-  }
-  if(!bAudio) return;
-  if(bAudio.paused){
-    const p = bAudio.play();
-    if(p !== undefined){
-      p.then(() => {
-        bhajanStarted = true;
-        updateLyricsPlayButtons();
-      }).catch(err => console.warn("Audio play error:", err));
-    }
-  } else {
-    bAudio.pause();
-    updateLyricsPlayButtons();
-  }
-}
-
 // Single-click on #liveLyrics expands full lyrics modal
 const liveLyricsElem = $('liveLyrics');
 function openFullLyrics(noPush){
@@ -3039,7 +2911,6 @@ function openFullLyrics(noPush){
   const lBackdrop = $('lyricsBackdrop');
   if(lBackdrop) lBackdrop.classList.remove('hidden');
   renderModalVerses();
-  updateLyricsPlayButtons();
   lModal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
@@ -3067,6 +2938,14 @@ function closeFullLyrics(noPush){
   if(lBackdrop) lBackdrop.classList.add('hidden');
   lModal.classList.add('hidden');
   document.body.style.overflow = '';
+
+  // Transition from direct quiet read mode to full temple darshan + audio
+  if(window.__directLyricsArrival){
+    window.__directLyricsArrival = false;
+    mode = 'aarti';
+    if(typeof setGoals === 'function') setGoals();
+    tryPlayBhajan();
+  }
 
   if(!noPush){
     try {
@@ -3098,32 +2977,11 @@ if(liveLyricsElem){
   });
 }
 
-if(closeLBtn && lModal){
-  closeLBtn.onclick = (e) => {
+if(backToTempleBtn){
+  backToTempleBtn.onclick = (e) => {
     e.stopPropagation();
     closeFullLyrics();
   };
-}
-
-const lmPlayBhajanBtn = $('lmPlayBhajanBtn');
-if(lmPlayBhajanBtn){
-  lmPlayBhajanBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleLyricsBhajan();
-  });
-}
-
-const lmBottomPlayBtn = $('lmBottomPlayBtn');
-if(lmBottomPlayBtn){
-  lmBottomPlayBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleLyricsBhajan();
-  });
-}
-
-if(bAudio){
-  bAudio.addEventListener('play', updateLyricsPlayButtons);
-  bAudio.addEventListener('pause', updateLyricsPlayButtons);
 }
 
 // Close modal when clicking outside or pressing Escape
@@ -3197,7 +3055,6 @@ function tryPlayBhajan(){
   if(playPromise !== undefined){
     playPromise.then(() => {
       bhajanStarted = true;
-      updateLyricsPlayButtons();
       ["pointerdown", "touchstart", "touchend", "click", "keydown"].forEach(evt => {
         window.removeEventListener(evt, handleFirstInteraction);
       });
@@ -3598,12 +3455,12 @@ if(rotHint){
 
   /* ---------- State & Logic ---------- */
   const SRC = [
-    'scenes/scene_0.jpg',
-    'scenes/scene_1.jpg',
-    'scenes/scene_2.jpg',
-    'scenes/scene_3.jpg',
-    'scenes/scene_4.jpg',
-    'scenes/scene_5.jpg'
+    '/scenes/scene_0.jpg',
+    '/scenes/scene_1.jpg',
+    '/scenes/scene_2.jpg',
+    '/scenes/scene_3.jpg',
+    '/scenes/scene_4.jpg',
+    '/scenes/scene_5.jpg'
   ];
 
   let W = 0, H = 0, P = 0, R = 0, NT = 0, dpr = 1, k = 1, rs = 1;
@@ -3737,14 +3594,14 @@ if(rotHint){
   const AUDIO_EV = ['pointerdown', 'click', 'touchend', 'keydown'];
 
   try {
-    introBgm = new Audio('scenes/intro_music.mp3?v=orig25');
+    introBgm = new Audio('/scenes/intro_music.mp3?v=orig25');
     introBgm.preload = 'auto';
     introBgm.loop = false;
     introBgm.volume = 0.65;
     introBgm.addEventListener('ended', onIntroMusicComplete);
   } catch(e){}
 
-  const voiceClips = ['scenes/voice_0.mp3', 'scenes/voice_1.mp3'].map(u => {
+  const voiceClips = ['/scenes/voice_0.mp3', '/scenes/voice_1.mp3'].map(u => {
     const a = new Audio(u);
     a.preload = 'auto';
     a.volume = 0.95;
