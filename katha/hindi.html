@@ -293,8 +293,8 @@ canvas {
   <div class="story-badge-wrap">
     <span class="story-badge">🪔 Damodara Lila Katha</span>
     <div class="story-lang-group" role="group" aria-label="Select Narration Language">
-      <button type="button" class="story-lang-btn" data-lang="hi">हिन्दी</button>
-      <button type="button" class="story-lang-btn on" data-lang="en">EN</button>
+            <button type="button" class="story-lang-btn on" data-lang="hi">हिन्दी</button>
+      <button type="button" class="story-lang-btn" data-lang="en">EN</button>
       <button type="button" class="story-lang-btn" data-lang="bn">বাংলা</button>
       <button type="button" class="story-lang-btn" data-lang="or">ଓଡ଼ିଆ</button>
       <button type="button" class="story-lang-btn" data-lang="ru">RU</button>
@@ -608,11 +608,7 @@ window.addEventListener('popstate', (e) => {
 
 function updateActiveLangPills(){
   document.querySelectorAll('.story-lang-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const l = btn.getAttribute('data-lang');
-      const targetSlug = LANG_TO_SLUG[l] || l;
-      window.location.href = (window.location.protocol === 'file:') ? targetSlug + '.html' : '/katha/' + targetSlug;
-    });
+    btn.classList.toggle('on', btn.getAttribute('data-lang') === currentLang);
   });
 }
 updateActiveLangPills();
