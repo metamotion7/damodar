@@ -2563,12 +2563,6 @@ function initLangPills(){
     btn.onclick = (e) => {
       e.stopPropagation();
       setLanguage(btn.dataset.lang);
-      // When tapping a language pill from the main liveLyrics box, open the full lyrics modal
-      if(btn.closest('#liveLyrics')){
-        if(typeof openFullLyrics === 'function'){
-          openFullLyrics();
-        }
-      }
     };
   });
 }
@@ -3003,8 +2997,8 @@ if(lBackdrop){
 
 if(liveLyricsElem){
   liveLyricsElem.addEventListener('click', (e) => {
-    // If a specific language pill was clicked, its button handler switches language & opens modal
-    if(e.target.closest('.lang-pill')) return;
+    // If clicked on any language button, language changes right there without opening modal
+    if(e.target.closest('.lang-pill') || e.target.closest('.lang-pills')) return;
     e.stopPropagation();
     openFullLyrics();
   });
