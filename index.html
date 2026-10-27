@@ -989,14 +989,11 @@ function conch(){const a=ac();if(!a||muted)return;const t=a.currentTime,o=a.crea
 
 // ===== state / camera =====
 let mode='view',step=0,count=0,acc=0,prevTh=null,arcStart=0,done=false,touched=false;
-let isCamAartiActive=false;
 const cur={az:.5,el:.12,d:6,tx:.16,ty:.30},goal={az:.5,el:.12,d:6,tx:.16,ty:.30};
 const aspect=()=>innerWidth/innerHeight;
 function setGoals(){const a=aspect(),d=Math.max(2.45/.63,2.0/(.63*a));
- const isPortrait = a < 0.85;
- const tx = isPortrait ? (isCamAartiActive ? -0.28 : -0.06) : .16;
- if(mode==='aarti'){goal.el=.1;goal.d=d;goal.tx=tx;goal.ty=.30}
- else{goal.d=d;goal.tx=tx;goal.ty=.30}}
+ if(mode==='aarti'){goal.el=.1;goal.d=d;goal.tx=.16;goal.ty=.30}
+ else{goal.d=d;goal.tx=.16;goal.ty=.30}}
 function ui(){}
 function toast(t,ms=1800){const e=$('toast');e.textContent=t;e.style.opacity=1;clearTimeout(toast.h);toast.h=setTimeout(()=>e.style.opacity=0,ms)}
 function reset(){step=0;count=0;acc=0;prevTh=null;done=false;petals.length=0;ui()}
@@ -1455,8 +1452,6 @@ cv.addEventListener('pointerup', (e) => {
       await mpHands.initialize();
 
       camActive = true;
-      isCamAartiActive = true;
-      if(typeof setGoals === 'function') setGoals();
       updateCamPipPosition();
       camBtn.classList.remove('loading');
       camBtn.classList.add('active');
@@ -1471,8 +1466,6 @@ cv.addEventListener('pointerup', (e) => {
     } catch(err){
       camBtn.classList.remove('loading');
       camActive = false;
-      isCamAartiActive = false;
-      if(typeof setGoals === 'function') setGoals();
       console.error('[CamAarti] Error:', err);
       if(err.name === 'NotAllowedError'){
         showStatus('Camera permission denied', 4000);
@@ -1485,8 +1478,6 @@ cv.addEventListener('pointerup', (e) => {
   // --- stop ---
   function stopCamera(){
     camActive = false;
-    isCamAartiActive = false;
-    if(typeof setGoals === 'function') setGoals();
     if(rafId){ cancelAnimationFrame(rafId); rafId=null; }
     if(mpHands){ try{mpHands.close();}catch(e){} mpHands=null; }
     if(pipVideo.srcObject){
