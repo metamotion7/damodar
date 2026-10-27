@@ -325,8 +325,8 @@
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/story/audio/story_bn.mp3": {
-    "mtime": 1793098085.8947988,
-    "ast_hash": "814736a7037578016029ad5e3c6fd4b7",
+    "mtime": 1793124410.6845195,
+    "ast_hash": "43ba9de0f69e741a97ccf20f7bd9984b",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/story/audio/story_bgm.mp3": {
@@ -345,8 +345,8 @@
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha.html": {
-    "mtime": 1793124156.5861034,
-    "ast_hash": "6e126da6b19f80b27913b936fc76fbaa",
+    "mtime": 1793124421.6528332,
+    "ast_hash": "6bee7af000e28e28e40e00d26e3eceb0",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/scenes/choice_offering.png": {
@@ -455,28 +455,28 @@
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/hindi.html": {
-    "mtime": 1793124156.5876637,
-    "ast_hash": "6c0c495e2f8edd2640a72f7df097b205",
+    "mtime": 1793124421.6532652,
+    "ast_hash": "90d9b8c5fa5ffdfa88c232b9efe4402e",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/russian.html": {
-    "mtime": 1793124156.5889401,
-    "ast_hash": "913571c13844fb57ad1a1571ae6f5fcd",
+    "mtime": 1793124421.6536825,
+    "ast_hash": "0c290b46765c92fce055d5d7d4e00faa",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/bengali.html": {
-    "mtime": 1793124156.588355,
-    "ast_hash": "bd9d76c6416ea5e99db95cf53d3a7647",
+    "mtime": 1793124421.653999,
+    "ast_hash": "b1298366a7759fa18d5a5edbd919edd4",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/english.html": {
-    "mtime": 1793124156.589404,
-    "ast_hash": "53bea4597e43970c1bd649ec641b251d",
+    "mtime": 1793124421.6544416,
+    "ast_hash": "bb5994ab53680baea72d9044378eff4e",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/odia.html": {
-    "mtime": 1793124156.5868595,
-    "ast_hash": "0131295eccdefaebd06f27e7f689c715",
+    "mtime": 1793124421.6548455,
+    "ast_hash": "1e0d14c9f41d6260d60c3fc594e4cb6b",
     "semantic_hash": ""
   }
 }
