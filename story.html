@@ -538,7 +538,7 @@ window.__dfSetLanguage = function(langKey){
   if(HOLDT !== null) HOLDT = newTime;
   else CLK0 = performance.now() - newTime * 1000;
 
-  if(window.__dfSwitchVoice) window.__dfSwitchVoice(currentCfg.audio);
+  if(window.__dfSwitchVoice) window.__dfSwitchVoice(currentLang, newTime);
   updateActiveLangPills();
   updateCaption(newTime);
 };
@@ -1146,8 +1146,21 @@ function updateCaption(tSec){
    AUDIO ENGINE (VOICE NARRATION + SOOTHING KRISHNA FLUTE BGM)
    ========================================================================== */
 (function(){
-  let voiceAudio = new Audio(currentCfg.audio);
-  voiceAudio.preload = 'auto';
+  /* Pre-instantiated dedicated audio objects for all 5 languages */
+  const VOICES = {
+    hi: new Audio('story/audio/story_hi.mp3'),
+    en: new Audio('story/audio/story_en.mp3'),
+    bn: new Audio('story/audio/story_bn.mp3'),
+    or: new Audio('story/audio/story_or.mp3'),
+    ru: new Audio('story/audio/story_ru.mp3')
+  };
+
+  Object.keys(VOICES).forEach(key => {
+    const a = VOICES[key];
+    a.preload = 'auto';
+    a.loop = false;
+    a.volume = 1.0;
+  });
 
   let bgmAudio = new Audio('story/audio/story_bgm.mp3');
   bgmAudio.preload = 'auto';
@@ -1162,15 +1175,52 @@ function updateCaption(tSec){
     return window.__dfT ? window.__dfT(performance.now()) : 0;
   }
 
-  function syncAndPlay(){
-    const t = T();
-    if(t >= DURA){
-      if(!voiceAudio.paused) voiceAudio.pause();
-    } else {
-      if(Math.abs(voiceAudio.currentTime - t) > 0.6){
-        voiceAudio.currentTime = t;
+  function getActiveVoice(){
+    return VOICES[currentLang] || VOICES['hi'];
+  }
+
+  function pauseInactiveVoices(){
+    Object.keys(VOICES).forEach(k => {
+      if(k !== currentLang){
+        const a = VOICES[k];
+        if(!a.paused) a.pause();
       }
-      const pv = voiceAudio.play();
+    });
+  }
+
+  function syncAndPlay(explicitTargetTime){
+    pauseInactiveVoices();
+    const currAudio = getActiveVoice();
+    const t = (explicitTargetTime !== undefined && explicitTargetTime !== null) ? explicitTargetTime : T();
+
+    if(t >= DURA){
+      if(!currAudio.paused) currAudio.pause();
+    } else {
+      const applySeek = () => {
+        try {
+          if(currAudio.duration && !isNaN(currAudio.duration) && currAudio.readyState >= 1){
+            if(Math.abs(currAudio.currentTime - t) > 0.45){
+              currAudio.currentTime = Math.max(0, Math.min(currAudio.duration - 0.1, t));
+            }
+          }
+        } catch(err){
+          console.warn('Audio seek guard:', err);
+        }
+      };
+
+      if(currAudio.readyState >= 1){
+        applySeek();
+      } else {
+        const onMeta = () => {
+          currAudio.removeEventListener('loadedmetadata', onMeta);
+          currAudio.removeEventListener('canplay', onMeta);
+          applySeek();
+        };
+        currAudio.addEventListener('loadedmetadata', onMeta, { once: true });
+        currAudio.addEventListener('canplay', onMeta, { once: true });
+      }
+
+      const pv = currAudio.play();
       if(pv && pv.then){
         pv.then(() => { voiceOk = true; }).catch(armAudio);
       }
@@ -1198,28 +1248,30 @@ function updateCaption(tSec){
     if(voiceOk) syncAndPlay();
   };
 
-  window.__dfSwitchVoice = function(newSrc){
+  window.__dfSwitchVoice = function(newLang, targetTime){
     try {
-      voiceAudio.pause();
-      voiceAudio.src = newSrc;
-      voiceAudio.load();
-      syncAndPlay();
-    } catch(e){}
+      pauseInactiveVoices();
+      syncAndPlay(targetTime);
+    } catch(e){
+      console.warn('Switch voice error:', e);
+    }
   };
 
   /* Periodic check to keep audio locked with visual timeline */
   setInterval(() => {
     if(window.__dfDrag){
-      if(!voiceAudio.paused) voiceAudio.pause();
+      const active = getActiveVoice();
+      if(!active.paused) active.pause();
       return;
     }
     const t = T();
+    const active = getActiveVoice();
     if(t >= DURA){
-      if(!voiceAudio.paused) voiceAudio.pause();
+      if(!active.paused) active.pause();
       return;
     }
     if(!voiceOk) return;
-    if(voiceAudio.paused || Math.abs(voiceAudio.currentTime - t) > 0.8){
+    if(active.paused || (active.readyState >= 1 && Math.abs(active.currentTime - t) > 0.8)){
       syncAndPlay();
     }
   }, 500);
@@ -1240,13 +1292,19 @@ function updateCaption(tSec){
     });
   }
 
+  function stopAllAudio(){
+    try {
+      Object.keys(VOICES).forEach(k => { VOICES[k].pause(); });
+      bgmAudio.pause();
+    } catch(e){}
+  }
+
   /* Close Button (Notifies parent if inside iframe, or goes back) */
   const btnClose = document.getElementById('btnCloseStory');
   if(btnClose){
     btnClose.addEventListener('click', () => {
+      stopAllAudio();
       try {
-        voiceAudio.pause();
-        bgmAudio.pause();
         if(window.parent && window.parent !== window){
           window.parent.postMessage({action: 'closeDamodaraStory'}, '*');
         } else {
@@ -1257,6 +1315,16 @@ function updateCaption(tSec){
       }
     });
   }
+
+  /* Listen for message from parent to pause audio */
+  window.addEventListener('message', (e) => {
+    if(e && e.data && e.data.action === 'pauseStoryAudio'){
+      stopAllAudio();
+    }
+  });
+
+  window.addEventListener('pagehide', stopAllAudio);
+  window.addEventListener('beforeunload', stopAllAudio);
 
   /* Language Switcher Buttons */
   document.querySelectorAll('.story-lang-btn').forEach(btn => {
