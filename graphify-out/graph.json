@@ -31,19 +31,10 @@
       "norm_label": "cleanurls"
     },
     {
-      "label": "redirects",
-      "file_type": "code",
-      "source_file": "vercel.json",
-      "source_location": "L3",
-      "id": "temple_darshan_vercel_redirects",
-      "community": 7,
-      "norm_label": "redirects"
-    },
-    {
       "label": "rewrites",
       "file_type": "code",
       "source_file": "vercel.json",
-      "source_location": "L7",
+      "source_location": "L3",
       "id": "temple_darshan_vercel_rewrites",
       "community": 7,
       "norm_label": "rewrites"
@@ -52,7 +43,7 @@
       "label": "headers",
       "file_type": "code",
       "source_file": "vercel.json",
-      "source_location": "L19",
+      "source_location": "L15",
       "id": "temple_darshan_vercel_headers",
       "community": 7,
       "norm_label": "headers"
@@ -524,6 +515,15 @@
       "id": "temple_darshan_readme_deployment",
       "community": 6,
       "norm_label": "deployment"
+    },
+    {
+      "label": "redirects",
+      "file_type": "code",
+      "source_file": "vercel.json",
+      "source_location": "L3",
+      "community": 7,
+      "norm_label": "redirects",
+      "id": "temple_darshan_vercel_redirects"
     }
   ],
   "links": [
@@ -536,16 +536,6 @@
       "confidence_score": 1.0,
       "source": "vercel_json",
       "target": "temple_darshan_vercel_cleanurls"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "vercel.json",
-      "source_location": "L3",
-      "weight": 1.0,
-      "source": "vercel_json",
-      "target": "temple_darshan_vercel_redirects",
-      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -566,6 +556,16 @@
       "confidence_score": 1.0,
       "source": "vercel_json",
       "target": "temple_darshan_vercel_headers"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vercel.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "vercel_json",
+      "target": "temple_darshan_vercel_redirects"
     },
     {
       "relation": "contains",
@@ -1009,5 +1009,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c4d8970fe47ae7f7b35ef5f9ffc561de374a70ce"
+  "built_at_commit": "f71a66ef67babe85d0a08aa80a2678188c3eb62b"
 }

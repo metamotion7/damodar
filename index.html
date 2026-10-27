@@ -4061,7 +4061,7 @@ if(rotHint){
       window.addEventListener('DOMContentLoaded', () => setTimeout(tryDirect, 200));
     }
   }
-  if(p.get('openStory') === '1' || p.get('openKatha') === '1'){
+  if(p.get('openKatha') === '1'){
     setTimeout(() => {
       if(typeof window.openDamodaraStory === 'function') window.openDamodaraStory();
     }, 600);
