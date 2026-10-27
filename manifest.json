@@ -1,0 +1,23 @@
+{
+  "name": "Sri Damodar Aarti 3D & Damodarashtakam",
+  "short_name": "Damodar Aarti",
+  "description": "Interactive 3D Aarti offering & Damodarashtakam lyrics with meaning in English, Hindi, Odia, and Bengali.",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#170a04",
+  "background_color": "#170a04",
+  "display": "standalone",
+  "start_url": "/"
+}
