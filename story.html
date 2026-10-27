@@ -170,63 +170,6 @@ canvas {
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 
-.story-top-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  pointer-events: auto;
-}
-
-.story-btn-icon {
-  all: unset;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(18, 9, 4, 0.85);
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  border-radius: 9999px;
-  padding: 6px 12px;
-  font-size: 11px;
-  color: #f7e3c8;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: all 0.2s ease;
-}
-.story-btn-icon:hover {
-  border-color: #ffd700;
-  color: #ffd700;
-  transform: translateY(-1px);
-}
-.story-btn-icon.active {
-  color: #ffd700;
-  border-color: #ffd700;
-}
-
-.story-close-btn {
-  all: unset;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: rgba(18, 9, 4, 0.85);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  border-radius: 50%;
-  font-size: 14px;
-  color: #f7e3c8;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: all 0.2s ease;
-}
-.story-close-btn:hover {
-  background: rgba(212, 175, 55, 0.2);
-  color: #ffd700;
-  border-color: #ffd700;
-  transform: rotate(90deg);
-}
-
 /* Bottom caption pill */
 .story-bottom-bar {
   position: fixed;
@@ -328,7 +271,6 @@ canvas {
   }
   .story-badge { font-size: 10px; padding: 4px 10px; }
   .story-lang-btn { padding: 5px 8px; font-size: 10px; }
-  .story-btn-icon { padding: 5px 9px; font-size: 10px; }
   .story-scene-pill { font-size: 11.5px; padding: 6px 14px; }
 }
 </style>
@@ -350,14 +292,6 @@ canvas {
       <button type="button" class="story-lang-btn" data-lang="or">ଓଡ଼ିଆ</button>
       <button type="button" class="story-lang-btn" data-lang="ru">RU</button>
     </div>
-  </div>
-
-  <div class="story-top-right">
-    <a href="lyrics" class="story-btn-icon" title="Read Damodarashtakam Lyrics" style="text-decoration:none;">📜 Lyrics</a>
-    <button type="button" id="btnBgm" class="story-btn-icon active" title="Toggle Background Music">
-      <span>🎵 Flute</span>
-    </button>
-    <button type="button" id="btnCloseStory" class="story-close-btn" title="Return to Temple Darshan">✕</button>
   </div>
 </div>
 
@@ -1355,22 +1289,6 @@ function updateCaption(tSec){
     }
   }, 500);
 
-  /* BGM Toggle Button */
-  const btnBgm = document.getElementById('btnBgm');
-  if(btnBgm){
-    btnBgm.addEventListener('click', () => {
-      bgmEnabled = !bgmEnabled;
-      btnBgm.classList.toggle('active', bgmEnabled);
-      if(bgmEnabled){
-        btnBgm.innerHTML = '<span>🎵 Flute</span>';
-        bgmAudio.play().catch(() => {});
-      } else {
-        btnBgm.innerHTML = '<span>🔇 Muted</span>';
-        bgmAudio.pause();
-      }
-    });
-  }
-
   function stopAllAudio(){
     try {
       Object.keys(VOICES).forEach(k => { VOICES[k].pause(); });
@@ -1378,22 +1296,33 @@ function updateCaption(tSec){
     } catch(e){}
   }
 
-  /* Close Button (Notifies parent if inside iframe, or goes back) */
-  const btnClose = document.getElementById('btnCloseStory');
-  if(btnClose){
-    btnClose.addEventListener('click', () => {
-      stopAllAudio();
-      try {
-        if(window.parent && window.parent !== window){
-          window.parent.postMessage({action: 'closeDamodaraStory'}, '*');
+  function cameFromTemple(){
+    try {
+      if(sessionStorage.getItem('cameFromTemple') === '1') return true;
+      if(document.referrer){
+        const refUrl = new URL(document.referrer);
+        const curUrl = new URL(window.location.href);
+        if(refUrl.host === curUrl.host && (refUrl.pathname === '/' || refUrl.pathname === '' || refUrl.pathname.endsWith('index.html'))){
+          return true;
+        }
+      }
+    } catch(e){}
+    return false;
+  }
+
+  /* Keyboard shortcut: Escape returns to temple IF user came from temple */
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape'){
+      if(cameFromTemple()){
+        stopAllAudio();
+        if(window.history.length > 1){
+          window.history.back();
         } else {
           window.location.href = './';
         }
-      } catch(e){
-        window.location.href = './';
       }
-    });
-  }
+    }
+  });
 
   /* Listen for message from parent to pause audio */
   window.addEventListener('message', (e) => {
