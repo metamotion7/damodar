@@ -1,7 +1,7 @@
 # Graph Report - temple-darshan  (2026-10-27)
 
 ## Corpus Check
-- 10 files · ~1,036,369 words
+- 10 files · ~1,036,234 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f71a66ef`
+- Built from commit: `7e4e5169`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -33,8 +33,8 @@
 6. `detectedFramework` - 2 edges
 7. `builds` - 2 edges
 8. `cleanUrls` - 1 edges
-9. `rewrites` - 1 edges
-10. `headers` - 1 edges
+9. `redirects` - 1 edges
+10. `rewrites` - 1 edges
 
 ## Surprising Connections (you probably didn't know these)
 - None detected - all connections are within the same source files.
@@ -74,11 +74,11 @@ Cohesion: 0.40
 Nodes (4): cleanUrls, headers, redirects, rewrites
 
 ## Knowledge Gaps
-- **41 isolated node(s):** `cleanUrls`, `rewrites`, `headers`, `name`, `short_name` (+36 more)
+- **41 isolated node(s):** `cleanUrls`, `redirects`, `rewrites`, `headers`, `name` (+36 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What connects `cleanUrls`, `rewrites`, `headers` to the rest of the system?**
+- **What connects `cleanUrls`, `redirects`, `rewrites` to the rest of the system?**
   _41 weakly-connected nodes found - possible documentation gaps or missing edges._

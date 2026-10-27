@@ -2437,7 +2437,7 @@ const SLUG_TO_LANG = {
             return;
           }
         } catch(e){}
-        currentLang = 'hi';
+        currentLang = 'en';
         return;
       }
     }
@@ -4061,11 +4061,6 @@ if(rotHint){
       window.addEventListener('DOMContentLoaded', () => setTimeout(tryDirect, 200));
     }
   }
-  if(p.get('openKatha') === '1'){
-    setTimeout(() => {
-      if(typeof window.openDamodaraStory === 'function') window.openDamodaraStory();
-    }, 600);
-  }
   if(p.get('openLyrics') === '1' || window.__directLyricsArrival){
     const tryLyrics = () => {
       if(typeof window.enterTempleFromIntro === 'function'){
@@ -4098,7 +4093,7 @@ if(rotHint){
       sessionStorage.setItem('cameFromTemple', '1');
       sessionStorage.setItem('damodar_intro_done', '1');
     } catch(e){}
-    const target = (window.location.protocol === 'file:') ? 'katha.html' : 'katha';
+    const target = (window.location.protocol === 'file:') ? 'katha.html#english' : '/katha/english';
     window.location.href = target;
   }
 

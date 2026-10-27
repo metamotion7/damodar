@@ -280,8 +280,8 @@ canvas {
   <div class="story-badge-wrap">
     <span class="story-badge">🪔 Damodara Lila Katha</span>
     <div class="story-lang-group" role="group" aria-label="Select Narration Language">
-      <button type="button" class="story-lang-btn on" data-lang="hi">हिन्दी</button>
-      <button type="button" class="story-lang-btn" data-lang="en">EN</button>
+      <button type="button" class="story-lang-btn" data-lang="hi">हिन्दी</button>
+      <button type="button" class="story-lang-btn on" data-lang="en">EN</button>
       <button type="button" class="story-lang-btn" data-lang="bn">বাংলা</button>
       <button type="button" class="story-lang-btn" data-lang="or">ଓଡ଼ିଆ</button>
       <button type="button" class="story-lang-btn" data-lang="ru">RU</button>
@@ -292,8 +292,8 @@ canvas {
 <div class="story-bottom-bar">
   <div class="story-scene-pill" id="storyScenePill">
     <span class="story-flame">🪔</span>
-    <span id="sceneTitleText">1. पवित्र वृन्दावन का दिव्य प्रभात</span>
-    <span id="sceneTimeText" class="story-time-chip">0:00 / 5:27</span>
+    <span id="sceneTitleText">1. Sacred Vrindavan's Divine Dawn</span>
+    <span id="sceneTimeText" class="story-time-chip">0:00 / 4:58</span>
   </div>
 </div>
 
@@ -515,7 +515,7 @@ function resolveInitialLang(){
       return SLUG_TO_LANG[qLang];
     }
   } catch(e){}
-  return 'hi';
+  return 'en';
 }
 
 let currentLang = resolveInitialLang();
