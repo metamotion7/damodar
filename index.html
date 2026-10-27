@@ -1622,6 +1622,111 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   }
 }
 
+/* ===== Main Screen Damodara Katha Button ===== */
+.main-story-btn {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, rgba(35, 16, 6, 0.92), rgba(20, 9, 3, 0.96));
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 9999px;
+  padding: 5px 14px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: #fff2d6;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.2);
+  transition: all 0.25s ease;
+  pointer-events: auto;
+  user-select: none;
+}
+.main-story-btn:hover {
+  border-color: #ffd700;
+  color: #ffd700;
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.7), 0 0 18px rgba(255, 215, 0, 0.4);
+  transform: translateY(-1.5px) scale(1.02);
+}
+.msb-icon {
+  font-size: 13px;
+  animation: msbFlame 2s infinite ease-in-out;
+}
+@keyframes msbFlame {
+  0%, 100% { transform: scale(0.95); opacity: 0.85; }
+  50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 5px #ffaa33); }
+}
+.msb-tag {
+  background: rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 9999px;
+  padding: 2px 7px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: #ffd700;
+  text-transform: uppercase;
+}
+
+/* ===== Fullscreen Damodara Lila Story Modal ===== */
+#storyModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  background: #050505;
+  display: flex;
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+#storyModal.hidden {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+#storyIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+.sm-close-btn {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  right: 14px;
+  z-index: 10000000;
+  background: rgba(18, 9, 4, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-radius: 9999px;
+  padding: 7px 16px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #ffd700;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.8), 0 0 15px rgba(212, 175, 55, 0.25);
+  transition: all 0.25s ease;
+  user-select: none;
+}
+.sm-close-btn:hover {
+  background: rgba(212, 175, 55, 0.3);
+  color: #ffffff;
+  border-color: #ffd700;
+  transform: translateY(-1px);
+}
+@media (max-width: 600px) {
+  .sm-close-btn {
+    top: calc(env(safe-area-inset-top, 0px) + 8px);
+    right: 8px;
+    padding: 5px 12px;
+    font-size: 10.5px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1990,11 +2095,24 @@ namo 'nanta-līlāya devāya tubhyam</div>
 lasat-kuṇḍalaṁ gokule bhrājamānam</div>
     <div id="liveTrans">To the Supreme Lord, whose form is eternal existence, knowledge, and bliss...</div>
   </div>
+  <div style="text-align: center; margin-top: 6px;">
+    <button id="openStoryBtn" class="main-story-btn" title="Watch 26 Divine Scenes of Damodara Lila with 5 Language Narration">
+      <span class="msb-icon">🎬</span>
+      <span>Damodara Katha</span>
+      <span class="msb-tag">5 Languages</span>
+    </button>
+  </div>
 </div>
 <div id="rotateHint" class="hidden">Click screen for 360° Darshan</div>
 <div id="toast"></div>
 <div id="bar" style="display:none;"></div>
 <div id="load">Loading deity…</div>
+
+<!-- Fullscreen Cinematic Damodara Lila Story Modal -->
+<div id="storyModal" class="hidden" role="dialog" aria-modal="true" aria-label="Damodara Lila Story in 5 Languages">
+  <iframe id="storyIframe" src="" title="Damodara Lila Story Player" allow="autoplay" allowfullscreen></iframe>
+  <button id="closeStoryModalBtn" class="sm-close-btn" title="Return to Temple Darshan">✕ Return to Temple</button>
+</div>
 
 <!-- Fullscreen HD Dotfield Intro Video & Loader -->
 <div id="introVideoOverlay">
@@ -3773,6 +3891,58 @@ if(rotHint){
       }
     });
   }
+})();
+
+/* ===== Fullscreen Damodara Lila Story Modal Controls ===== */
+(function(){
+  const openStoryBtn = document.getElementById('openStoryBtn');
+  const storyModal = document.getElementById('storyModal');
+  const storyIframe = document.getElementById('storyIframe');
+  const closeStoryModalBtn = document.getElementById('closeStoryModalBtn');
+  let bhajanWasPlaying = false;
+
+  function openDamodaraStory(){
+    const bAudio = document.getElementById('bhajanAudio');
+    if(bAudio && !bAudio.paused){
+      bhajanWasPlaying = true;
+      try { bAudio.pause(); } catch(e){}
+    } else {
+      bhajanWasPlaying = false;
+    }
+    if(storyIframe){
+      storyIframe.src = 'story.html';
+    }
+    if(storyModal){
+      storyModal.classList.remove('hidden');
+    }
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDamodaraStory(){
+    if(storyModal){
+      storyModal.classList.add('hidden');
+    }
+    if(storyIframe){
+      storyIframe.src = '';
+    }
+    document.body.style.overflow = '';
+    const bAudio = document.getElementById('bhajanAudio');
+    if(bAudio && bhajanWasPlaying && !window.__introRunning){
+      try { bAudio.play().catch(() => {}); } catch(e){}
+    }
+  }
+
+  if(openStoryBtn) openStoryBtn.addEventListener('click', openDamodaraStory);
+  if(closeStoryModalBtn) closeStoryModalBtn.addEventListener('click', closeDamodaraStory);
+
+  window.addEventListener('message', e => {
+    if(e && e.data && e.data.action === 'closeDamodaraStory'){
+      closeDamodaraStory();
+    }
+  });
+
+  window.openDamodaraStory = openDamodaraStory;
+  window.closeDamodaraStory = closeDamodaraStory;
 })();
 
 
