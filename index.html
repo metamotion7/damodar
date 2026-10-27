@@ -3321,10 +3321,10 @@ if(rotHint){
     gl.vertexAttribPointer(A.a_r, 4, gl.FLOAT, false, 16, 0);
   }
 
-  /* ---------- Intro Audio: Fast Music (~17s) & Dialogue Narration ---------- */
+  /* ---------- Intro Audio: 20% Faster Music (~20.85s) & Natural Ending ---------- */
   let introBgm = null, voiceTimer = null, lastVoice = -1, audioArmed = false;
   let voicePlayedCount = 0;
-  const TOTAL_INTRO_SEC = 17.03;
+  const TOTAL_INTRO_SEC = 20.85;
   const AUDIO_EV = ['pointerdown', 'click', 'touchend', 'keydown'];
 
   try {
@@ -3343,12 +3343,8 @@ if(rotHint){
       if(introBgm) introBgm.volume = 0.35;
     });
     a.addEventListener('ended', () => {
-      // Swell music volume for finale
+      // Restore music volume smoothly to full for the remaining 3-4s of singing
       if(introBgm) introBgm.volume = 0.85;
-      // Exactly 4 seconds after dialogue finishes, complete intro and open temple!
-      setTimeout(() => {
-        onIntroMusicComplete();
-      }, 4000);
     });
     return a;
   });
@@ -3380,17 +3376,20 @@ if(rotHint){
       const pb = introBgm.play();
       if(pb && pb.catch) pb.catch(() => armAudio());
     }
-    // Start dialogue at 1.0s so it finishes cleanly at ~13s, followed by 4s music outro
+    // Start dialogue so that dialogue and music end with a natural 3-4 sec difference
     if(voicePlayedCount === 0){
       clearTimeout(voiceTimer);
-      voiceTimer = setTimeout(playRandomVoice, 1000);
+      const chosen = pickVoice();
+      const delay = (chosen.src && chosen.src.includes('voice_0')) ? 4200 : 3000;
+      voiceTimer = setTimeout(() => {
+        playChosenVoice(chosen);
+      }, delay);
     }
   }
 
-  function playRandomVoice(){
+  function playChosenVoice(a){
     if(!introRunning || introEntered || voicePlayedCount > 0) return;
     voicePlayedCount++;
-    const a = pickVoice();
     a.currentTime = 0;
     const p = a.play();
     if(p && p.catch){
@@ -3517,7 +3516,7 @@ if(rotHint){
     if(!introStartTime) introStartTime = now;
     const elapsed = (now - introStartTime) / 1000;
 
-    // Track progression across the full ~25 seconds of the Hare Krishna intro track
+    // Track progression across the 20.85s music duration (20% faster)
     let target = 0;
     if(introBgm && !introBgm.paused && introBgm.duration > 0){
       target = Math.min(100, (introBgm.currentTime / introBgm.duration) * 100);
