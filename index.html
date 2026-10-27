@@ -65,6 +65,61 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://damodar.lol/#website",
+      "url": "https://damodar.lol/",
+      "name": "Sri Damodar Darshan • 3D Temple & Deep Daan",
+      "description": "Virtual 3D Temple Darshan of Lord Damodara and Mother Yashoda in Vrindavan during Kartik Maas with sacred Aarti, deep daan, 8-verse lyrics, and 26-scene Katha.",
+      "hasPart": [
+        {
+          "@type": "WebPage",
+          "name": "Damodara Lila Katha (26 Scenes Story)",
+          "url": "https://damodar.lol/story",
+          "description": "26 sacred illustrated scenes of Damodara Lila with soothing narration in 5 languages and Krishna flute music."
+        },
+        {
+          "@type": "WebPage",
+          "name": "Sri Damodarashtakam Lyrics & Meaning",
+          "url": "https://damodar.lol/lyrics",
+          "description": "Full 8 verses of Sri Damodarashtakam with word-by-word meaning and translations in Hindi, Odia, Bengali, English, and Russian."
+        },
+        {
+          "@type": "WebPage",
+          "name": "Hindi Lyrics (श्रीदामोदराष्टकम्)",
+          "url": "https://damodar.lol/lyrics?lang=hi"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Odia Lyrics (ଶ୍ରୀଦାମୋଦରାଷ୍ଟକଂ)",
+          "url": "https://damodar.lol/lyrics?lang=or"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Bengali Lyrics (শ্রীদামোদরাষ্টকম্)",
+          "url": "https://damodar.lol/lyrics?lang=bn"
+        }
+      ]
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "name": [
+        "Damodara Lila Katha",
+        "Damodarashtakam Lyrics",
+        "Hindi Lyrics",
+        "Odia Lyrics",
+        "Bengali Lyrics",
+        "Virtual 3D Deep Daan"
+      ],
+      "url": [
+        "https://damodar.lol/story",
+        "https://damodar.lol/lyrics",
+        "https://damodar.lol/lyrics?lang=hi",
+        "https://damodar.lol/lyrics?lang=or",
+        "https://damodar.lol/lyrics?lang=bn",
+        "https://damodar.lol/"
+      ]
+    },
+    {
       "@type": "WebApplication",
       "@id": "https://damodar.lol/#app",
       "url": "https://damodar.lol/",
@@ -3881,6 +3936,7 @@ if(rotHint){
       }, 850);
     }
   }
+  window.enterTempleFromIntro = enterTempleFromIntro;
 
   // Fallback: click anywhere after loading is ready opens immediately
   const overlay = document.getElementById('introVideoOverlay');
@@ -3890,6 +3946,39 @@ if(rotHint){
         enterTempleFromIntro();
       }
     });
+  }
+})();
+
+/* URL Parameter Deep-Linking & Direct Access */
+(function(){
+  const p = new URLSearchParams(window.location.search);
+  if(p.get('direct') === '1' || p.get('skip') === '1' || p.get('skipIntro') === '1'){
+    const tryDirect = () => {
+      if(typeof window.enterTempleFromIntro === 'function'){
+        window.enterTempleFromIntro();
+        const overlay = document.getElementById('introVideoOverlay');
+        if(overlay){ overlay.style.display = 'none'; }
+      }
+    };
+    if(document.readyState === 'complete' || document.readyState === 'interactive'){
+      setTimeout(tryDirect, 200);
+    } else {
+      window.addEventListener('DOMContentLoaded', () => setTimeout(tryDirect, 200));
+    }
+  }
+  if(p.get('openStory') === '1'){
+    setTimeout(() => {
+      if(typeof window.openDamodaraStory === 'function') window.openDamodaraStory();
+    }, 600);
+  }
+  if(p.get('openLyrics') === '1'){
+    setTimeout(() => {
+      const modal = document.getElementById('lyricsModal');
+      if(modal){
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    }, 600);
   }
 })();
 

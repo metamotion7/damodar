@@ -5,7 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#050505">
 <title>Sri Damodara Lila Katha • 26 Divine Scenes</title>
+<meta name="description" content="Experience the sacred pastimes of Little Krishna and Mother Yashoda in 26 flowing dot-art scenes with soothing narration in 5 languages (हिन्दी, English, বাংলা, ଓଡ଼ିଆ, Русский) and flute music.">
+<link rel="canonical" href="https://damodar.lol/story">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<!-- OpenGraph / Social Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://damodar.lol/story">
+<meta property="og:title" content="Sri Damodara Lila Katha • 26 Divine Illustrated Scenes">
+<meta property="og:description" content="Sacred pastimes of Little Krishna and Mother Yashoda with soothing narration in 5 languages and Krishna flute music.">
+<meta property="og:image" content="https://damodar.lol/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sri Damodara Lila Katha • 26 Divine Scenes">
+<meta name="twitter:description" content="Sacred 26-scene animated story of Damodara Lila in 5 languages.">
+<meta name="twitter:image" content="https://damodar.lol/og-image.jpg">
+
+<!-- Google Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Sri Damodara Lila Katha • 26 Sacred Scenes",
+  "description": "Divine pastimes of Little Krishna and Mother Yashoda in Vrindavan during Kartik Maas with 5 language narrations and flute background music.",
+  "thumbnailUrl": "https://damodar.lol/og-image.jpg",
+  "uploadDate": "2026-10-27",
+  "inLanguage": ["hi", "en", "bn", "or", "ru"],
+  "contentUrl": "https://damodar.lol/story"
+}
+</script>
 <style>
 * { box-sizing: border-box; }
 html, body {
@@ -285,6 +312,7 @@ canvas {
   </div>
 
   <div class="story-top-right">
+    <a href="lyrics" class="story-btn-icon" title="Read Damodarashtakam Lyrics" style="text-decoration:none;">📜 Lyrics</a>
     <button type="button" id="btnBgm" class="story-btn-icon active" title="Toggle Background Music">
       <span>🎵 Flute</span>
     </button>
@@ -487,7 +515,10 @@ const LANG_CONFIG = {
   }
 };
 
-let currentLang = 'hi';
+/* Language parameter from URL (?lang=hi, ?lang=en, ?lang=bn, ?lang=or, ?lang=ru) */
+const _initParams = new URLSearchParams(window.location.search);
+const _reqLang = (_initParams.get('lang') || '').toLowerCase();
+let currentLang = (_reqLang && LANG_CONFIG[_reqLang]) ? _reqLang : 'hi';
 let currentCfg = LANG_CONFIG[currentLang];
 let TS = currentCfg.ts;
 let TOTAL = currentCfg.total;
@@ -538,6 +569,12 @@ window.__dfSetLanguage = function(langKey){
   if(HOLDT !== null) HOLDT = newTime;
   else CLK0 = performance.now() - newTime * 1000;
 
+  try {
+    const u = new URL(window.location.href);
+    u.searchParams.set('lang', currentLang);
+    window.history.replaceState({}, '', u.toString());
+  } catch(e){}
+
   if(window.__dfSwitchVoice) window.__dfSwitchVoice(currentLang, newTime);
   updateActiveLangPills();
   updateCaption(newTime);
@@ -548,6 +585,7 @@ function updateActiveLangPills(){
     btn.classList.toggle('on', btn.getAttribute('data-lang') === currentLang);
   });
 }
+updateActiveLangPills();
 
 function fmtTime(sec){
   sec = Math.max(0, Math.floor(sec));

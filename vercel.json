@@ -1,8 +1,14 @@
 {
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/katha", "destination": "/story.html" },
+    { "source": "/story", "destination": "/story.html" },
+    { "source": "/lyrics", "destination": "/lyrics.html" },
+    { "source": "/darshan", "destination": "/index.html?direct=1" }
+  ],
   "headers": [
     {
-      "source": "/(.*)\\.(glb|mp3|webp|jpg|png|svg|ico)",
+      "source": "/(.*)\\.(glb|mp3|webp|jpg|png|svg|ico|js)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -15,7 +21,7 @@
       ]
     },
     {
-      "source": "/(index\\.html)?",
+      "source": "/(index|story|lyrics)?(\\.html)?",
       "headers": [
         {
           "key": "Cache-Control",
