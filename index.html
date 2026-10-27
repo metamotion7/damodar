@@ -855,7 +855,6 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
 <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
 <script>
 const $=id=>document.getElementById(id);
 const ss=(a,b,x)=>{x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x)};
@@ -1311,11 +1310,12 @@ cv.addEventListener('pointerup', (e) => {
 
   let camActive  = false;
   let mpHands    = null;
-  let mpCamera   = null;
-  let handX      = null; // normalised 0-1 (from mediapipe), null = no hand
+  let rafId      = null;   // requestAnimationFrame handle for frame pump
+  let handX      = null;
   let handY      = null;
   let lastHandTs = 0;
-  const HAND_TIMEOUT = 800; // ms before we consider hand lost
+  let sending    = false;  // guard — don't stack async mpHands.send calls
+  const HAND_TIMEOUT = 900;
 
   // --- status helper ---
   let statusTimer = null;
@@ -1325,104 +1325,100 @@ cv.addEventListener('pointerup', (e) => {
     clearTimeout(statusTimer);
     if(ms) statusTimer = setTimeout(()=> camStatus.classList.remove('visible'), ms);
   }
-  function hideStatus(){ camStatus.classList.remove('visible'); }
+  function hideStatus(){ clearTimeout(statusTimer); camStatus.classList.remove('visible'); }
 
-  // --- draw tracking dot on PiP canvas ---
+  // --- draw tracking dot on PiP canvas (coords in 0-1 space, matching mirrored CSS) ---
   function drawPip(hx, hy){
-    const W = pipCanvas.width, H = pipCanvas.height;
-    pipCtx.clearRect(0,0,W,H);
+    const CW = pipCanvas.width, CH = pipCanvas.height;
+    pipCtx.clearRect(0,0,CW,CH);
     if(hx === null) return;
-    // mirror: video is scaleX(-1) in CSS, canvas too, so coordinates are already mirrored
-    const px = hx * W, py = hy * H;
-    // outer ring
-    pipCtx.beginPath();
-    pipCtx.arc(px,py,18,0,Math.PI*2);
-    pipCtx.strokeStyle = 'rgba(255,210,80,0.9)';
-    pipCtx.lineWidth = 2.5;
-    pipCtx.stroke();
-    // inner dot
-    pipCtx.beginPath();
-    pipCtx.arc(px,py,6,0,Math.PI*2);
-    pipCtx.fillStyle = 'rgba(255,180,40,0.95)';
-    pipCtx.fill();
+    const px = hx * CW, py = hy * CH;
+    // glow ring
+    pipCtx.shadowColor = 'rgba(255,180,40,0.7)';
+    pipCtx.shadowBlur  = 10;
+    pipCtx.beginPath(); pipCtx.arc(px,py,16,0,Math.PI*2);
+    pipCtx.strokeStyle='rgba(255,215,80,0.95)'; pipCtx.lineWidth=2.5; pipCtx.stroke();
+    pipCtx.shadowBlur = 0;
+    // centre dot
+    pipCtx.beginPath(); pipCtx.arc(px,py,5,0,Math.PI*2);
+    pipCtx.fillStyle='rgba(255,180,40,1)'; pipCtx.fill();
     // cross-hairs
-    pipCtx.strokeStyle = 'rgba(255,210,80,0.6)';
-    pipCtx.lineWidth = 1.5;
-    pipCtx.beginPath(); pipCtx.moveTo(px-26,py); pipCtx.lineTo(px+26,py); pipCtx.stroke();
-    pipCtx.beginPath(); pipCtx.moveTo(px,py-26); pipCtx.lineTo(px,py+26); pipCtx.stroke();
+    pipCtx.strokeStyle='rgba(255,215,80,0.5)'; pipCtx.lineWidth=1.2;
+    pipCtx.beginPath(); pipCtx.moveTo(px-24,py); pipCtx.lineTo(px+24,py); pipCtx.stroke();
+    pipCtx.beginPath(); pipCtx.moveTo(px,py-24); pipCtx.lineTo(px,py+24); pipCtx.stroke();
   }
 
-  // --- resize PiP canvas to match element size ---
-  function syncPipSize(){
-    pipCanvas.width  = pipCanvas.offsetWidth  || 130;
-    pipCanvas.height = pipCanvas.offsetHeight || 130;
-  }
-
-  // --- on each MediaPipe frame result ---
+  // --- MediaPipe result callback ---
   function onResults(results){
     if(!camActive) return;
     if(results.multiHandLandmarks && results.multiHandLandmarks.length > 0){
-      // Use index finger tip (landmark 8) — easy to point with
-      const lm = results.multiHandLandmarks[0];
-      const tip = lm[8]; // index fingertip
-      // MediaPipe coords: x=0 left, x=1 right (mirrored camera feed)
-      // We keep it in normalised 0-1 space matching the mirrored CSS view
-      handX = tip.x;
-      handY = tip.y;
+      const lm  = results.multiHandLandmarks[0];
+      // Use wrist (0) + index tip (8) midpoint for a stable "lamp centre"
+      const tip   = lm[8];
+      const wrist = lm[0];
+      const mx = (tip.x + wrist.x) * 0.5;
+      const my = (tip.y + wrist.y) * 0.5;
+
+      handX = mx; handY = my;
       lastHandTs = Date.now();
 
-      // Map to screen space → feed into existing pm pointer variable
-      // pm.x, pm.y is the screen-space pointer the lamp follows
-      // camera is mirrored so x is already natural (move right → lamp goes right)
-      pm.x = (1 - tip.x) * W;   // un-mirror for world space (lamp moves opposite to mirrored view)
-      pm.y = tip.y * H;
+      // Map → screen pixels for the existing pm variable
+      // Video CSS is mirrored (scaleX -1), so un-mirror x for world space
+      pm.x = (1 - mx) * W;
+      pm.y = my * H;
 
-      drawPip(handX, handY);
+      drawPip(mx, my);
       hideStatus();
     } else {
-      // No hand detected
       if(Date.now() - lastHandTs > HAND_TIMEOUT){
         handX = null; handY = null;
         drawPip(null, null);
-        if(camActive) showStatus('✋ Show your hand');
+        if(camActive) showStatus('✋ Show your hand in camera');
       }
     }
   }
 
-  // --- start camera ---
+  // --- frame pump: manually send video frames to MediaPipe ---
+  function pumpFrames(){
+    if(!camActive) return;
+    rafId = requestAnimationFrame(pumpFrames);
+    if(sending || pipVideo.readyState < 2) return;
+    sending = true;
+    mpHands.send({image: pipVideo}).then(()=>{ sending=false; }).catch(()=>{ sending=false; });
+  }
+
+  // --- start ---
   async function startCamera(){
     camBtn.classList.add('loading');
     showStatus('Opening camera…');
     try {
-      // Request camera stream first so we can show it in PiP
+      // 1. Get camera stream
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user', width:{ideal:640}, height:{ideal:480} },
-        audio: false
+        video:{facingMode:'user', width:{ideal:640}, height:{ideal:480}},
+        audio:false
       });
       pipVideo.srcObject = stream;
       await pipVideo.play();
 
-      // Sync PiP canvas size
-      syncPipSize();
+      // Resize PiP canvas to real pixel size
+      pipCanvas.width  = pipCanvas.offsetWidth  || 130;
+      pipCanvas.height = pipCanvas.offsetHeight || 130;
 
-      // Init MediaPipe Hands
-      mpHands = new Hands({locateFile: f =>
-        `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${f}`
+      // 2. Init MediaPipe Hands (lite model = fast)
+      mpHands = new Hands({
+        locateFile: f => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${f}`
       });
       mpHands.setOptions({
         maxNumHands: 1,
-        modelComplexity: 0,      // 0 = lite — fast on mobile
-        minDetectionConfidence: 0.65,
-        minTrackingConfidence: 0.55
+        modelComplexity: 0,
+        minDetectionConfidence: 0.6,
+        minTrackingConfidence: 0.5
       });
       mpHands.onResults(onResults);
 
-      // Use MediaPipe Camera util to feed frames
-      mpCamera = new CameraUtils.Camera(pipVideo, {
-        onFrame: async () => { await mpHands.send({image: pipVideo}); },
-        width: 640, height: 480
-      });
-      await mpCamera.start();
+      // 3. Wait for model to initialise (send one dummy frame)
+      showStatus('Loading hand model…');
+      await mpHands.initialize();
 
       camActive = true;
       camBtn.classList.remove('loading');
@@ -1430,58 +1426,57 @@ cv.addEventListener('pointerup', (e) => {
       camBtn.title = 'Stop camera Aarti';
       camBtn.textContent = '🔴';
       camPip.classList.add('visible');
-      showStatus('✋ Show your hand', 3000);
+      showStatus('✋ Show your hand in camera', 3500);
+
+      // 4. Start pumping frames
+      pumpFrames();
 
     } catch(err){
       camBtn.classList.remove('loading');
       camActive = false;
-      console.error('Camera error:', err);
+      console.error('[CamAarti] Error:', err);
       if(err.name === 'NotAllowedError'){
-        showStatus('Camera denied — allow in browser', 4000);
+        showStatus('Camera permission denied', 4000);
       } else {
-        showStatus('Camera unavailable', 3000);
+        showStatus('Camera unavailable', 3500);
       }
     }
   }
 
-  // --- stop camera ---
+  // --- stop ---
   function stopCamera(){
     camActive = false;
-    if(mpCamera){ try{ mpCamera.stop(); }catch(e){} mpCamera = null; }
-    if(mpHands){ try{ mpHands.close(); }catch(e){} mpHands = null; }
+    if(rafId){ cancelAnimationFrame(rafId); rafId=null; }
+    if(mpHands){ try{mpHands.close();}catch(e){} mpHands=null; }
     if(pipVideo.srcObject){
-      pipVideo.srcObject.getTracks().forEach(t => t.stop());
-      pipVideo.srcObject = null;
+      pipVideo.srcObject.getTracks().forEach(t=>t.stop());
+      pipVideo.srcObject=null;
     }
-    handX = null; handY = null;
-    drawPip(null, null);
+    sending=false; handX=null; handY=null;
+    drawPip(null,null);
     camBtn.classList.remove('active','loading');
-    camBtn.title = 'Offer lamp with camera';
-    camBtn.textContent = '📷';
+    camBtn.title='Offer lamp with camera';
+    camBtn.textContent='📷';
     camPip.classList.remove('visible');
     hideStatus();
   }
 
-  // --- toggle on button click ---
-  camBtn.addEventListener('click', (e) => {
+  // --- button click ---
+  camBtn.addEventListener('click', e=>{
     e.stopPropagation();
-    if(camActive){ stopCamera(); }
-    else {
-      // Switch to aarti mode if not already
-      if(typeof mode !== 'undefined' && mode !== 'aarti'){
-        mode = 'aarti';
-        if(typeof setGoals === 'function') setGoals();
-      }
-      startCamera();
+    if(camActive){ stopCamera(); return; }
+    // ensure aarti mode
+    if(typeof mode !== 'undefined' && mode !== 'aarti'){
+      mode = 'aarti';
+      if(typeof setGoals === 'function') setGoals();
     }
+    // ensure audio started
+    if(typeof tryPlayBhajan === 'function') tryPlayBhajan();
+    startCamera();
   });
 
-  // --- cleanup on page hide ---
-  document.addEventListener('visibilitychange', () => {
-    if(document.hidden && camActive) stopCamera();
-  });
-
-  window.addEventListener('beforeunload', () => { if(camActive) stopCamera(); });
+  document.addEventListener('visibilitychange', ()=>{ if(document.hidden && camActive) stopCamera(); });
+  window.addEventListener('beforeunload', ()=>{ if(camActive) stopCamera(); });
 })();
 
 </script>
