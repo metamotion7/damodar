@@ -1677,7 +1677,50 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   }
 }
 
-/* ===== Main Screen Damodara Katha Button ===== */
+/* ===== Intro Choice Overlay (3-Circle Selection) ===== */
+#introChoiceOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#introChoiceOverlay.choice-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Responsive circle positions — triangle layout matching scene_6.jpg */
+.choice-circle {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+.choice-circle:hover,
+.choice-circle:focus,
+.choice-circle:active {
+  transform: translate(-50%, -50%) scale(1.08);
+  filter: brightness(1.15) drop-shadow(0 0 18px rgba(255, 215, 0, 0.8));
+}
+
+/* Desktop: 3 in triangle — top center, bottom-left, bottom-right */
+/* The big circle takes ~80% of min(vw,vh). Scene_6 normalized coords:
+   Katha  top:    cx=50%, cy=25.3%, r=20.4%  of scene square
+   Lyrics bottom-left:  cx=33.6%, cy=66.7%, r=19.7%
+   Offering bottom-right: cx=68.8%, cy=66.7%, r=19.7%  */
+/* We map these into the viewport-centered square P×P offset by (W-P)/2, (H-P)/2 */
+
+@media (max-width: 600px) {
+  /* Mobile triangle: slightly tighter, everything scales via vmin */
+}
+
 .main-story-btn {
   all: unset;
   cursor: pointer;
@@ -2176,6 +2219,22 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
   
   <div class="intro-video-top">
     <span class="iv-badge">KARTIK MAAS • SRI DAMODARA</span>
+  </div>
+
+  <!-- 3-Circle Choice Overlay — shown after intro music ends -->
+  <div id="introChoiceOverlay" role="navigation" aria-label="Choose your experience">
+    <!-- KATHA — top center circle -->
+    <button class="choice-circle" id="choiceKatha"
+      aria-label="Damodara Lila Katha — 26 Sacred Scenes"
+      title="Damodara Lila Katha"></button>
+    <!-- LYRICS — bottom left circle -->
+    <button class="choice-circle" id="choiceLyrics"
+      aria-label="Damodarashtakam Lyrics & Meaning"
+      title="Damodarashtakam Lyrics"></button>
+    <!-- OFFERING — bottom right circle -->
+    <button class="choice-circle" id="choiceOffering"
+      aria-label="3D Offering Lamp — Damodar Aarti"
+      title="3D Aarti Offering"></button>
   </div>
 
   <div class="intro-slim-loader" id="introBottomBar">
@@ -3362,7 +3421,8 @@ if(rotHint){
     'scenes/scene_2.jpg',
     'scenes/scene_3.jpg',
     'scenes/scene_4.jpg',
-    'scenes/scene_5.jpg'
+    'scenes/scene_5.jpg',
+    'scenes/scene_6.jpg'
   ];
 
   let W = 0, H = 0, P = 0, R = 0, NT = 0, dpr = 1, k = 1, rs = 1;
@@ -3561,6 +3621,40 @@ if(rotHint){
     }
   }
 
+  /* ---------- Choice Screen State ---------- */
+  let choicePhaseActive = false;
+  let choiceStartTime = 0;
+  const CHOICE_DURATION = 5000; // 5 seconds
+  let choiceTimer = null;
+
+  function showChoiceScreen(){
+    if(choicePhaseActive || introEntered) return;
+    choicePhaseActive = true;
+    choiceStartTime = performance.now();
+
+    // Morph dots → scene_6 (the 3-circle choices image)
+    phase = 'choice';
+    from = bufs[cur];
+    to   = bufs[6]; // scene_6 = the choices image
+    t0   = performance.now();
+
+    // Hide the loading bar, show choice overlay
+    const bar = document.getElementById('introBottomBar');
+    if(bar){ bar.style.opacity = '0'; bar.style.pointerEvents = 'none'; }
+
+    const choiceEl = document.getElementById('introChoiceOverlay');
+    if(choiceEl){
+      setTimeout(() => {
+        choiceEl.classList.add('choice-visible');
+      }, 1800); // wait for dots to settle
+    }
+
+    // Auto-enter temple after 5s if no choice made
+    choiceTimer = setTimeout(() => {
+      if(!introEntered) enterTempleFromIntro();
+    }, CHOICE_DURATION + 1800);
+  }
+
   function onIntroMusicComplete(){
     if(autoTransitionStarted || introEntered) return;
     autoTransitionStarted = true;
@@ -3570,9 +3664,9 @@ if(rotHint){
     const statusEl = document.getElementById('ivStatusText');
     if(bar) bar.style.width = '100%';
     if(pctEl) pctEl.textContent = '100%';
-    if(statusEl) statusEl.textContent = 'Sri Damodara Darshan is Ready…';
+    if(statusEl) statusEl.textContent = 'Choose Your Experience…';
     setTimeout(() => {
-      enterTempleFromIntro();
+      showChoiceScreen();
     }, 450);
   }
 
@@ -3665,7 +3759,7 @@ if(rotHint){
           updateTextMetrics(f, C, R_ring);
         }
 
-        // --- 1. Circular Loader Track (Faint background guide) ---
+        // --- 1. Circular Loader Track ---
         const a_loader = Math.min(1, sec / 0.8);
         rg.save();
         rg.globalAlpha = a_loader * 0.22;
@@ -3676,16 +3770,13 @@ if(rotHint){
         rg.stroke();
         rg.restore();
 
-        // --- 2. Circular Loader Active Arc (Glowing Golden Progress) ---
+        // --- 2. Circular Loader Active Arc ---
         const pctNorm = Math.max(0, Math.min(1, introProgress / 100));
         if(pctNorm > 0.001){
-          const startAngle = -Math.PI / 2; // 12 o'clock top
+          const startAngle = -Math.PI / 2;
           const endAngle = startAngle + pctNorm * Math.PI * 2;
-
           rg.save();
           rg.lineCap = 'round';
-
-          // Outer warm gold halo
           rg.shadowColor = 'rgba(255, 215, 0, 0.9)';
           rg.shadowBlur = Math.max(6, m * 0.018);
           rg.strokeStyle = '#ffd700';
@@ -3694,8 +3785,6 @@ if(rotHint){
           rg.beginPath();
           rg.arc(cx, cy, rLoader, startAngle, endAngle);
           rg.stroke();
-
-          // Inner bright metallic specular line
           rg.shadowBlur = 0;
           rg.strokeStyle = '#fffbe0';
           rg.lineWidth = Math.max(1, rg.lineWidth * 0.38);
@@ -3703,8 +3792,6 @@ if(rotHint){
           rg.beginPath();
           rg.arc(cx, cy, rLoader, startAngle, endAngle);
           rg.stroke();
-
-          // Radiant spark / bead at the leading head of the arc
           const headX = cx + Math.cos(endAngle) * rLoader;
           const headY = cy + Math.sin(endAngle) * rLoader;
           rg.shadowColor = '#fff2a8';
@@ -3713,31 +3800,71 @@ if(rotHint){
           rg.beginPath();
           rg.arc(headX, headY, Math.max(2.5, m * 0.0065), 0, Math.PI * 2);
           rg.fill();
-
           rg.restore();
         }
 
-        // --- 3. Rotating Sacred Quote Ring (100% Continuous Seamless Loop) ---
+        // --- 3. Rotating Sacred Quote Ring ---
         const a_text = Math.max(0, Math.min(1, (sec - 1.2) / 1.5));
         if(a_text > 0 && cachedChars.length > 0){
           rg.textAlign = 'center';
           rg.textBaseline = 'middle';
           rg.fillStyle = '#f4daa0';
-
-          const rotSpeed = f * 1.8; // px / sec
+          const rotSpeed = f * 1.8;
           const off = sec * rotSpeed;
-
           for(let i = 0; i < cachedChars.length; i++){
             if(cachedChars[i] === ' ') continue;
-            // Uniform continuous wrap around [0, C) with zero seam
             const pos = ((cachedCenters[i] + off) % C + C) % C;
             const th = -Math.PI / 2 + pos / R_ring;
-
             rg.globalAlpha = a_text * 0.92;
             rg.save();
             rg.translate(cx + Math.cos(th) * R_ring, cy + Math.sin(th) * R_ring);
             rg.rotate(th + Math.PI / 2);
             rg.fillText(cachedChars[i], 0, 0);
+            rg.restore();
+          }
+        }
+
+        // --- 4. Choice Countdown Ring (drains over 5s when choicePhaseActive) ---
+        if(choicePhaseActive && !introEntered){
+          const elapsed = rnow - choiceStartTime;
+          const remain = Math.max(0, 1 - elapsed / CHOICE_DURATION);
+          const delayFade = Math.max(0, Math.min(1, (elapsed - 1800) / 400));
+          if(delayFade > 0){
+            const cntR = m * 0.462;
+            const startA = -Math.PI / 2;
+            const endA = startA + remain * Math.PI * 2;
+            rg.save();
+            rg.globalAlpha = delayFade * 0.18;
+            rg.strokeStyle = '#f4daa0';
+            rg.lineWidth = Math.max(2, m * 0.005);
+            rg.beginPath();
+            rg.arc(cx, cy, cntR, 0, Math.PI * 2);
+            rg.stroke();
+            rg.globalAlpha = delayFade * 0.9;
+            rg.lineCap = 'round';
+            rg.shadowColor = remain > 0.3 ? 'rgba(255,215,0,0.8)' : 'rgba(255,80,50,0.9)';
+            rg.shadowBlur = Math.max(6, m * 0.016);
+            rg.strokeStyle = remain > 0.3 ? '#ffd700' : '#ff7744';
+            rg.lineWidth = Math.max(2.5, m * 0.006);
+            rg.beginPath();
+            rg.arc(cx, cy, cntR, startA, endA);
+            rg.stroke();
+            const bx = cx + Math.cos(endA) * cntR;
+            const by = cy + Math.sin(endA) * cntR;
+            rg.shadowBlur = Math.max(8, m * 0.022);
+            rg.fillStyle = '#ffffff';
+            rg.beginPath();
+            rg.arc(bx, by, Math.max(2.5, m * 0.006), 0, Math.PI * 2);
+            rg.fill();
+            rg.restore();
+            const secs = Math.ceil(remain * CHOICE_DURATION / 1000);
+            rg.save();
+            rg.globalAlpha = delayFade * 0.7;
+            rg.font = `${Math.max(11, m * 0.022)}px Georgia, serif`;
+            rg.fillStyle = '#f4daa0';
+            rg.textAlign = 'center';
+            rg.textBaseline = 'bottom';
+            rg.fillText(`Entering in ${secs}s`, cx, cy + m * 0.47);
             rg.restore();
           }
         }
@@ -3809,7 +3936,7 @@ if(rotHint){
       }
     }
     if(phase === 'move'){
-      const nx = (cur + 1) % bufs.length;
+      const nx = (cur + 1) % (bufs.length - 1); // exclude scene_6 from normal rotation
       from = bufs[cur];
       to = bufs[nx];
       tt = s;
@@ -3820,6 +3947,19 @@ if(rotHint){
         from = to = bufs[cur];
         tt = 99;
         t0 = now;
+      }
+    }
+    if(phase === 'choice'){
+      // Morph from last scene to scene_6 (choices image)
+      const CHOICE_DUR = 2.2;
+      from = bufs[cur];
+      to = bufs[6];
+      tt = s;
+      dur = CHOICE_DUR;
+      if(s >= CHOICE_DUR * (1 + STAG)){
+        from = to = bufs[6];
+        tt = 99;
+        dur = CHOICE_DUR;
       }
     }
 
@@ -3937,6 +4077,52 @@ if(rotHint){
     }
   }
   window.enterTempleFromIntro = enterTempleFromIntro;
+
+  // ===== Choice Circle Hitbox Positioning & Click Handlers =====
+  (function setupChoiceCircles(){
+    // These normalized positions match scene_6.jpg geometry (fraction of P, the dot circle diameter)
+    // Katha  top:          cx=0.500, cy=0.253, r=0.204
+    // Lyrics bottom-left:  cx=0.336, cy=0.667, r=0.197
+    // Offering bottom-right:cx=0.688, cy=0.667, r=0.197
+    const CIRCLES = [
+      { id: 'choiceKatha',    nx: 0.500, ny: 0.253, nr: 0.200, href: '/story'  },
+      { id: 'choiceLyrics',   nx: 0.336, ny: 0.667, nr: 0.197, href: '/lyrics' },
+      { id: 'choiceOffering', nx: 0.688, ny: 0.667, nr: 0.197, href: null      }, // null = enter temple
+    ];
+
+    function positionCircles(){
+      const vw = window.innerWidth, vh = window.innerHeight;
+      const P  = Math.round(Math.min(vw, vh) * 0.80);
+      const ox = (vw - P) / 2, oy = (vh - P) / 2;
+      CIRCLES.forEach(c => {
+        const el = document.getElementById(c.id);
+        if(!el) return;
+        el.style.left   = (ox + c.nx * P) + 'px';
+        el.style.top    = (oy + c.ny * P) + 'px';
+        el.style.width  = (c.nr * 2 * P) + 'px';
+        el.style.height = (c.nr * 2 * P) + 'px';
+      });
+    }
+
+    positionCircles();
+    window.addEventListener('resize', positionCircles);
+
+    CIRCLES.forEach(c => {
+      const el = document.getElementById(c.id);
+      if(!el) return;
+      el.addEventListener('click', () => {
+        if(introEntered) return;
+        clearTimeout(choiceTimer);
+        if(c.href){
+          // Navigate to lyrics or story
+          window.location.href = c.href;
+        } else {
+          // Enter 3D Aarti temple
+          enterTempleFromIntro();
+        }
+      });
+    });
+  })();
 
   // Fallback: click anywhere after loading is ready opens immediately
   const overlay = document.getElementById('introVideoOverlay');
