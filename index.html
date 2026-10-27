@@ -862,7 +862,7 @@ namo 'nanta-līlāya devāya tubhyam</div>
 
 <div id="top">
   <div id="ttl">Sri Damodar Aarti</div>
-  <div id="liveLyrics" title="Double-click to expand full lyrics">
+  <div id="liveLyrics" title="Click to view full lyrics">
     <div class="live-top-row">
       <div id="liveBadge">Sri Damodarashtakam</div>
       <div class="lang-pills">
@@ -1235,7 +1235,7 @@ if(bAudio){
   bAudio.ontimeupdate = updateLiveLyrics;
 }
 
-// Double-click on #liveLyrics expands full lyrics modal
+// Single-click on #liveLyrics expands full lyrics modal
 const liveLyricsElem = $('liveLyrics');
 function openFullLyrics(){
   if(!lModal) return;
@@ -1248,23 +1248,11 @@ function openFullLyrics(){
 }
 
 if(liveLyricsElem){
-  // Desktop double-click
-  liveLyricsElem.addEventListener('dblclick', (e) => {
+  liveLyricsElem.addEventListener('click', (e) => {
+    // Ignore clicks on language pills so switching language does not open modal
+    if(e.target.closest('.lang-pill') || e.target.closest('.lang-pills')) return;
     e.stopPropagation();
     openFullLyrics();
-  });
-
-  // Mobile double-tap
-  let lastLyricsTap = 0;
-  liveLyricsElem.addEventListener('touchend', (e) => {
-    const now = Date.now();
-    if(now - lastLyricsTap < 380){
-      e.stopPropagation();
-      openFullLyrics();
-      lastLyricsTap = 0;
-    } else {
-      lastLyricsTap = now;
-    }
   });
 }
 
