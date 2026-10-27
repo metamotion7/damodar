@@ -680,6 +680,130 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
     padding: 12px 14px;
   }
 }
+
+/* ===== Bottom Devotee Seva / Sponsor Banner ===== */
+#sevaBar {
+  position: fixed;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 150px);
+  max-width: 660px;
+  background: rgba(18, 7, 3, 0.90);
+  border: 1px solid rgba(246, 195, 101, 0.42);
+  border-radius: 14px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.8), 0 0 16px rgba(246, 195, 101, 0.15);
+  z-index: 75;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  gap: 12px;
+  transition: opacity .35s ease, transform .35s ease;
+  user-select: none;
+}
+#sevaBar.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(24px);
+}
+.seva-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+.seva-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: #2a1103;
+  background: linear-gradient(135deg, #f6c365, #f08a1c);
+  padding: 3px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.seva-text {
+  font-size: 13px;
+  color: #fff4d9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: inherit;
+}
+.seva-highlight {
+  color: var(--gold);
+  font-weight: bold;
+}
+.seva-cta {
+  font-size: 12px;
+  font-weight: bold;
+  color: #2a1103;
+  background: linear-gradient(135deg, #f6c365, #f6a93c);
+  border: 1px solid #ffd58a;
+  border-radius: 999px;
+  padding: 5px 12px;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.seva-cta:hover {
+  filter: brightness(1.15);
+  transform: scale(1.03);
+}
+.seva-close {
+  background: transparent;
+  border: none;
+  color: rgba(246, 195, 101, 0.6);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.seva-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  #sevaBar {
+    width: calc(100% - 84px);
+    left: 10px;
+    transform: none;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    padding: 6px 10px;
+    gap: 8px;
+  }
+  #sevaBar.hidden {
+    transform: translateY(24px);
+  }
+  .seva-text {
+    font-size: 11px;
+  }
+  .seva-badge {
+    font-size: 8px;
+    padding: 2px 5px;
+  }
+  .seva-cta {
+    font-size: 11px;
+    padding: 4px 9px;
+  }
+}
 #toast{position:fixed;left:0;right:0;top:36%;text-align:center;font-size:30px;color:var(--gold);text-shadow:0 0 18px #f08a1c;opacity:0;transition:opacity .5s;pointer-events:none;padding:0 16px}
 #load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0b0604;font-size:18px;letter-spacing:.1em;color:var(--gold);z-index:9}
 
@@ -1264,6 +1388,21 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
 </div>
 <div id="camStatus"></div>
 
+<!-- Bottom Devotee Seva / Sponsor Bar -->
+<aside id="sevaBar" aria-label="Devotee Seva and Sponsorship">
+  <div class="seva-content">
+    <div class="seva-badge">VEDIC AI</div>
+    <div class="seva-text">
+      <span class="seva-highlight">Vedabase AI</span>
+      <span class="seva-desc"> — Explore Bhagavad Gita &amp; Vedic Wisdom with AI</span>
+    </div>
+    <a href="https://vedas.asitpurohit.in" target="_blank" rel="noopener" class="seva-cta">
+      Explore ↗
+    </a>
+  </div>
+  <button id="closeSevaBtn" class="seva-close" title="Dismiss" aria-label="Close Seva Bar">✕</button>
+</aside>
+
 
 
 
@@ -1794,6 +1933,81 @@ if(calActionBtn){
 
 updateDamodarBadge();
 
+// ===== Devotee Seva / Sponsor Bar Rotation =====
+const SEVA_ITEMS = [
+  {
+    badge: 'VEDIC AI',
+    title: 'Vedabase AI',
+    desc: 'Explore Bhagavad Gita & Vedic Wisdom with AI',
+    url: 'https://vedas.asitpurohit.in',
+    cta: 'Explore ↗'
+  },
+  {
+    badge: 'SEVA',
+    title: 'Kartika Deep Daan',
+    desc: 'Offer daily ghee lamps to Lord Damodar & Mother Yashoda',
+    url: 'https://damodar.lol',
+    cta: 'Offer Lamp 🪔'
+  },
+  {
+    badge: 'PLATFORM',
+    title: 'MetaMotion Board',
+    desc: 'Collaborative real-time canvas & teaching whiteboard',
+    url: 'https://board.asitpurohit.in',
+    cta: 'Visit ↗'
+  }
+];
+
+function initSevaBar(){
+  const bar = $('sevaBar');
+  const closeBtn = $('closeSevaBtn');
+  if(!bar) return;
+
+  if(sessionStorage.getItem('damodar_seva_dismissed') === '1'){
+    bar.classList.add('hidden');
+    return;
+  }
+
+  let idx = 0;
+  const badgeEl = bar.querySelector('.seva-badge');
+  const highlightEl = bar.querySelector('.seva-highlight');
+  const descEl = bar.querySelector('.seva-desc');
+  const ctaEl = bar.querySelector('.seva-cta');
+
+  function renderItem(i){
+    const item = SEVA_ITEMS[i];
+    if(!item) return;
+    if(badgeEl) badgeEl.textContent = item.badge;
+    if(highlightEl) highlightEl.textContent = item.title;
+    if(descEl) descEl.textContent = ' — ' + item.desc;
+    if(ctaEl){
+      ctaEl.href = item.url;
+      ctaEl.textContent = item.cta;
+      ctaEl.onclick = (e) => {
+        if(item.url === 'https://damodar.lol'){
+          e.preventDefault();
+          startAartiMode();
+        }
+      };
+    }
+  }
+
+  setInterval(() => {
+    if(!bar || bar.classList.contains('hidden')) return;
+    idx = (idx + 1) % SEVA_ITEMS.length;
+    renderItem(idx);
+  }, 9000);
+
+  if(closeBtn){
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      bar.classList.add('hidden');
+      sessionStorage.setItem('damodar_seva_dismissed', '1');
+    });
+  }
+}
+initSevaBar();
+
 function updateLiveLyrics(){
   if(!bAudio) return;
   const t = bAudio.currentTime;
@@ -1909,7 +2123,7 @@ function tryPlayBhajan(){
 }
 
 function handleFirstInteraction(e){
-  if(e.target && (e.target.closest("#lyricsModal") || e.target.closest("#dotsMenuBtn") || e.target.closest("#visitorBadge") || e.target.closest("#damodarDayBadge") || e.target.closest("#calendarModal"))) return;
+  if(e.target && (e.target.closest("#lyricsModal") || e.target.closest("#dotsMenuBtn") || e.target.closest("#visitorBadge") || e.target.closest("#damodarDayBadge") || e.target.closest("#calendarModal") || e.target.closest("#sevaBar"))) return;
   mode = "aarti";
   if(typeof setGoals === "function") setGoals();
   tryPlayBhajan();
@@ -1935,7 +2149,7 @@ cv.addEventListener('pointerdown', (e) => {
 });
 
 cv.addEventListener('pointerup', (e) => {
-  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#camPip')) return;
+  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#camPip') || e.target.closest('#sevaBar')) return;
 
   const distDrag = Math.hypot(e.clientX - ptDownX, e.clientY - ptDownY);
   const timeElapsed = Date.now() - ptDownTime;
