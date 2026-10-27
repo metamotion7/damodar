@@ -2420,20 +2420,37 @@ function renderModalVerses(){
   `).join('');
 }
 
-function setLanguage(lang){
+const LANG_SLUGS = {
+  hi: 'hindi',
+  or: 'odia',
+  bn: 'bengali',
+  en: 'english',
+  ru: 'russian'
+};
+const SLUG_TO_LANG = {
+  hindi: 'hi',
+  odia: 'or',
+  bengali: 'bn',
+  english: 'en',
+  russian: 'ru'
+};
+
+function getLyricsUrl(lang){
+  const slug = LANG_SLUGS[lang] || 'hindi';
+  return (window.location.protocol === 'file:') ? '#lyrics-' + slug : '/lyrics/' + slug;
+}
+
+function setLanguage(lang, noUrlUpdate){
   currentLang = lang;
   try { localStorage.setItem('damodar_lang', lang); } catch(e){}
 
-  // Update browser URL query parameter seamlessly without page reload
-  try {
-    const url = new URL(window.location.href);
-    if(lang === 'en'){
-      url.searchParams.delete('lang');
-    } else {
-      url.searchParams.set('lang', lang);
-    }
-    window.history.replaceState({}, '', url.toString());
-  } catch(e){}
+  // If lyrics modal is currently open, seamlessly update the clean URL in address bar to /lyrics/hindi, etc.
+  if(!noUrlUpdate && lModal && !lModal.classList.contains('hidden')){
+    try {
+      const targetUrl = getLyricsUrl(lang);
+      window.history.replaceState({ modal: 'lyrics', lang: lang }, '', targetUrl);
+    } catch(e){}
+  }
 
   // Update pills UI
   document.querySelectorAll('.lang-pill').forEach(btn => {
@@ -2833,14 +2850,41 @@ if(bAudio){
 
 // Single-click on #liveLyrics expands full lyrics modal
 const liveLyricsElem = $('liveLyrics');
-function openFullLyrics(){
+function openFullLyrics(noPush){
   if(!lModal) return;
   renderModalVerses();
   lModal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+
+  if(!noPush){
+    try {
+      const targetUrl = getLyricsUrl(currentLang);
+      const curPath = window.location.pathname;
+      const curHash = window.location.hash;
+      if(curPath !== targetUrl && curHash !== targetUrl){
+        window.history.pushState({ modal: 'lyrics', lang: currentLang }, '', targetUrl);
+      }
+    } catch(e){}
+  }
+
   setTimeout(() => {
     const active = document.querySelector('.verse.active-verse');
     if(active) active.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 100);
+}
+
+function closeFullLyrics(noPush){
+  if(!lModal) return;
+  lModal.classList.add('hidden');
+  document.body.style.overflow = '';
+
+  if(!noPush){
+    try {
+      if(window.location.pathname.startsWith('/lyrics') || (window.location.hash && window.location.hash.startsWith('#lyrics'))){
+        window.history.pushState({ modal: null }, '', (window.location.protocol === 'file:') ? '#' : '/');
+      }
+    } catch(e){}
+  }
 }
 
 if(liveLyricsElem){
@@ -2855,7 +2899,7 @@ if(liveLyricsElem){
 if(closeLBtn && lModal){
   closeLBtn.onclick = (e) => {
     e.stopPropagation();
-    lModal.classList.add('hidden');
+    closeFullLyrics();
   };
 }
 
@@ -2863,7 +2907,7 @@ if(closeLBtn && lModal){
 window.addEventListener('pointerdown', (e) => {
   if(lModal && !lModal.classList.contains('hidden')){
     if(!e.target.closest('#lyricsModal') && !e.target.closest('#liveLyrics')){
-      lModal.classList.add('hidden');
+      closeFullLyrics();
     }
   }
   const calModalElem = $('calendarModal');
@@ -2882,13 +2926,34 @@ window.addEventListener('pointerdown', (e) => {
 
 window.addEventListener('keydown', (e) => {
   if(e.key === 'Escape'){
-    if(lModal && !lModal.classList.contains('hidden')) lModal.classList.add('hidden');
+    if(lModal && !lModal.classList.contains('hidden')){
+      closeFullLyrics();
+    }
     const calModalElem = $('calendarModal');
     if(calModalElem && !calModalElem.classList.contains('hidden')) calModalElem.classList.add('hidden');
     const prodModalElem = $('productModal');
     if(prodModalElem && !prodModalElem.classList.contains('hidden')) prodModalElem.classList.add('hidden');
   }
 });
+
+// Browser Back & Forward button handling for lyrics modal
+window.addEventListener('popstate', (e) => {
+  const isLyrics = window.location.pathname.startsWith('/lyrics') || (window.location.hash && window.location.hash.startsWith('#lyrics')) || (e.state && e.state.modal === 'lyrics');
+  if(isLyrics){
+    const m = window.location.pathname.match(/\/lyrics\/([a-z]+)/) || (window.location.hash && window.location.hash.match(/#lyrics-([a-z]+)/));
+    if(m && SLUG_TO_LANG[m[1]]){
+      setLanguage(SLUG_TO_LANG[m[1]], true);
+    }
+    openFullLyrics(true);
+  } else {
+    if(lModal && !lModal.classList.contains('hidden')){
+      closeFullLyrics(true);
+    }
+  }
+});
+
+window.openFullLyrics = openFullLyrics;
+window.closeFullLyrics = closeFullLyrics;
 
 // 1. MOBILE-COMPATIBLE FIRST TOUCH & AUDIO UNLOCK
 let bhajanStarted = false;
@@ -3918,12 +3983,12 @@ if(rotHint){
   }
   if(p.get('openLyrics') === '1'){
     setTimeout(() => {
-      const modal = document.getElementById('lyricsModal');
-      if(modal){
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      }
+      if(typeof window.openFullLyrics === 'function') window.openFullLyrics(false);
     }, 600);
+  }
+  const lyricsSlugMatch = (window.location.hash && window.location.hash.match(/#lyrics-([a-z]+)/));
+  if(lyricsSlugMatch && typeof window.openFullLyrics === 'function'){
+    setTimeout(() => window.openFullLyrics(true), 400);
   }
 })();
 
