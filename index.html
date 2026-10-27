@@ -346,6 +346,64 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
     font-size: 20px;
   }
 }
+
+/* ===== Top-Right Devotee Visitor Counter Badge ===== */
+#visitorBadge {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  right: 14px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(18, 7, 3, 0.78);
+  border: 1px solid rgba(246, 195, 101, 0.38);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: .03em;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55), 0 0 10px rgba(246, 195, 101, 0.12);
+  transition: all .25s ease;
+  pointer-events: auto;
+  user-select: none;
+  cursor: pointer;
+}
+#visitorBadge:hover {
+  border-color: rgba(246, 195, 101, 0.75);
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.7), 0 0 14px rgba(246, 195, 101, 0.28);
+  transform: translateY(-1px);
+}
+.v-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+#visitorCount {
+  font-weight: 700;
+  color: #fff6e0;
+  font-variant-numeric: tabular-nums;
+}
+.v-label {
+  color: rgba(251, 233, 204, 0.82);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+@media (max-width: 600px) {
+  #visitorBadge {
+    top: calc(8px + env(safe-area-inset-top, 0px));
+    right: 8px;
+    padding: 3px 8px;
+    font-size: 11px;
+    gap: 4px;
+  }
+  #visitorBadge .v-label {
+    display: none;
+  }
+}
 #toast{position:fixed;left:0;right:0;top:36%;text-align:center;font-size:30px;color:var(--gold);text-shadow:0 0 18px #f08a1c;opacity:0;transition:opacity .5s;pointer-events:none;padding:0 16px}
 #load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0b0604;font-size:18px;letter-spacing:.1em;color:var(--gold);z-index:9}
 
@@ -859,6 +917,11 @@ namo 'nanta-līlāya devāya tubhyam</div>
 
 <audio id="bhajanAudio" loop preload="auto" playsinline webkit-playsinline src="audio.mp3"></audio>
 
+<div id="visitorBadge" title="Total devotees visited Sri Damodar" aria-label="Total Devotees Visited">
+  <span class="v-icon">🕉️</span>
+  <span id="visitorCount">10,000</span>
+  <span class="v-label">Devotees</span>
+</div>
 
 <div id="top">
   <div id="ttl">Sri Damodar Aarti</div>
@@ -1196,6 +1259,43 @@ function initLangPills(){
 initLangPills();
 setLanguage(currentLang);
 
+// ===== Real-time Devotee Visitor Counter =====
+function initVisitorCounter(){
+  const vElem = $('visitorCount');
+  const vBadge = $('visitorBadge');
+  if(!vElem) return;
+
+  const KEY = 'damodar_lol_devotee_visits';
+  const BASE_URL = 'https://countapi.mileshilliard.com/api/v1';
+  const hasVisited = sessionStorage.getItem('damodar_session_visited');
+  const endpoint = hasVisited ? `${BASE_URL}/get/${KEY}` : `${BASE_URL}/hit/${KEY}`;
+
+  fetch(endpoint)
+    .then(res => res.json())
+    .then(data => {
+      if(data && typeof data.value === 'number'){
+        vElem.textContent = Number(data.value).toLocaleString();
+        if(!hasVisited){
+          sessionStorage.setItem('damodar_session_visited', '1');
+        }
+      }
+    })
+    .catch(err => {
+      console.warn('Visitor counter notice:', err);
+      if(vElem && vElem.textContent === '10,000'){
+        vElem.textContent = '10,000+';
+      }
+    });
+
+  if(vBadge){
+    vBadge.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toast('🕉️ ' + vElem.textContent + ' Devotees have visited Sri Damodar', 2200);
+    });
+  }
+}
+initVisitorCounter();
+
 function updateLiveLyrics(){
   if(!bAudio) return;
   const t = bAudio.currentTime;
@@ -1302,7 +1402,7 @@ function tryPlayBhajan(){
 }
 
 function handleFirstInteraction(e){
-  if(e.target && (e.target.closest("#lyricsModal") || e.target.closest("#dotsMenuBtn"))) return;
+  if(e.target && (e.target.closest("#lyricsModal") || e.target.closest("#dotsMenuBtn") || e.target.closest("#visitorBadge"))) return;
   mode = "aarti";
   if(typeof setGoals === "function") setGoals();
   tryPlayBhajan();
@@ -1332,7 +1432,7 @@ function triggerModeToggle(){
 
 // Desktop double-click
 cv.addEventListener('dblclick', (e) => {
-  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top')) return;
+  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge')) return;
   if(!done) return;
   triggerModeToggle();
 });
@@ -1347,7 +1447,7 @@ cv.addEventListener('pointerdown', (e) => {
 });
 
 cv.addEventListener('pointerup', (e) => {
-  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top')) return;
+  if(e.target.closest('#lyricsModal') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge')) return;
   if(!done) return;
   const distDrag = Math.hypot(e.clientX - ptDownX, e.clientY - ptDownY);
   if(distDrag > 25) return; // User dragged to rotate/offer lamp, not double-tap!
