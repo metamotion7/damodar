@@ -1,18 +1,12 @@
 {
   "cleanUrls": true,
-  "redirects": [
-    { "source": "/lyrics", "destination": "/lyrics/english", "permanent": true },
-    { "source": "/katha", "destination": "/katha/english", "permanent": true }
-  ],
   "rewrites": [
-    { "source": "/lyrics", "destination": "/index" },
     { "source": "/lyrics/:lang([a-zA-Z0-9_-]+)", "destination": "/index" },
     { "source": "/hindi-lyrics", "destination": "/index" },
     { "source": "/odia-lyrics", "destination": "/index" },
     { "source": "/bengali-lyrics", "destination": "/index" },
     { "source": "/russian-lyrics", "destination": "/index" },
     { "source": "/english-lyrics", "destination": "/index" },
-    { "source": "/katha", "destination": "/katha" },
     { "source": "/katha/:lang([a-zA-Z0-9_-]+)", "destination": "/katha" },
     { "source": "/darshan", "destination": "/darshan" }
   ],
