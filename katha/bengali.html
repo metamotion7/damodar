@@ -131,6 +131,8 @@ canvas {
 .story-badge-wrap {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   gap: 8px;
   pointer-events: auto;
 }
@@ -154,6 +156,7 @@ canvas {
 
 .story-lang-group {
   display: inline-flex;
+  margin-left: auto;
   border: 1px solid rgba(212, 175, 55, 0.35);
   border-radius: 9999px;
   overflow: hidden;
@@ -162,6 +165,7 @@ canvas {
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 18px rgba(0,0,0,0.7);
   pointer-events: auto;
+  flex-shrink: 0;
 }
 
 .story-lang-btn {
@@ -223,13 +227,15 @@ canvas {
 .story-header-block {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
+  width: 100%;
   gap: 6px;
   pointer-events: none;
 }
 .story-sub-row {
   display: flex;
   align-items: center;
+  align-self: flex-start;
   gap: 8px;
   pointer-events: auto;
 }
@@ -413,18 +419,15 @@ canvas {
     right: 8px;
   }
   .story-header-block {
+    width: 100%;
     gap: 6px;
   }
   .story-badge-wrap {
+    width: 100%;
     flex-wrap: nowrap !important;
+    justify-content: space-between;
     gap: 4px;
     align-items: center;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .story-badge-wrap::-webkit-scrollbar {
-    display: none;
   }
   .story-badge {
     font-size: 9.5px;
@@ -435,6 +438,7 @@ canvas {
   .story-lang-group {
     display: inline-flex;
     gap: 2px;
+    margin-left: auto;
     flex-shrink: 0;
   }
   .story-lang-btn {
