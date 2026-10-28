@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<base href="/">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070402">
@@ -17,7 +18,7 @@
 <link rel="alternate" hreflang="bn" href="https://damodar.lol/lyrics/bengali">
 <link rel="alternate" hreflang="ru" href="https://damodar.lol/lyrics/russian">
 <link rel="alternate" hreflang="en" href="https://damodar.lol/lyrics/english">
-<link rel="alternate" hreflang="x-default" href="https://damodar.lol/lyrics">
+<link rel="alternate" hreflang="x-default" href="https://damodar.lol/lyrics/english">
 
 <!-- Robots & Search Engine Indexing -->
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -93,12 +94,12 @@
           "@type": "ListItem",
           "position": 2,
           "name": "Damodarashtakam Lyrics",
-          "item": "https://damodar.lol/lyrics"
+          "item": "https://damodar.lol/lyrics/english"
         },
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Русский перевод",
+          "name": "Russian Lyrics",
           "item": "https://damodar.lol/lyrics/russian"
         }
       ]
@@ -480,6 +481,35 @@ body {
   .verse-card { padding: 18px 16px; }
   .nav-btn { font-size: 10.5px; padding: 5px 9px; }
 }
+
+.verses-box-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 0 4px;
+}
+.verses-box-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffd700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.verses-top-share-btn {
+  font-size: 11.5px;
+  padding: 6px 14px;
+}
+.nav-btn-share {
+  cursor: pointer;
+  font-family: inherit;
+}
+.nav-btn-share:hover {
+  background: rgba(255, 215, 0, 0.25);
+  border-color: #ffd700;
+  color: #ffffff;
+}
+
 </style>
 </head>
 <body>
@@ -495,8 +525,9 @@ body {
 
   <div class="nav-actions">
     <a href="/" class="nav-btn nav-btn-gold" title="Виртуальный храм 3D и дипа-дана">🪔 3D Храм</a>
-    <a href="/story" class="nav-btn" title="Дамодара-лила Катха (26 сцен)">🎬 Катха</a>
-    <a href="/lyrics" class="nav-btn" title="Все языки">🌐 Все языки</a>
+    <a href="/katha/russian" class="nav-btn" title="Дамодара-лила Катха (26 сцен)">🎬 Катха</a>
+    <a href="/lyrics/english" class="nav-btn" title="Все языки">🌐 Все языки</a>
+    <button type="button" class="nav-btn nav-btn-share" onclick="shareLyricsPage()" title="Поделиться текстом">🔗 Поделиться</button>
   </div>
 </header>
 
@@ -516,6 +547,10 @@ body {
   </section>
 
   <div class="verses-container">
+    <div class="verses-box-top-bar">
+      <span class="verses-box-title">📜 Все 8 стихов с переводом</span>
+      <button type="button" class="copy-verse-btn verses-top-share-btn" onclick="shareLyricsPage()" title="Поделиться">🔗 Поделиться</button>
+    </div>
     
   <article class="verse-card" id="verse-1" data-verse="1">
     <div class="verse-header">
@@ -585,7 +620,7 @@ body {
     <footer class="seo-footer">
       <p>
         Sri Damodarashtakam • Создано с преданностью: <a href="https://asitpurohit.in/about" target="_blank" rel="author">Асит Пурохит (Asit Purohit)</a> (<a href="https://asitpurohit.in" target="_blank">MetaMotion</a>), выпускник NIT Rourkela.<br>
-        Контакты в <a href="https://x.com/Metamotion7" target="_blank">X (@Metamotion7)</a> • Совершите <a href="/">3D Даршан и предложение дипы</a> • Смотрите <a href="/story">Дамодара-лила Катху</a>.
+        Контакты в <a href="https://x.com/Metamotion7" target="_blank">X (@Metamotion7)</a> • Совершите <a href="/">3D Даршан и предложение дипы</a> • Смотрите <a href="/katha/russian">Дамодара-лила Катху</a>.
       </p>
     </footer>
   </div>
@@ -628,12 +663,43 @@ function showToast(msg){
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
+function shareLyricsPage(){
+  const url = window.location.origin + window.location.pathname;
+  const title = document.title;
+  const text = 'Шри Дамодараштака: оригинальный санскрит и перевод всех 8 стихов 🙏';
+  if(navigator.share){
+    navigator.share({ title, text, url }).catch(err => {
+      if(err.name !== 'AbortError') copyToClipboard(url, 'Ссылка на текст скопирована!');
+    });
+  } else {
+    copyToClipboard(url, 'Ссылка на текст скопирована!');
+  }
+}
+
+function copyToClipboard(str, successMsg){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(str).then(() => {
+      showToast(successMsg || 'Ссылка скопирована в буфер обмена! 🙏');
+    }).catch(() => showToast('Скопировано: ' + str));
+  } else {
+    prompt('Скопируйте ссылку:', str);
+  }
+}
+
 function copyVerseLink(vNum){
   const u = new URL(window.location.origin + window.location.pathname);
   u.hash = 'verse-' + vNum;
-  navigator.clipboard.writeText(u.toString()).then(() => {
-    showToast('Ссылка на стих ' + vNum + ' скопирована!');
-  }).catch(() => showToast('Скопировано: ' + u.toString()));
+  if(navigator.share){
+    navigator.share({
+      title: document.title + ' - Стих ' + vNum,
+      text: 'Шри Дамодараштака - Стих ' + vNum + ' с переводом 🙏',
+      url: u.toString()
+    }).catch(err => {
+      if(err.name !== 'AbortError') copyToClipboard(u.toString(), 'Ссылка на стих ' + vNum + ' скопирована!');
+    });
+  } else {
+    copyToClipboard(u.toString(), 'Ссылка на стих ' + vNum + ' скопирована!');
+  }
 }
 
 const btnPlayPause = document.getElementById('btnPlayPause');
