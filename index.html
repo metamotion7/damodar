@@ -350,6 +350,44 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
 #camBtn.active { background: rgba(246,150,30,0.28); border-color: #f6c365; box-shadow: 0 0 20px rgba(246,195,101,0.5); }
 #camBtn.loading { opacity: 0.6; cursor: wait; }
 
+/* ===== Circular Share Button (Bottom-Left) ===== */
+#mainShareBtn {
+  position: fixed;
+  bottom: 28px;
+  left: 20px;
+  z-index: 80;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(246,195,101,0.6);
+  background: rgba(18,7,3,0.82);
+  color: #f6c365;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.55), 0 0 10px rgba(246,195,101,0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all .25s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+#mainShareBtn:hover {
+  border-color: rgba(246,195,101,0.9);
+  color: #ffd700;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.7), 0 0 16px rgba(246,195,101,0.35);
+  transform: translateY(-2px);
+}
+#mainShareBtn:active {
+  transform: scale(0.92);
+}
+#mainShareBtn svg {
+  width: 25px;
+  height: 25px;
+  filter: drop-shadow(0 0 4px rgba(246, 195, 101, 0.45));
+}
+
 #camPip {
   position: fixed;
   bottom: 86px;
@@ -433,6 +471,16 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
     width: 44px;
     height: 44px;
     font-size: 20px;
+  }
+  #mainShareBtn {
+    bottom: 22px;
+    left: 18px;
+    width: 44px;
+    height: 44px;
+  }
+  #mainShareBtn svg {
+    width: 22px;
+    height: 22px;
   }
 }
 
@@ -2157,14 +2205,10 @@ namo 'nanta-līlāya devāya tubhyam</div>
 lasat-kuṇḍalaṁ gokule bhrājamānam</div>
     <div id="liveTrans">To the Supreme Lord, whose form is eternal existence, knowledge, and bliss...</div>
   </div>
-  <div style="text-align: center; margin-top: 6px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+  <div style="text-align: center; margin-top: 6px;">
     <button id="openStoryBtn" class="main-story-btn" title="Watch 26 Divine Scenes of Damodara Lila Katha">
       <span class="msb-icon">🎬</span>
       <span>Damodara Katha</span>
-    </button>
-    <button type="button" id="mainShareBtn" class="main-story-btn" title="Share Virtual Temple Darshan">
-      <span class="msb-icon">🔗</span>
-      <span>Share</span>
     </button>
   </div>
 </div>
@@ -2201,8 +2245,17 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
   </div>
 </div>
 
-<!-- Camera Aarti Controls -->
+<!-- Camera Aarti Controls & Circular Bottom-Left Share -->
 <button id="camBtn" title="Offer lamp with camera">📷</button>
+<button type="button" id="mainShareBtn" title="Share Virtual Temple Darshan" aria-label="Share">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="18" cy="5" r="3"></circle>
+    <circle cx="6" cy="12" r="3"></circle>
+    <circle cx="18" cy="19" r="3"></circle>
+    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+  </svg>
+</button>
 <div id="camPip">
   <video id="camPipVideo" autoplay playsinline muted></video>
   <canvas id="camPipCanvas"></canvas>
