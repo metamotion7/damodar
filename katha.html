@@ -396,18 +396,46 @@ canvas {
 @media (max-width: 600px) {
   .story-top-bar {
     top: calc(env(safe-area-inset-top, 0px) + 8px);
+    left: 8px;
+    right: 8px;
   }
-  .story-header-block { gap: 5px; }
-  .story-badge-wrap { flex-wrap: wrap; gap: 6px; }
-  .story-badge { font-size: 10px; padding: 4px 10px; }
-  .story-lang-btn { padding: 5px 8px; font-size: 10px; }
+  .story-header-block {
+    gap: 6px;
+  }
+  .story-badge-wrap {
+    flex-wrap: nowrap !important;
+    gap: 4px;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .story-badge-wrap::-webkit-scrollbar {
+    display: none;
+  }
+  .story-badge {
+    font-size: 9.5px;
+    padding: 3px 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .story-lang-group {
+    display: inline-flex;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  .story-lang-btn {
+    padding: 3.5px 6px;
+    font-size: 9.5px;
+    white-space: nowrap;
+  }
   .story-scene-pill { font-size: 11.5px; padding: 6px 14px; }
-  .katha-share-btn { padding: 4px 10px; font-size: 10.5px; }
+  .katha-share-btn { padding: 3.5px 10px; font-size: 10px; }
   .katha-unmute-wrap {
-    top: calc(env(safe-area-inset-top, 0px) + 48px);
+    top: calc(env(safe-area-inset-top, 0px) + 38px);
   }
   .katha-unmute-btn {
-    padding: 5px 13px;
+    padding: 4px 13px;
     font-size: 11px;
   }
 }
