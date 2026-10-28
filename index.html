@@ -3797,6 +3797,7 @@ if(rotHint){
   let cur = 0, phase = 'enter', t0 = 0, from = null, to = null, timer = 0, lastP = 0;
   let imgs = [], ready = false, introRunning = true, introEntered = false;
   let introStartTime = 0, introProgress = 0, autoTransitionStarted = false;
+  let rt0 = performance.now();
 
   function mk(a){
     const b = gl.createBuffer();
@@ -3980,10 +3981,38 @@ if(rotHint){
     AUDIO_EV.forEach(e => window.addEventListener(e, unlockAudio, true));
   }
 
+  function resetIntroAnimation(){
+    const now = performance.now();
+    introStartTime = now;
+    t0 = now;
+    phase = 'enter';
+    cur = 0;
+    if(scatter && bufs && bufs.length > 0){
+      from = scatter;
+      to = bufs[0];
+    }
+    introProgress = 0;
+    rt0 = now;
+    voicePlayedCount = 0;
+    clearTimeout(voiceTimer);
+    if(introBgm){
+      try {
+        introBgm.currentTime = 0;
+      } catch(e){}
+    }
+    const bar = document.getElementById('ivBarFill');
+    const pctEl = document.getElementById('ivPercentText');
+    const statusEl = document.getElementById('ivStatusText');
+    if(bar) bar.style.width = '0%';
+    if(pctEl) pctEl.textContent = '0%';
+    if(statusEl) statusEl.textContent = 'Preparing Sri Damodara Darshan…';
+  }
+
   function unlockAudio(){
     AUDIO_EV.forEach(e => window.removeEventListener(e, unlockAudio, true));
     audioArmed = false;
     if(introRunning && !introEntered){
+      resetIntroAnimation();
       playIntroAudio();
     }
   }
@@ -4075,7 +4104,7 @@ if(rotHint){
     const rg = ringCv.getContext('2d');
     if(rg){
       const MANTRA = 'Hare Krishna Hare Krishna Krishna Krishna Hare Hare • Hare Rama Hare Rama Rama Rama Hare Hare • ';
-      let rw = 0, rh = 0, rdp = 1, rlf = 0, rt0 = performance.now();
+      let rw = 0, rh = 0, rdp = 1, rlf = 0;
       let cachedChars = [], cachedCenters = [], cachedC = 0;
 
       function updateTextMetrics(f, C, R_ring){

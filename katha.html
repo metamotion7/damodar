@@ -1518,10 +1518,23 @@ function updateCaption(tSec){
     EV.forEach(e => window.addEventListener(e, unlockAudio, true));
   }
 
+  function resetKathaToStart(){
+    if(HOLDT === null){
+      CLK0 = performance.now();
+      const currAudio = getActiveVoice();
+      try { currAudio.currentTime = 0; } catch(e){}
+      try { bgmAudio.currentTime = 0; } catch(e){}
+      if(typeof updateCaption === 'function'){
+        updateCaption(0);
+      }
+    }
+  }
+
   function unlockAudio(){
     EV.forEach(e => window.removeEventListener(e, unlockAudio, true));
     armed = false;
-    syncAndPlay();
+    resetKathaToStart();
+    syncAndPlay(0);
   }
 
   window.__dfAudioSync = function(){
