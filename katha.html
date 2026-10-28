@@ -206,6 +206,65 @@ canvas {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+/* Bottom-Left Floating Share Button */
+.katha-share-btn {
+  position: fixed;
+  z-index: 35;
+  left: calc(env(safe-area-inset-left, 0px) + 14px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(18, 9, 4, 0.88);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 9999px;
+  color: #ffd700;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.65);
+  transition: all 0.25s ease;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
+}
+.katha-share-btn:hover {
+  background: rgba(45, 20, 8, 0.95);
+  border-color: #ffd700;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(255, 215, 0, 0.35);
+}
+.katha-share-btn:active {
+  transform: scale(0.95);
+}
+#toast {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(18, 9, 4, 0.95);
+  border: 1px solid #ffd700;
+  border-radius: 9999px;
+  color: #fff2d6;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 10px 22px;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.85), 0 0 16px rgba(255,215,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+  white-space: nowrap;
+}
+#toast.show {
+  opacity: 1;
+}
+
 .story-flame {
   font-size: 14px;
   animation: sFlamePulse 1.8s infinite;
@@ -266,6 +325,12 @@ canvas {
   .story-badge { font-size: 10px; padding: 4px 10px; }
   .story-lang-btn { padding: 5px 8px; font-size: 10px; }
   .story-scene-pill { font-size: 11.5px; padding: 6px 14px; }
+  .katha-share-btn {
+    left: calc(env(safe-area-inset-left, 0px) + 10px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+    padding: 7px 11px;
+    font-size: 11px;
+  }
 }
 </style>
 </head>
@@ -288,6 +353,13 @@ canvas {
     </div>
   </div>
 </div>
+
+<!-- Floating Share Button (Bottom-Left) -->
+<button type="button" class="katha-share-btn" id="kathaShareBtn" title="Share Damodara Lila Katha">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+  <span>Share</span>
+</button>
+<div id="toast"></div>
 
 <div class="story-bottom-bar">
   <div class="story-scene-pill" id="storyScenePill">
@@ -1391,6 +1463,77 @@ function updateCaption(tSec){
       if(window.__dfSetLanguage) window.__dfSetLanguage(l);
     });
   });
+
+  /* Bottom-Left Katha Share Functionality */
+  function initKathaShare(){
+    const shareBtn = document.getElementById('kathaShareBtn');
+    if(!shareBtn) return;
+
+    const KATHA_TITLES = {
+      hi: 'दामोदर लीला कथा • २६ सचित्र दिव्य दृश्य (हिन्दी)',
+      en: 'Sri Damodara Lila Katha • 26 Divine Illustrated Scenes',
+      bn: 'শ্রী দামোদর লীলা কথা • ২৬টি সচিত্র দৃশ্য (বাংলা)',
+      or: 'ଦାମୋଦର ଲୀଳା କଥା • ୨୬ ସଚିତ୍ର ଦିବ୍ୟ ଦୃଶ୍ୟ (ଓଡ଼ିଆ)',
+      ru: 'Сказание о Дамодара-лиле • 26 иллюстрированных сцен'
+    };
+
+    function getShareData(){
+      const slug = (typeof LANG_TO_SLUG !== 'undefined' && LANG_TO_SLUG[currentLang]) ? LANG_TO_SLUG[currentLang] : currentLang;
+      const url = window.location.origin + '/katha/' + slug;
+      const title = KATHA_TITLES[currentLang] || KATHA_TITLES.en;
+      const text = 'Watch & listen to the sacred Damodara Lila Katha in 26 flowing illustrated scenes with divine flute music! 🪔🌸';
+      return { title, text, url };
+    }
+
+    function handleShare(e){
+      if(e){
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      const data = getShareData();
+      if(navigator.share){
+        navigator.share(data).catch(err => {
+          if(err.name !== 'AbortError') copyLink(data.url);
+        });
+      } else {
+        copyLink(data.url);
+      }
+    }
+
+    function copyLink(url){
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(() => {
+          showToast('Katha link copied to clipboard! 🙏');
+        }).catch(() => {
+          showToast('Copied: ' + url);
+        });
+      } else {
+        prompt('Copy link to share:', url);
+      }
+    }
+
+    shareBtn.addEventListener('click', handleShare);
+    shareBtn.addEventListener('pointerdown', (e) => e.stopPropagation());
+    shareBtn.addEventListener('touchend', (e) => {
+      e.stopPropagation();
+      handleShare(e);
+    });
+  }
+
+  function showToast(msg){
+    let t = document.getElementById('toast');
+    if(!t){
+      t = document.createElement('div');
+      t.id = 'toast';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  initKathaShare();
 
   /* Start playback immediately */
   syncAndPlay();

@@ -350,6 +350,39 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
 #camBtn.active { background: rgba(246,150,30,0.28); border-color: #f6c365; box-shadow: 0 0 20px rgba(246,195,101,0.5); }
 #camBtn.loading { opacity: 0.6; cursor: wait; }
 
+/* ===== Main Page Floating Share Button (Bottom-Left) ===== */
+#mainShareBtn {
+  position: fixed;
+  bottom: 28px;
+  left: 20px;
+  z-index: 80;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(246,195,101,0.6);
+  background: rgba(18,7,3,0.82);
+  color: #f6c365;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.55), 0 0 10px rgba(246,195,101,0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all .25s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+#mainShareBtn:hover {
+  border-color: rgba(246,195,101,0.9);
+  color: #ffd700;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.7), 0 0 16px rgba(246,195,101,0.35);
+  transform: translateY(-2px);
+}
+#mainShareBtn:active {
+  transform: scale(0.92);
+}
+
 #camPip {
   position: fixed;
   bottom: 86px;
@@ -433,6 +466,12 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
     width: 44px;
     height: 44px;
     font-size: 20px;
+  }
+  #mainShareBtn {
+    bottom: 22px;
+    left: 18px;
+    width: 44px;
+    height: 44px;
   }
 }
 
@@ -1344,6 +1383,38 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   color:var(--gold);
   text-transform:uppercase;
 }
+.lm-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.lm-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(246, 195, 101, 0.16);
+  border: 1px solid rgba(246, 195, 101, 0.55);
+  color: #ffd700;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: inherit;
+  user-select: none;
+}
+.lm-share-btn:hover {
+  background: rgba(246, 195, 101, 0.32);
+  border-color: #ffd700;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+.lm-share-btn:active {
+  transform: scale(0.95);
+}
 .lm-body{
   padding:18px 24px;
   overflow-y:auto;
@@ -1763,13 +1834,16 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
 <div id="lyricsModal" class="hidden">
   <div class="lm-header">
     <div class="lm-title" id="lmTitle">Sri Damodarashtakam</div>
-    <div class="lang-pills">
-  <button class="lang-pill" data-lang="en">EN</button>
-  <button class="lang-pill" data-lang="hi">हिन्दी</button>
-  <button class="lang-pill" data-lang="or">ଓଡ଼ିଆ</button>
-  <button class="lang-pill" data-lang="bn">বাংলা</button>
-  <button class="lang-pill" data-lang="ru" title="Русский">RU</button>
-</div>
+    <div class="lm-header-actions">
+      <div class="lang-pills">
+        <button class="lang-pill" data-lang="en">EN</button>
+        <button class="lang-pill" data-lang="hi">हिन्दी</button>
+        <button class="lang-pill" data-lang="or">ଓଡ଼ିଆ</button>
+        <button class="lang-pill" data-lang="bn">বাংলা</button>
+        <button class="lang-pill" data-lang="ru" title="Русский">RU</button>
+      </div>
+      <button type="button" class="lm-share-btn" id="modalShareBtn" title="Share Lyrics">🔗 Share</button>
+    </div>
   </div>
   <div class="lm-body" id="lyricsBody">
     
@@ -2164,6 +2238,16 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
 
 <!-- Camera Aarti Controls -->
 <button id="camBtn" title="Offer lamp with camera">📷</button>
+<!-- Main Page Share Button (Bottom-Left) -->
+<button id="mainShareBtn" title="Share Virtual Temple Darshan" aria-label="Share">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="18" cy="5" r="3"></circle>
+    <circle cx="6" cy="12" r="3"></circle>
+    <circle cx="18" cy="19" r="3"></circle>
+    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+  </svg>
+</button>
 <div id="camPip">
   <video id="camPipVideo" autoplay playsinline muted></video>
   <canvas id="camPipCanvas"></canvas>
@@ -3086,6 +3170,66 @@ window.addEventListener('popstate', (e) => {
 window.openFullLyrics = openFullLyrics;
 window.closeFullLyrics = closeFullLyrics;
 
+// ===== Main Page & Lyrics Modal Share Functionality =====
+function initMainShare(){
+  const shareBtn = $('mainShareBtn');
+  const modalShareBtn = $('modalShareBtn');
+
+  function doShare(shareData){
+    if(navigator.share){
+      navigator.share(shareData).catch(err => {
+        if(err.name !== 'AbortError'){
+          copyUrl(shareData.url);
+        }
+      });
+    } else {
+      copyUrl(shareData.url);
+    }
+  }
+
+  function copyUrl(url){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(() => {
+        toast('Link copied to clipboard! 🙏', 2200);
+      }).catch(() => {
+        toast('Copied: ' + url, 2200);
+      });
+    } else {
+      prompt('Copy this link to share:', url);
+    }
+  }
+
+  if(shareBtn){
+    const handleMainShare = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      doShare({
+        title: 'Sri Sri Radha Damodar • 3D Virtual Deep Daan Aarti',
+        text: 'Offer a sacred virtual ghee lamp to Lord Damodara in Kartik Month! 🪔✨ Experience 3D temple darshan & Damodarashtakam.',
+        url: window.location.origin + '/'
+      });
+    };
+    shareBtn.addEventListener('click', handleMainShare);
+    shareBtn.addEventListener('touchend', handleMainShare, { passive: false });
+  }
+
+  if(modalShareBtn){
+    const handleModalShare = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const lyricsUrl = window.location.origin + getLyricsUrl(currentLang);
+      doShare({
+        title: 'Sri Damodarashtakam • All 8 Verses with Meaning',
+        text: 'Read & listen to Sri Damodarashtakam with lyrics and translation 🙏',
+        url: lyricsUrl
+      });
+    };
+    modalShareBtn.addEventListener('click', handleModalShare);
+    modalShareBtn.addEventListener('touchend', handleModalShare, { passive: false });
+  }
+}
+initMainShare();
+
 // 1. MOBILE-COMPATIBLE FIRST TOUCH & AUDIO UNLOCK
 let bhajanStarted = false;
 
@@ -3197,7 +3341,7 @@ cv.addEventListener('pointerdown', (e) => {
 });
 
 cv.addEventListener('pointerup', (e) => {
-  if(window.__lyricsModalOpen || e.target.closest('#lyricsModal') || e.target.closest('#lyricsBackdrop') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#camPip') || e.target.closest('#circleAd') || e.target.closest('#productModal') || e.target.closest('#introVideoOverlay')) return;
+  if(window.__lyricsModalOpen || e.target.closest('#lyricsModal') || e.target.closest('#lyricsBackdrop') || e.target.closest('#dotsMenuBtn') || e.target.closest('#top') || e.target.closest('#visitorBadge') || e.target.closest('#damodarDayBadge') || e.target.closest('#calendarModal') || e.target.closest('#camBtn') || e.target.closest('#mainShareBtn') || e.target.closest('#camPip') || e.target.closest('#circleAd') || e.target.closest('#productModal') || e.target.closest('#introVideoOverlay')) return;
 
   const distDrag = Math.hypot(e.clientX - ptDownX, e.clientY - ptDownY);
   const timeElapsed = Date.now() - ptDownTime;

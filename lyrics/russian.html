@@ -481,6 +481,35 @@ body {
   .verse-card { padding: 18px 16px; }
   .nav-btn { font-size: 10.5px; padding: 5px 9px; }
 }
+
+.verses-box-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 0 4px;
+}
+.verses-box-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffd700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.verses-top-share-btn {
+  font-size: 11.5px;
+  padding: 6px 14px;
+}
+.nav-btn-share {
+  cursor: pointer;
+  font-family: inherit;
+}
+.nav-btn-share:hover {
+  background: rgba(255, 215, 0, 0.25);
+  border-color: #ffd700;
+  color: #ffffff;
+}
+
 </style>
 </head>
 <body>
@@ -498,6 +527,7 @@ body {
     <a href="/" class="nav-btn nav-btn-gold" title="Виртуальный храм 3D и дипа-дана">🪔 3D Храм</a>
     <a href="/katha/russian" class="nav-btn" title="Дамодара-лила Катха (26 сцен)">🎬 Катха</a>
     <a href="/lyrics/english" class="nav-btn" title="Все языки">🌐 Все языки</a>
+    <button type="button" class="nav-btn nav-btn-share" onclick="shareLyricsPage()" title="Поделиться текстом">🔗 Поделиться</button>
   </div>
 </header>
 
@@ -517,6 +547,10 @@ body {
   </section>
 
   <div class="verses-container">
+    <div class="verses-box-top-bar">
+      <span class="verses-box-title">📜 Все 8 стихов с переводом</span>
+      <button type="button" class="copy-verse-btn verses-top-share-btn" onclick="shareLyricsPage()" title="Поделиться">🔗 Поделиться</button>
+    </div>
     
   <article class="verse-card" id="verse-1" data-verse="1">
     <div class="verse-header">
@@ -629,12 +663,43 @@ function showToast(msg){
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
+function shareLyricsPage(){
+  const url = window.location.origin + window.location.pathname;
+  const title = document.title;
+  const text = 'Шри Дамодараштака: оригинальный санскрит и перевод всех 8 стихов 🙏';
+  if(navigator.share){
+    navigator.share({ title, text, url }).catch(err => {
+      if(err.name !== 'AbortError') copyToClipboard(url, 'Ссылка на текст скопирована!');
+    });
+  } else {
+    copyToClipboard(url, 'Ссылка на текст скопирована!');
+  }
+}
+
+function copyToClipboard(str, successMsg){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(str).then(() => {
+      showToast(successMsg || 'Ссылка скопирована в буфер обмена! 🙏');
+    }).catch(() => showToast('Скопировано: ' + str));
+  } else {
+    prompt('Скопируйте ссылку:', str);
+  }
+}
+
 function copyVerseLink(vNum){
   const u = new URL(window.location.origin + window.location.pathname);
   u.hash = 'verse-' + vNum;
-  navigator.clipboard.writeText(u.toString()).then(() => {
-    showToast('Ссылка на стих ' + vNum + ' скопирована!');
-  }).catch(() => showToast('Скопировано: ' + u.toString()));
+  if(navigator.share){
+    navigator.share({
+      title: document.title + ' - Стих ' + vNum,
+      text: 'Шри Дамодараштака - Стих ' + vNum + ' с переводом 🙏',
+      url: u.toString()
+    }).catch(err => {
+      if(err.name !== 'AbortError') copyToClipboard(u.toString(), 'Ссылка на стих ' + vNum + ' скопирована!');
+    });
+  } else {
+    copyToClipboard(u.toString(), 'Ссылка на стих ' + vNum + ' скопирована!');
+  }
 }
 
 const btnPlayPause = document.getElementById('btnPlayPause');

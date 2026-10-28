@@ -1,7 +1,7 @@
 {
   "/Users/asitpurohit/temple-darshan/vercel.json": {
-    "mtime": 1793120810.3081338,
-    "ast_hash": "7ea6266da15e46cb09da48deb66b5d32",
+    "mtime": 1793125986.921207,
+    "ast_hash": "f6d3601c2cd0739703fd6ba129129a13",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/manifest.json": {
@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/index.html": {
-    "mtime": 1793120590.3332975,
-    "ast_hash": "b7775edbb8cef8a985b5112a2f374e43",
+    "mtime": 1793159199.0929384,
+    "ast_hash": "8b52beade443377f8a90b0b27b6d497f",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/README.md": {
@@ -345,8 +345,8 @@
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha.html": {
-    "mtime": 1793124421.6528332,
-    "ast_hash": "6bee7af000e28e28e40e00d26e3eceb0",
+    "mtime": 1793159296.9525166,
+    "ast_hash": "3d1929b1a4250823475dd0910d040e2c",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/scenes/choice_offering.png": {
@@ -430,53 +430,53 @@
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/lyrics/hindi.html": {
-    "mtime": 1793120492.2972603,
-    "ast_hash": "af10d04237f436d85dbf978986e1b1ca",
+    "mtime": 1793159412.152178,
+    "ast_hash": "d23aca6b2a9fb1444fc5892137536bf4",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/lyrics/russian.html": {
-    "mtime": 1793120492.2991962,
-    "ast_hash": "910f5e39fb1a94c773f78263e2afa511",
+    "mtime": 1793159426.3945866,
+    "ast_hash": "f4798d374bab1288039f714a38d02f84",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/lyrics/bengali.html": {
-    "mtime": 1793120492.2984984,
-    "ast_hash": "01bbf21c20668a096f0bcf1acf2d178e",
+    "mtime": 1793159412.1530206,
+    "ast_hash": "3b6f76c12669031fc2379274803863d3",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/lyrics/english.html": {
-    "mtime": 1793120492.288998,
-    "ast_hash": "09df3474b4abf5ee06b8b7d3522da19c",
+    "mtime": 1793159412.1526873,
+    "ast_hash": "a707843a890d9988a5775bcdd25816f8",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/lyrics/odia.html": {
-    "mtime": 1793120492.297897,
-    "ast_hash": "32fb6760002e6f15a800bb47f7cb5167",
+    "mtime": 1793159412.1545033,
+    "ast_hash": "6cc0daa0cd32589d62d4102443133802",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/hindi.html": {
-    "mtime": 1793124421.6532652,
-    "ast_hash": "90d9b8c5fa5ffdfa88c232b9efe4402e",
+    "mtime": 1793159357.205885,
+    "ast_hash": "7c7f42d1a4fead88ad6acfa61a332484",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/russian.html": {
-    "mtime": 1793124421.6536825,
-    "ast_hash": "0c290b46765c92fce055d5d7d4e00faa",
+    "mtime": 1793159357.2102582,
+    "ast_hash": "f1cdcf19863b6d0ccbc101aa13c2906e",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/bengali.html": {
-    "mtime": 1793124421.653999,
-    "ast_hash": "b1298366a7759fa18d5a5edbd919edd4",
+    "mtime": 1793159357.2069411,
+    "ast_hash": "03f2cd0acf557708a38e154b7edabf8e",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/english.html": {
-    "mtime": 1793124421.6544416,
-    "ast_hash": "bb5994ab53680baea72d9044378eff4e",
+    "mtime": 1793159357.2065408,
+    "ast_hash": "11e570fa5dbdaf0925913c57404e869a",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/odia.html": {
-    "mtime": 1793124421.6548455,
-    "ast_hash": "1e0d14c9f41d6260d60c3fc594e4cb6b",
+    "mtime": 1793159357.2087462,
+    "ast_hash": "31c64bef49eaf76c0ca7aaef3804c73f",
     "semantic_hash": ""
   }
 }
