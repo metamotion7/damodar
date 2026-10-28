@@ -1,149 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <!-- 1. Home / 3D Temple Darshan & Virtual Aarti -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://damodar.lol/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/lyrics/hindi"/>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/lyrics/odia"/>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/lyrics/bengali"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/lyrics/russian"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/"/>
   </url>
-
-  <!-- 2. Sri Damodarashtakam Lyrics Pages (Each with dedicated language SEO & Breadcrumbs) -->
-  <url>
-    <loc>https://damodar.lol/lyrics/english</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/lyrics/english"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/lyrics/hindi"/>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/lyrics/odia"/>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/lyrics/bengali"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/lyrics/russian"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/lyrics/english"/>
-  </url>
-  <url>
-    <loc>https://damodar.lol/lyrics/hindi</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/lyrics/hindi"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/lyrics/english"/>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/lyrics/odia"/>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/lyrics/bengali"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/lyrics/russian"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/lyrics/english"/>
-  </url>
-  <url>
-    <loc>https://damodar.lol/lyrics/odia</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/lyrics/odia"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/lyrics/english"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/lyrics/hindi"/>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/lyrics/bengali"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/lyrics/russian"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/lyrics/english"/>
-  </url>
-  <url>
-    <loc>https://damodar.lol/lyrics/bengali</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/lyrics/bengali"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/lyrics/english"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/lyrics/hindi"/>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/lyrics/odia"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/lyrics/russian"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/lyrics/english"/>
-  </url>
-  <url>
-    <loc>https://damodar.lol/lyrics/russian</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/lyrics/russian"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/lyrics/english"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/lyrics/hindi"/>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/lyrics/odia"/>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/lyrics/bengali"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/lyrics/english"/>
-  </url>
-
-  <!-- 3. Damodara Lila Katha Pages (26 Scenes Story Player in 5 Languages) -->
   <url>
     <loc>https://damodar.lol/katha/english</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/katha/english"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/katha/hindi"/>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/katha/odia"/>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/katha/bengali"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/katha/russian"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/katha/english"/>
   </url>
   <url>
     <loc>https://damodar.lol/katha/hindi</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/katha/hindi"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/katha/english"/>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/katha/odia"/>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/katha/bengali"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/katha/russian"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/katha/english"/>
   </url>
   <url>
     <loc>https://damodar.lol/katha/odia</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/katha/odia"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/katha/english"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/katha/hindi"/>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/katha/bengali"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/katha/russian"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/katha/english"/>
   </url>
   <url>
     <loc>https://damodar.lol/katha/bengali</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/katha/bengali"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/katha/english"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/katha/hindi"/>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/katha/odia"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/katha/russian"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/katha/english"/>
   </url>
   <url>
     <loc>https://damodar.lol/katha/russian</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://damodar.lol/katha/russian"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://damodar.lol/katha/english"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://damodar.lol/katha/hindi"/>
-    <xhtml:link rel="alternate" hreflang="or" href="https://damodar.lol/katha/odia"/>
-    <xhtml:link rel="alternate" hreflang="bn" href="https://damodar.lol/katha/bengali"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://damodar.lol/katha/english"/>
-  </url>
-
-  <!-- 4. Direct 3D Aarti Darshan Gateway -->
-  <url>
-    <loc>https://damodar.lol/darshan</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
   </url>
 </urlset>
