@@ -252,6 +252,101 @@ canvas {
 .katha-share-btn:active {
   transform: scale(0.95);
 }
+
+/* Katha Audio / Unmute Button */
+.katha-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  background: rgba(18, 9, 4, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 9999px;
+  color: #ffd700;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65);
+  transition: all 0.25s ease;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
+}
+.katha-audio-btn:hover {
+  background: rgba(45, 20, 8, 0.95);
+  border-color: #ffd700;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.35);
+}
+.katha-audio-btn:active {
+  transform: scale(0.95);
+}
+.katha-audio-btn.pulse-glow {
+  animation: kathaAudioPulse 1.8s infinite ease-in-out;
+  border-color: rgba(255, 215, 0, 0.85);
+  color: #fffbe0;
+}
+@keyframes kathaAudioPulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6), 0 0 10px rgba(246,195,101,0.25);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 6px 22px rgba(0,0,0,0.8), 0 0 18px rgba(255,215,0,0.6);
+    transform: scale(1.04);
+    border-color: #ffd700;
+  }
+}
+
+/* Floating Unmute Screen Prompt */
+.katha-unmute-hint {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: rgba(18, 9, 4, 0.92);
+  border: 1.5px solid rgba(255, 215, 0, 0.8);
+  border-radius: 9999px;
+  color: #fff9e6;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.85), 0 0 25px rgba(255, 215, 0, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: opacity .35s ease, transform .35s ease;
+  animation: hintFloatPulse 2s infinite ease-in-out;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.katha-unmute-hint.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -40%) scale(0.92);
+}
+@keyframes hintFloatPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 6px 30px rgba(0,0,0,0.85), 0 0 20px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    transform: translate(-50%, -52%) scale(1.04);
+    box-shadow: 0 8px 36px rgba(0,0,0,0.95), 0 0 30px rgba(255, 215, 0, 0.65);
+    border-color: #ffd700;
+  }
+}
 #toast {
   position: fixed;
   left: 50%;
@@ -336,6 +431,8 @@ canvas {
   .story-lang-btn { padding: 5px 8px; font-size: 10px; }
   .story-scene-pill { font-size: 11.5px; padding: 6px 14px; }
   .katha-share-btn { padding: 4px 10px; font-size: 10.5px; }
+  .katha-audio-btn { padding: 4px 10px; font-size: 10.5px; }
+  .katha-unmute-hint { font-size: 11.5px; padding: 8px 16px; }
 }
 </style>
 </head>
@@ -363,10 +460,27 @@ canvas {
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
         <span>Share</span>
       </button>
+      <button type="button" class="katha-audio-btn pulse-glow" id="kathaAudioBtn" title="Unmute Katha Narration & Flute" aria-label="Unmute Katha Narration & Flute">
+        <svg class="kab-icon-mute" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <svg class="kab-icon-sound" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        </svg>
+        <span id="kathaAudioLabel">Tap to Unmute</span>
+      </button>
     </div>
   </div>
 </div>
 <div id="toast"></div>
+<div id="kathaUnmuteHint" class="katha-unmute-hint">
+  <span class="kuh-speaker">🔊</span>
+  <span>Tap screen to unmute Katha &amp; Flute</span>
+</div>
 
 <div class="story-bottom-bar">
   <div class="story-scene-pill" id="storyScenePill">
@@ -1352,7 +1466,10 @@ function updateCaption(tSec){
 
       const pv = currAudio.play();
       if(pv && pv.then){
-        pv.then(() => { voiceOk = true; }).catch(armAudio);
+        pv.then(() => {
+          voiceOk = true;
+          updateAudioUI(true);
+        }).catch(armAudio);
       }
     }
 
@@ -1362,15 +1479,43 @@ function updateCaption(tSec){
     }
   }
 
+  let userMuted = false;
+
+  function updateAudioUI(isPlaying){
+    const btn = document.getElementById('kathaAudioBtn');
+    const hint = document.getElementById('kathaUnmuteHint');
+    if(!btn) return;
+    const iconMute = btn.querySelector('.kab-icon-mute');
+    const iconSound = btn.querySelector('.kab-icon-sound');
+    const label = document.getElementById('kathaAudioLabel');
+
+    if(isPlaying && !userMuted){
+      btn.classList.remove('pulse-glow');
+      if(iconMute) iconMute.style.display = 'none';
+      if(iconSound) iconSound.style.display = 'inline-block';
+      if(label) label.textContent = 'Sound On';
+      if(hint) hint.classList.add('hidden');
+    } else {
+      if(!isPlaying && !userMuted) btn.classList.add('pulse-glow');
+      else btn.classList.remove('pulse-glow');
+      if(iconMute) iconMute.style.display = 'inline-block';
+      if(iconSound) iconSound.style.display = 'none';
+      if(label) label.textContent = userMuted ? 'Muted' : 'Tap to Unmute';
+      if(hint && !userMuted) hint.classList.remove('hidden');
+    }
+  }
+
   function armAudio(){
     if(armed) return;
     armed = true;
+    updateAudioUI(false);
     EV.forEach(e => window.addEventListener(e, unlockAudio, true));
   }
 
   function unlockAudio(){
     EV.forEach(e => window.removeEventListener(e, unlockAudio, true));
     armed = false;
+    userMuted = false;
     syncAndPlay();
   }
 
@@ -1540,7 +1685,41 @@ function updateCaption(tSec){
     showToast.timer = setTimeout(() => t.classList.remove('show'), 2200);
   }
 
+  function initKathaAudioControl(){
+    const btn = document.getElementById('kathaAudioBtn');
+    if(btn){
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if(armed){
+          unlockAudio();
+          return;
+        }
+        const active = getActiveVoice();
+        if(!active.paused){
+          userMuted = true;
+          stopAllAudio();
+          updateAudioUI(false);
+        } else {
+          userMuted = false;
+          syncAndPlay();
+          updateAudioUI(true);
+        }
+      });
+      btn.addEventListener('pointerdown', (e) => e.stopPropagation());
+    }
+
+    const hint = document.getElementById('kathaUnmuteHint');
+    if(hint){
+      hint.addEventListener('click', (e) => {
+        e.stopPropagation();
+        unlockAudio();
+      });
+      hint.addEventListener('pointerdown', (e) => e.stopPropagation());
+    }
+  }
+
   initKathaShare();
+  initKathaAudioControl();
 
   /* Start playback immediately */
   syncAndPlay();

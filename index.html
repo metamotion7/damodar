@@ -1699,6 +1699,10 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   text-align: center;
   margin-top: 6px;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 .iv-badge {
   display: inline-flex;
@@ -1715,6 +1719,67 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+.intro-unmute-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(28, 12, 5, 0.88);
+  border: 1.5px solid rgba(246, 195, 101, 0.75);
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #ffd700;
+  letter-spacing: .03em;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.7), 0 0 14px rgba(246,195,101,0.35);
+  cursor: pointer;
+  pointer-events: auto;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all .3s cubic-bezier(0.2, 0.9, 0.3, 1);
+  animation: introUnmutePulse 1.8s infinite ease-in-out;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.intro-unmute-btn:hover {
+  background: rgba(45, 20, 8, 0.96);
+  border-color: #ffd700;
+  color: #ffffff;
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.8), 0 0 20px rgba(255,215,0,0.5);
+}
+.intro-unmute-btn:active {
+  transform: scale(0.96);
+}
+.intro-unmute-btn.playing {
+  animation: none;
+  border-color: rgba(100, 220, 140, 0.65);
+  color: #c9f5d3;
+}
+.intro-unmute-btn.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px) scale(0.92);
+}
+@keyframes introUnmutePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.7), 0 0 12px rgba(246,195,101,0.3);
+    border-color: rgba(246, 195, 101, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.85), 0 0 22px rgba(255,215,0,0.6);
+    border-color: rgba(255, 215, 0, 0.95);
+  }
+}
+@media (max-width: 600px) {
+  .intro-unmute-btn {
+    padding: 5px 13px;
+    font-size: 11.5px;
+  }
 }
 
 /* Circular loader info pill (horizontal bar replaced by circular ring between image and text) */
@@ -2233,6 +2298,19 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
   
   <div class="intro-video-top">
     <span class="iv-badge">KARTIK MAAS • SRI DAMODARA</span>
+    <button type="button" id="introUnmuteBtn" class="intro-unmute-btn" title="Tap to unmute divine sound" aria-label="Unmute divine sound">
+      <svg class="iub-icon iub-icon-mute" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <line x1="23" y1="9" x2="17" y2="15"></line>
+        <line x1="17" y1="9" x2="23" y2="15"></line>
+      </svg>
+      <svg class="iub-icon iub-icon-sound" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+      </svg>
+      <span id="introUnmuteText">Tap to Unmute</span>
+    </button>
   </div>
 
   <div class="intro-slim-loader" id="introBottomBar">
@@ -3872,7 +3950,31 @@ if(rotHint){
     return voiceClips[i];
   }
 
+  function setUnmuteBtnState(playing){
+    const btn = document.getElementById('introUnmuteBtn');
+    if(!btn) return;
+    const iconMute = btn.querySelector('.iub-icon-mute');
+    const iconSound = btn.querySelector('.iub-icon-sound');
+    const textEl = document.getElementById('introUnmuteText');
+
+    if(playing){
+      btn.classList.add('playing');
+      if(iconMute) iconMute.style.display = 'none';
+      if(iconSound) iconSound.style.display = 'inline-block';
+      if(textEl) textEl.textContent = 'Sound On';
+      setTimeout(() => {
+        btn.classList.add('fade-out');
+      }, 1400);
+    } else {
+      btn.classList.remove('playing', 'fade-out');
+      if(iconMute) iconMute.style.display = 'inline-block';
+      if(iconSound) iconSound.style.display = 'none';
+      if(textEl) textEl.textContent = 'Tap to Unmute';
+    }
+  }
+
   function armAudio(){
+    setUnmuteBtnState(false);
     if(audioArmed || !introRunning || introEntered) return;
     audioArmed = true;
     AUDIO_EV.forEach(e => window.addEventListener(e, unlockAudio, true));
@@ -3893,7 +3995,15 @@ if(rotHint){
     } catch(e){}
     if(introBgm && introBgm.paused){
       const pb = introBgm.play();
-      if(pb && pb.catch) pb.catch(() => armAudio());
+      if(pb && pb.then){
+        pb.then(() => {
+          setUnmuteBtnState(true);
+        }).catch(() => {
+          armAudio();
+        });
+      }
+    } else if(introBgm && !introBgm.paused){
+      setUnmuteBtnState(true);
     }
     // Schedule one divine verse recitation to start at ~2.5s
     if(voicePlayedCount === 0){
@@ -3951,6 +4061,14 @@ if(rotHint){
 
   // Attempt immediate playback on start
   playIntroAudio();
+
+  const introUnmuteEl = document.getElementById('introUnmuteBtn');
+  if(introUnmuteEl){
+    introUnmuteEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      unlockAudio();
+    });
+  }
 
   /* ---------- Rotating Text Ring Canvas (#dotRingCv) ---------- */
   if(ringCv){
