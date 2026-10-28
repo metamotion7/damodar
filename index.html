@@ -359,33 +359,35 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 2px solid rgba(246,195,101,0.6);
-  background: rgba(18,7,3,0.82);
-  color: #f6c365;
+  border: 2px solid rgba(246,195,101,0.65);
+  background: rgba(18,7,3,0.85);
+  color: #ffd700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.55), 0 0 10px rgba(246,195,101,0.15);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.6), 0 0 12px rgba(246,195,101,0.22);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transition: all .25s ease;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  padding: 0;
 }
 #mainShareBtn:hover {
-  border-color: rgba(246,195,101,0.9);
-  color: #ffd700;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.7), 0 0 16px rgba(246,195,101,0.35);
+  border-color: rgba(246,195,101,0.95);
+  color: #ffffff;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.7), 0 0 18px rgba(255,215,0,0.45);
   transform: translateY(-2px);
 }
 #mainShareBtn:active {
   transform: scale(0.92);
 }
 #mainShareBtn svg {
-  width: 25px;
-  height: 25px;
-  filter: drop-shadow(0 0 4px rgba(246, 195, 101, 0.45));
+  width: 27px;
+  height: 27px;
+  display: block;
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.45));
 }
 
 #camPip {
@@ -479,8 +481,8 @@ button.main{background:linear-gradient(#f6a93c,#d9731a);color:#2a1103;border-col
     height: 44px;
   }
   #mainShareBtn svg {
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
   }
 }
 
@@ -2248,10 +2250,10 @@ lasat-kuṇḍalaṁ gokule bhrājamānam</div>
 <!-- Camera Aarti Controls & Circular Bottom-Left Share -->
 <button id="camBtn" title="Offer lamp with camera">📷</button>
 <button type="button" id="mainShareBtn" title="Share Virtual Temple Darshan" aria-label="Share">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <circle cx="18" cy="5" r="3"></circle>
-    <circle cx="6" cy="12" r="3"></circle>
-    <circle cx="18" cy="19" r="3"></circle>
+  <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="18" cy="5" r="3.2" fill="currentColor"></circle>
+    <circle cx="6" cy="12" r="3.2" fill="currentColor"></circle>
+    <circle cx="18" cy="19" r="3.2" fill="currentColor"></circle>
     <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
     <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
   </svg>
