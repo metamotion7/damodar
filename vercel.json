@@ -1,15 +1,13 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/lyrics", "destination": "/index.html" },
-    { "source": "/lyrics/:lang*", "destination": "/index.html" },
-    { "source": "/hindi-lyrics", "destination": "/index.html" },
-    { "source": "/odia-lyrics", "destination": "/index.html" },
-    { "source": "/bengali-lyrics", "destination": "/index.html" },
-    { "source": "/russian-lyrics", "destination": "/index.html" },
-    { "source": "/english-lyrics", "destination": "/index.html" },
-    { "source": "/katha", "destination": "/katha.html" },
-    { "source": "/darshan", "destination": "/darshan.html" }
+    { "source": "/lyrics", "destination": "/" },
+    { "source": "/lyrics/(.*)", "destination": "/" },
+    { "source": "/hindi-lyrics", "destination": "/" },
+    { "source": "/odia-lyrics", "destination": "/" },
+    { "source": "/bengali-lyrics", "destination": "/" },
+    { "source": "/russian-lyrics", "destination": "/" },
+    { "source": "/english-lyrics", "destination": "/" }
   ],
   "headers": [
     {

@@ -43,7 +43,7 @@
       "label": "headers",
       "file_type": "code",
       "source_file": "vercel.json",
-      "source_location": "L14",
+      "source_location": "L12",
       "id": "temple_darshan_vercel_headers",
       "community": 7,
       "norm_label": "headers"
@@ -1009,5 +1009,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "2ce1fd1198c3414a1b78f9390575fa1e914f4c81"
+  "built_at_commit": "ecb477111add7c6406ec9686ee39fe974e64e3e1"
 }
