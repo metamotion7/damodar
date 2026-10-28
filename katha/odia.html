@@ -219,27 +219,37 @@ canvas {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Bottom-Left Floating Share Button */
+/* Katha Share Button (Below Heading) */
+.story-header-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  pointer-events: none;
+}
+.story-sub-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
 .katha-share-btn {
-  position: fixed;
-  z-index: 35;
-  left: calc(env(safe-area-inset-left, 0px) + 14px);
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background: rgba(18, 9, 4, 0.88);
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  gap: 5px;
+  padding: 4px 12px;
+  background: rgba(18, 9, 4, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 9999px;
   color: #ffd700;
-  font-size: 12.5px;
+  font-size: 11px;
   font-weight: 600;
+  letter-spacing: .04em;
   cursor: pointer;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.65);
-  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65);
+  transition: all 0.2s ease;
   pointer-events: auto;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -249,8 +259,8 @@ canvas {
   background: rgba(45, 20, 8, 0.95);
   border-color: #ffd700;
   color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(255, 215, 0, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.35);
 }
 .katha-share-btn:active {
   transform: scale(0.95);
@@ -331,22 +341,14 @@ canvas {
 
 @media (max-width: 600px) {
   .story-top-bar {
-    flex-wrap: wrap;
     top: calc(env(safe-area-inset-top, 0px) + 8px);
-    gap: 6px;
   }
+  .story-header-block { gap: 5px; }
+  .story-badge-wrap { flex-wrap: wrap; gap: 6px; }
   .story-badge { font-size: 10px; padding: 4px 10px; }
   .story-lang-btn { padding: 5px 8px; font-size: 10px; }
-  .story-bottom-bar {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 56px);
-  }
   .story-scene-pill { font-size: 11.5px; padding: 6px 14px; }
-  .katha-share-btn {
-    left: calc(env(safe-area-inset-left, 0px) + 10px);
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
-    padding: 7px 11px;
-    font-size: 11px;
-  }
+  .katha-share-btn { padding: 4px 10px; font-size: 10.5px; }
 }
 </style>
 </head>
@@ -358,7 +360,8 @@ canvas {
 </div>
 
 <div class="story-top-bar">
-  <div class="story-badge-wrap">
+  <div class="story-header-block">
+    <div class="story-badge-wrap">
     <span class="story-badge">🪔 Damodara Lila Katha</span>
     <div class="story-lang-group" role="group" aria-label="Select Narration Language">
             <button type="button" class="story-lang-btn" data-lang="hi">हिन्दी</button>
@@ -367,14 +370,15 @@ canvas {
       <button type="button" class="story-lang-btn on" data-lang="or">ଓଡ଼ିଆ</button>
       <button type="button" class="story-lang-btn" data-lang="ru">RU</button>
     </div>
+    </div>
+    <div class="story-sub-row">
+      <button type="button" class="katha-share-btn" id="kathaShareBtn" title="Share Damodara Lila Katha">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+        <span>Share</span>
+      </button>
+    </div>
   </div>
 </div>
-
-<!-- Floating Share Button (Bottom-Left) -->
-<button type="button" class="katha-share-btn" id="kathaShareBtn" title="Share Damodara Lila Katha">
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-  <span>Share</span>
-</button>
 <div id="toast"></div>
 
 <div class="story-bottom-bar">
