@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/index.html": {
-    "mtime": 1793161172.4260867,
-    "ast_hash": "f56ec1df84fcf49a2c8e341d6dc32344",
+    "mtime": 1793163499.702858,
+    "ast_hash": "fcedb26a47dbc39be12d91780a8b2837",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/README.md": {
@@ -345,8 +345,8 @@
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha.html": {
-    "mtime": 1793160328.8857071,
-    "ast_hash": "6a77d32e4d98051d89581a911c3f8f94",
+    "mtime": 1793164056.867011,
+    "ast_hash": "faf9f063ce831c0b401610e5e4faddf2",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/scenes/choice_offering.png": {
@@ -430,28 +430,28 @@
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/hindi.html": {
-    "mtime": 1793160386.9481184,
-    "ast_hash": "571a1739dea733d7a68c35f5225034b0",
+    "mtime": 1793164120.0805757,
+    "ast_hash": "2bb9bc5bd9a1d1b021d892673297a693",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/russian.html": {
-    "mtime": 1793160386.950196,
-    "ast_hash": "6870c1628dbe8ce5dc372924fcf79060",
+    "mtime": 1793164120.0811014,
+    "ast_hash": "a26c7463d3e854e0fc1c3a9528981531",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/bengali.html": {
-    "mtime": 1793160386.9494722,
-    "ast_hash": "61a6ee3274c1aade542bd3f536266e61",
+    "mtime": 1793164120.081583,
+    "ast_hash": "f1698879c91e8b42a1e89aa63a554428",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/english.html": {
-    "mtime": 1793160386.9486578,
-    "ast_hash": "90fb3f784a8cdc8e5a24110f99eae73c",
+    "mtime": 1793164120.0818317,
+    "ast_hash": "bc0fed8564144d699a8967d44b3f2767",
     "semantic_hash": ""
   },
   "/Users/asitpurohit/temple-darshan/katha/odia.html": {
-    "mtime": 1793160386.9498546,
-    "ast_hash": "1bc3db7f81a99ef4f4c4b93415d2134b",
+    "mtime": 1793164120.082488,
+    "ast_hash": "ed4328a71dc09bb12518ccec0427f1de",
     "semantic_hash": ""
   }
 }
